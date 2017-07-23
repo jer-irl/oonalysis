@@ -2,7 +2,6 @@
 *.stash
 *.o
 *.app
-Makefile
 tmp/*
 oonalysis.config
 oonalysis.creator*
@@ -16,5 +15,12 @@ mk_db
 *.dylib
 *.a
 *.cmake
-CMakeFiles
 CMakeCache.txt
+CMakeFiles
+CMakeScripts
+Testing
+Makefile
+cmake_install.cmake
+install_manifest.txt
+compile_commands.json
+CTestTestfile.cmake
