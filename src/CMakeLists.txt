@@ -1,9 +1,11 @@
 add_executable (oonalysis main.cc)
 include_directories(.)
 
-link_libraries (oonalysis STATIC core)
-include_directories(core)
+add_subdirectory (db)
+#add_subdirectory (core)
+#add_subdirectory (cli)
 
-link_libraries (oonalysis STATIC cli)
-include_directories (cli)
+#target_link_libraries (oonalysis core)
+#target_link_libraries (oonalysis cli)
+target_link_libraries (oonalysis db)
 
