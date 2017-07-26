@@ -11,7 +11,7 @@ void init_db(sqlite3* db)
 
     return_code = sqlite3_exec(
             db,
-            "CREATE TABLE IF NOT EXISTS cpp_inclusions (id INTEGER PRIMARY KEY, filename TEXT NOT NULL)",
+            "CREATE TABLE IF NOT EXISTS file (id INTEGER PRIMARY KEY, filename TEXT NOT NULL)",
             NULL,
             NULL,
             &error_msg);
@@ -22,7 +22,7 @@ void init_db(sqlite3* db)
 
     sqlite3_exec(
             db,
-            "CREATE TABLE IF NOT EXISTS cpp_inclusions (id INTEGER PRIMARY KEY, FOREIGN KEY (includer) REFERENCES files (id), FOREIGN KEY (includee) REFERENCES files (id)",
+            "CREATE TABLE IF NOT EXISTS cppinclusion (id INTEGER PRIMARY KEY, FOREIGN KEY (includer) REFERENCES files (id), FOREIGN KEY (includee) REFERENCES files (id)",
             NULL,
             NULL,
             &error_msg);
