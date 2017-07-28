@@ -1,10 +1,10 @@
 #ifndef DB_H
 #define DB_H
 
-#include <sqlite3.h>
+#include "SQLiteCpp/SQLiteCpp.h"
 
 #define MAX_FILENAME 256
-sqlite3* DB;
+SQLite::Database DB;
 
 #define FILE_TABLE table
 #define CPPINCLUSION_TABLE cppinclusion

@@ -39,7 +39,8 @@ flags = [
     '-I/Users/Jeremy/Programming/oonalysis/src/.',
     '-I/Users/Jeremy/Programming/oonalysis/src/cli',
     '-I/Users/Jeremy/Programming/oonalysis/src/core',
-    '-I/usr/local/opt/llvm/include'
+    '-I/usr/local/opt/llvm/include',
+    '-I./lib/SQLiteCpp/include',
 ]
 
 
