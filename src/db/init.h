@@ -1,8 +1,8 @@
 #ifndef INIT_H
 #define INIT_H
 
-#include <sqlite3.h>
+#include <SQLiteCpp.h>
 
-void init_db(sqlite3* db);
+void init_db(SQLite::Database db);
 
 #endif // INIT_H
