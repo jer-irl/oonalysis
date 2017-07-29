@@ -4,7 +4,7 @@ set (CMAKE_BUILD_TYPE Debug)
 set (CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 
 include_directories (lib/SQLiteCpp/include)
-dd_subdirectory (lib)
+add_subdirectory (lib)
 
 include_directories (lib/SQLiteCpp/include/SQLiteCpp)
 add_subdirectory (src)
