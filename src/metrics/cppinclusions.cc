@@ -8,8 +8,8 @@ uint32_t num_cppinclusions(SQLite::Database& db)
     return query.getColumn(0).getInt();
 }
 
-float avg_num_cppinclusions()
+float avg_num_cppinclusions(SQLite::Database& db)
 {
-    return num_cppinclusions / num_files;
+    return num_cppinclusions(db) / num_files(db);
 }
 
