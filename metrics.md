@@ -11,10 +11,15 @@
     - [ ] Files that call function
     - [ ] Number of files that call function
 - [ ] Lines of code
-    - [ ] LOC per file
+    - [x] LOC per file
     - [ ] LOC total
 - [ ] Global vars
     - [ ] Files that reference a global var
     - [ ] Number of files that reference global var
 - [ ] Files
     - [x] Number of files
+- [ ] Columns
+    - [ ] Number of columns for line
+    - [ ] Max number of columns in file
+    - [ ] Average number of columns in file
+    - [ ] Average number of columns overall
