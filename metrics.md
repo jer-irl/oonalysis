@@ -3,6 +3,7 @@
     - [ ] Average number of inclusions
     - [ ] Number of inclusions for file
     - [ ] Number of times included
+    - [x] Number of inclusions
 - [ ] Functions
     - [ ] Function length
     - [ ] Average function length for file

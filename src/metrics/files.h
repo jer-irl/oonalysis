@@ -3,7 +3,7 @@
 
 #include <SQLiteCpp.h>
 
-int num_files(SQLite::Database& db);
+uint32_t num_files(SQLite::Database& db);
 
 
 #endif // METRICS_FILES_H
