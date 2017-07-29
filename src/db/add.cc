@@ -2,7 +2,7 @@
 #include "dbtypes.h"
 #include "dbrepo.h"
 
-bool add_dbfile(SQLite::Database db, db_file f)
+bool add_dbfile(SQLite::Database& db, db_file f)
 {
     // See if file already added
     if (f.id != 0) {
@@ -20,7 +20,7 @@ bool add_dbfile(SQLite::Database db, db_file f)
     return true;
 }
 
-bool add_dbcppinclusion(SQLite::Database db, db_cppinclusion incl)
+bool add_dbcppinclusion(SQLite::Database& db, db_cppinclusion incl)
 {
     // See if file already added
     if (incl.id != 0) {

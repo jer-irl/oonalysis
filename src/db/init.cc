@@ -2,7 +2,7 @@
 #include <SQLiteCpp.h>
 #include "init.h"
 
-void init_db(SQLite::Database db)
+void init_db(SQLite::Database& db)
 {
     db.exec(std::string("CREATE TABLE IF NOT EXISTS file ( ")
           + "id INTEGER PRIMARY KEY, "

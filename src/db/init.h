@@ -3,6 +3,6 @@
 
 #include <SQLiteCpp.h>
 
-void init_db(SQLite::Database db);
+void init_db(SQLite::Database& db);
 
 #endif // INIT_H

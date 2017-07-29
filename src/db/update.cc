@@ -1,7 +1,7 @@
 #include <SQLiteCpp.h>
 #include "dbrepo.h"
 
-bool update_dbfile(SQLite::Database db, db_file dbfile, int id)
+bool update_dbfile(SQLite::Database& db, db_file dbfile, int id)
 {
     // See if file already added
     if (dbfile.id != 0) {
@@ -15,7 +15,7 @@ bool update_dbfile(SQLite::Database db, db_file dbfile, int id)
     return true;
 }
 
-bool update_dbcppinclusion(SQLite::Database db, db_cppinclusion incl, int id)
+bool update_dbcppinclusion(SQLite::Database& db, db_cppinclusion incl, int id)
 {
     // See if file already added
     if (incl.id != 0) {

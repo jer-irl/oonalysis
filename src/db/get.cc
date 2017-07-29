@@ -6,7 +6,7 @@
 
 extern sqlite3* DB;
 
-bool get_dbfile(SQLite::Database db, int id, db_file* dbfile)
+bool get_dbfile(SQLite::Database& db, int id, db_file* dbfile)
 {
     SQLite::Statement stmt(db, "SELECT filename FROM file WHERE id = " + std::to_string(id));
 
@@ -17,7 +17,7 @@ bool get_dbfile(SQLite::Database db, int id, db_file* dbfile)
     return true;
 }
 
-std::vector<db_file> get_dbfiles(SQLite::Database db)
+std::vector<db_file> get_dbfiles(SQLite::Database& db)
 {
     std::vector<db_file> res;
     SQLite::Statement stmt(db, "SELECT id, filename FROM file");
@@ -33,7 +33,7 @@ std::vector<db_file> get_dbfiles(SQLite::Database db)
 }
 
 
-bool get_dbcppinclusion(SQLite::Database db, int id, db_cppinclusion* incl)
+bool get_dbcppinclusion(SQLite::Database& db, int id, db_cppinclusion* incl)
 {
     SQLite::Statement stmt(db, "SELECT includer, includee FROM file WHERE id = " + std::to_string(id));
 
@@ -45,7 +45,7 @@ bool get_dbcppinclusion(SQLite::Database db, int id, db_cppinclusion* incl)
     return true;
 }
 
-std::vector<db_cppinclusion> get_dbcppinclusions(SQLite::Database db)
+std::vector<db_cppinclusion> get_dbcppinclusions(SQLite::Database& db)
 {
     std::vector<db_cppinclusion> res;
     SQLite::Statement stmt(db, "SELECT id, includer, includee FROM cppinclusion");

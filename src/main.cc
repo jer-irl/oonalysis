@@ -6,8 +6,8 @@
 
 int main(int argc, char** argv)
 {
-    SQLite::Database* db = get_db("tmptest.db");
-    init_db(&db);
+    SQLite::Database db(":memory:", SQLite::OPEN_CREATE);
+    init_db(db);
 
     return 0;
 }
