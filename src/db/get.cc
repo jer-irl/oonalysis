@@ -1,6 +1,6 @@
 #include <string>
 #include <vector>
-#include <SQLiteCpp/SQLiteCpp.h>
+#include <SQLiteCpp.h>
 #include "db.h"
 #include "dbrepo.h"
 

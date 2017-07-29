@@ -1,8 +1,8 @@
-#ifndef DBREPO_HH
-#define DBREPO_HH
+#ifndef DBREPO_H
+#define DBREPO_H
 
 #include <vector>
-#include <SQLiteCpp/SQLiteCpp.h>
+#include <SQLiteCpp.h>
 #include "dbtypes.h"
 
 bool add_dbfile(SQLite::Database db, db_file dbfile);
@@ -17,4 +17,4 @@ std::vector<db_cppinclusion> get_dbcppinclusions(SQLite::Database db);
 bool update_dbcppinclusion(SQLite::Database db, db_cppinclusion inclusion, int id);
 bool delete_dbcppinclusion(SQLite::Database db, int id);
 
-#endif // DBREPO_HH
+#endif // DBREPO_H

@@ -1,4 +1,4 @@
-#include <SQLiteCpp/SQLiteCpp.h>
+#include <SQLiteCpp.h>
 #include "dbrepo.h"
 
 bool update_dbfile(SQLite::Database db, db_file dbfile, int id)

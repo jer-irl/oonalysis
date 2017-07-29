@@ -2,10 +2,8 @@
 #include <sqlite3.h>
 #include "oonalysis.h"
 
-extern "C" {
 #include "db/io.h"
 #include "db/init.h"
-}
 
 int main(int argc, char** argv)
 {
