@@ -7,6 +7,7 @@
 
 bool add_dbfile(SQLite::Database& db, db_file dbfile);
 bool get_dbfile(SQLite::Database& db, int id, db_file* dbfile);
+bool get_dbfile(SQLite::Database& db, const std::string filename, db_file* dbfile);
 std::vector<db_file> get_dbfiles(SQLite::Database& db);
 bool update_dbfile(SQLite::Database& db, db_file dbfile, int id);
 bool delete_dbfile(SQLite::Database& db, int id);

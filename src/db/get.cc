@@ -17,6 +17,17 @@ bool get_dbfile(SQLite::Database& db, int id, db_file* dbfile)
     return true;
 }
 
+bool get_dbfile(SQLite::Database& db, const std::string filename, db_file* dbfile)
+{
+    SQLite::Statement stmt(db, "SELECT id, filename FROM file WHERE filename = " + filename);
+
+    stmt.executeStep();
+
+    dbfile->id = stmt.getColumn(0).getInt();
+    dbfile->filename = stmt.getColumn(1).getText();
+    return true;
+}
+
 std::vector<db_file> get_dbfiles(SQLite::Database& db)
 {
     std::vector<db_file> res;
