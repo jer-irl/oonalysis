@@ -15,3 +15,5 @@
 - [ ] Global vars
     - [ ] Files that reference a global var
     - [ ] Number of files that reference global var
+- [ ] Files
+    - [x] Number of files
