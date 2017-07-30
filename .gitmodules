@@ -1,3 +1,4 @@
 [submodule "lib/SQLiteCpp"]
 	path = lib/SQLiteCpp
 	url = git@github.com:SRombauts/SQLiteCpp.git
+    ignore = dirty
