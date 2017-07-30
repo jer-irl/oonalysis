@@ -21,8 +21,8 @@ int main(int argc, char** argv)
     subcmd_t cmd = determine_cmd(args);
     dispatch_cmd(cmd, args);
 
-    SQLite::Database db(":memory:", SQLite::OPEN_CREATE);
-    init_db(db);
+    SQLite::Database* db = get_db("");
+    init_db(*db);
 
     return 0;
 }
