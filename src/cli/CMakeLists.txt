@@ -1,1 +1,2 @@
-add_library (cli)
+add_library (cli parse.cc)
+include_directories (.)
