@@ -2,9 +2,11 @@
 #include <vector>
 #include <SQLiteCpp.h>
 #include "oonalysis.h"
-#include "db/io.h"
 #include "db/init.h"
+
+#ifdef WITH_CLI
 #include "cli/parse.h"
+#endif
 
 std::vector<std::string> args_to_vector(int argc, char** argv)
 {
@@ -17,12 +19,13 @@ std::vector<std::string> args_to_vector(int argc, char** argv)
 
 int main(int argc, char** argv)
 {
+#ifdef WITH_CLI
     std::vector<std::string> args = args_to_vector(argc, argv);
     subcmd_t cmd = determine_cmd(args);
     dispatch_cmd(cmd, args);
+    init_db();
+#endif
 
-    SQLite::Database* db = get_db("");
-    init_db(*db);
 
     return 0;
 }

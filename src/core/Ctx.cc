@@ -16,7 +16,6 @@ Ctx* Ctx::CTX()
 
 Ctx::Ctx()
 {
-    this->Controller = new GuiController();
 }
 
 void Ctx::add_file(SrcFile& file)

@@ -4,6 +4,9 @@
 #include <tuple>
 #include "parse.h"
 #include "core/parse.h"
+#include "db/db.h"
+
+extern char DB_NAME[256];
 
 subcmd_t determine_cmd(const std::vector<std::string>& args)
 {
@@ -40,7 +43,7 @@ void dispatch_cmd(subcmd_t cmd, const std::vector<std::string>& args)
 void dispatch_parse(const std::vector<std::string>& args)
 {
     std::vector<std::string> filenames;
-    std::string output = "";
+    std::string output = ":memory:";
     for (auto iter = args.begin() + 2; iter != args.end(); iter++) {
         // Output option
         if (*iter == "-o") {
@@ -53,5 +56,6 @@ void dispatch_parse(const std::vector<std::string>& args)
         filenames.push_back(*iter);
     }
 
-    parse_files(std::make_tuple(output, filenames));
+    strncpy(DB_NAME, output.c_str(), 256);
+    parse_files(filenames);
 }

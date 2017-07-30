@@ -5,8 +5,9 @@
 
 #define MAX_FILENAME 256
 
-#define FILE_TABLE table
-#define CPPINCLUSION_TABLE cppinclusion
+char DB_NAME[MAX_FILENAME];
+
+#define GET_DB SQLite::Database db(db_name);
 
 #endif // DB_H
 

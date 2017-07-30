@@ -1,12 +1,13 @@
 #ifndef OONALYSIS_H
 #define OONALYSIS_H
 
-#include <sqlite3.h>
-
+#include <SQLiteCpp.h>
 
 namespace oonalysis {
 
-sqlite3* DB;
+char DB_NAME[256];
+
+#define GET_DB SQLite::Database db(db_name);
 
 enum Lang
 {
