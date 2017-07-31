@@ -5,6 +5,7 @@
 #include "strutils.h"
 
 namespace oonalysis {
+namespace core {
 
 std::string file_ext(const std::string& filename)
 {
@@ -69,4 +70,5 @@ Lang lang_from_filenames(const std::vector<std::string>& filenames)
     return res;
 }
 
+} // namespace core
 } // namespace oonalysis

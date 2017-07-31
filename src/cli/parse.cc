@@ -4,9 +4,10 @@
 #include <tuple>
 #include "parse.h"
 #include "core/parse.h"
-#include "db/db.h"
+#include "db/init.h"
 
-extern char DB_NAME[256];
+namespace oonalysis {
+namespace cli {
 
 subcmd_t determine_cmd(const std::vector<std::string>& args)
 {
@@ -27,13 +28,8 @@ void dispatch_cmd(subcmd_t cmd, const std::vector<std::string>& args)
     switch (cmd) {
     case PARSE:
         dispatch_parse(args);
-        break;
     case SHOW:
-        dispatch_show(args);
-        break;
     case ANALYZE:
-        dispatch_analyze(args);
-        break;
     default:
         throw std::invalid_argument("bad subcommand");
         break;
@@ -56,6 +52,9 @@ void dispatch_parse(const std::vector<std::string>& args)
         filenames.push_back(*iter);
     }
 
-    strncpy(DB_NAME, output.c_str(), 256);
-    parse_files(filenames);
+    db::set_db_name(output);
+    core::parse_files(filenames);
 }
+
+} // namespace cli
+} // namespace oonalysis

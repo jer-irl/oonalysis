@@ -1,6 +1,9 @@
 #include <SQLiteCpp.h>
 #include "dbrepo.h"
 
+namespace oonalysis {
+namespace db {
+
 bool update_dbfile(SQLite::Database& db, db_file dbfile, int id)
 {
     // See if file already added
@@ -32,3 +35,6 @@ bool update_dbcppinclusion(SQLite::Database& db, db_cppinclusion incl, int id)
           + ";");
     return true;
 }
+
+} // namespace db
+} // namespace oonalysis

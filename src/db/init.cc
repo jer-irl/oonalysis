@@ -3,7 +3,15 @@
 #include "init.h"
 #include "db.h"
 
+namespace oonalysis {
+namespace db {
+
 extern char DB_NAME[256];
+
+void set_db_name(const std::string& name)
+{
+    strncpy(DB_NAME, name.c_str(), 256);
+}
 
 void init_db()
 {
@@ -20,3 +28,6 @@ void init_db()
           + "FOREIGN KEY (includee) REFERENCES files (id)"
           + ");");
 }
+
+} // namespace db
+} // namespace oonalysis

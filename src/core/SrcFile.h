@@ -7,6 +7,7 @@
 
 
 namespace oonalysis {
+namespace core {
 
 class SrcFile : public SrcObj
 {
@@ -19,6 +20,7 @@ private:
     std::string filename;
 }; // class SrcFile
 
+} // namespace core
 } // namespace oonalysis
 
 #endif // SRCFILE_H

@@ -7,6 +7,7 @@
 
 
 namespace oonalysis {
+namespace core {
 
 class Ctx
 {
@@ -27,6 +28,7 @@ private:
 
 Ctx& CTX();
 
+} // namespace core
 } // namespace oonalysis
 
 #endif // CTX_H

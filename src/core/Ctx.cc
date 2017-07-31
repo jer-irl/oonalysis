@@ -7,6 +7,7 @@
 #include "SrcFile.h"
 
 namespace oonalysis {
+namespace core {
 
 Ctx* Ctx::CTX()
 {
@@ -30,4 +31,5 @@ void Ctx::add_file(const std::string& filename)
 
 OOProg gen_program();
 
+} // namespace core
 } // namespace oonalysis

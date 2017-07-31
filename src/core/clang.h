@@ -4,7 +4,13 @@
 #include <string>
 #include <vector>
 
+
+namespace oonalysis {
+namespace core {
+
 void main_clang();
 
+} // namespace core
+} // namespace oonalysis
 
 #endif // CORE_CLANG_H

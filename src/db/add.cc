@@ -2,6 +2,9 @@
 #include "dbtypes.h"
 #include "dbrepo.h"
 
+namespace oonalysis {
+namespace db {
+
 bool add_dbfile(SQLite::Database& db, db_file f)
 {
     // See if file already added
@@ -37,3 +40,6 @@ bool add_dbcppinclusion(SQLite::Database& db, db_cppinclusion incl)
 
     return true;
 }
+
+} // namespace db
+} // namespace oonalysis

@@ -4,6 +4,10 @@
 #include "db/dbrepo.h"
 #include "db/dbtypes.h"
 
+
+namespace oonalysis {
+namespace core {
+
 void handle_inclusion_directive(CXCursor cur, CXCursor parent, CXClientData client_data)
 {
     CXFile includee = clang_getIncludedFile(cur);
@@ -60,3 +64,7 @@ void main_clang(std::vector<std::string>& filenames)
                 0);
     }
 }
+
+
+} // namespace core
+} // namespace oonalysis

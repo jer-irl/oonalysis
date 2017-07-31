@@ -8,6 +8,7 @@
 #include "cli/parse.h"
 #endif
 
+
 std::vector<std::string> args_to_vector(int argc, char** argv)
 {
     auto res = std::vector<std::string>();
@@ -21,9 +22,9 @@ int main(int argc, char** argv)
 {
 #ifdef WITH_CLI
     std::vector<std::string> args = args_to_vector(argc, argv);
-    subcmd_t cmd = determine_cmd(args);
+    oonalysis::cli::subcmd_t cmd = oonalysis::cli::determine_cmd(args);
     dispatch_cmd(cmd, args);
-    init_db();
+    oonalysis::db::init_db();
 #endif
 
 

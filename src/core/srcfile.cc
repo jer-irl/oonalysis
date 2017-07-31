@@ -2,6 +2,7 @@
 #include "SrcFile.h"
 
 namespace oonalysis {
+namespace core {
 
 SrcFile::SrcFile(const std::string& filename)
 {
@@ -22,4 +23,5 @@ std::string SrcFile::present_name() const
 }
 
 
+} // namespace core
 } // namespace oonalysis

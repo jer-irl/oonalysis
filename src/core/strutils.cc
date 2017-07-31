@@ -5,6 +5,7 @@
 
 
 namespace oonalysis {
+namespace core {
 
 std::vector<std::string> str_split(const std::string& str,
                                    const std::string& delim)
@@ -50,4 +51,5 @@ std::string to_lower(const std::string& str)
     return res;
 }
 
+} // namespace core
 } // namespace oonalysis

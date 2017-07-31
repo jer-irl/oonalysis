@@ -7,6 +7,7 @@
 
 
 namespace oonalysis {
+namespace core {
 
 class SrcObj
 {
@@ -19,6 +20,7 @@ private:
     std::vector<SrcObj> children;
 }; // class SrcObj
 
+} // namespace core
 } // namespace oonalysis
 
 #endif // SRCOBJ_H
