@@ -24,7 +24,6 @@ int main(int argc, char** argv)
     std::vector<std::string> args = args_to_vector(argc, argv);
     oonalysis::cli::subcmd_t cmd = oonalysis::cli::determine_cmd(args);
     dispatch_cmd(cmd, args);
-    oonalysis::db::init_db();
 #endif
 
 

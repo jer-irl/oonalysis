@@ -53,6 +53,7 @@ void dispatch_parse(const std::vector<std::string>& args)
     }
 
     db::set_db_name(output);
+    db::init_db();
     core::parse_files(filenames);
 }
 

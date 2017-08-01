@@ -13,6 +13,7 @@ typedef enum subcmd_t {
 
 void dispatch_cmd(subcmd_t cmd, const std::vector<std::string>& args);
 subcmd_t determine_cmd(const std::vector<std::string>& args);
+std::string dbname_from_args(std::vector<std::string> args);
 
 void dispatch_parse(const std::vector<std::string>& args);
 void dispatch_show(const std::vector<std::string>& args);
