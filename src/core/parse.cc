@@ -7,7 +7,10 @@ namespace core {
 
 void parse_files(const std::vector<std::string>& files)
 {
-    files.size();
+    for (auto file : files) {
+
+
+    }
     exit(1);
 }
 
