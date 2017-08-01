@@ -48,21 +48,19 @@ CXChildVisitResult cursor_visitor(CXCursor cur, CXCursor parent, CXClientData cl
     }
 }
 
-void main_clang(std::vector<std::string>& filenames)
+void main_clang(const std::string& filename)
 {
     CXIndex index = clang_createIndex(1, 1);
-    for (std::string filename : filenames) {
-        db_file file;
-        file.id = 0;
-        file.filename = filename;
-        add_dbfile(file);
+    db::db_file file;
+    file.id = 0;
+    file.filename = filename;
+    add_dbfile(file);
 
-        CXTranslationUnit tu = clang_createTranslationUnit(index, filename.c_str());
-        clang_visitChildren(
-                clang_getTranslationUnitCursor(tu),
-                cursor_visitor,
-                0);
-    }
+    CXTranslationUnit tu = clang_createTranslationUnit(index, filename.c_str());
+    clang_visitChildren(
+            clang_getTranslationUnitCursor(tu),
+            cursor_visitor,
+            0);
 }
 
 

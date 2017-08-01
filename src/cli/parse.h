@@ -4,6 +4,7 @@
 #include <string>
 #include <vector>
 
+
 namespace oonalysis {
 namespace cli {
 
@@ -23,3 +24,4 @@ void dispatch_analyze(const std::vector<std::string>& args);
 } // namespace oonalysis
 
 #endif // CLI_PARSE_H
+

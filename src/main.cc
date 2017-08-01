@@ -3,10 +3,7 @@
 #include <SQLiteCpp.h>
 #include "oonalysis.h"
 #include "db/init.h"
-
-#ifdef WITH_CLI
 #include "cli/parse.h"
-#endif
 
 
 std::vector<std::string> args_to_vector(int argc, char** argv)
@@ -20,12 +17,9 @@ std::vector<std::string> args_to_vector(int argc, char** argv)
 
 int main(int argc, char** argv)
 {
-#ifdef WITH_CLI
     std::vector<std::string> args = args_to_vector(argc, argv);
     oonalysis::cli::subcmd_t cmd = oonalysis::cli::determine_cmd(args);
     dispatch_cmd(cmd, args);
-#endif
-
 
     return 0;
 }

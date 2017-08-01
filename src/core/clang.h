@@ -2,13 +2,12 @@
 #define CORE_CLANG_H
 
 #include <string>
-#include <vector>
 
 
 namespace oonalysis {
 namespace core {
 
-void main_clang();
+void main_clang(const std::string& filename);
 
 } // namespace core
 } // namespace oonalysis
