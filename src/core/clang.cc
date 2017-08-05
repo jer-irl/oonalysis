@@ -18,7 +18,7 @@ void handle_inclusion_directive(CXCursor cur, CXCursor parent, CXClientData clie
     CXString filename2 = clang_getFileName(includer);
     std::string includer_name = clang_getCString(filename2);
 
-    db_cppinclusion inclusion;
+    db::db_cppinclusion inclusion;
     inclusion.id = 0;
     inclusion.includer = includer_name;
     inclusion.includee = includee_name;

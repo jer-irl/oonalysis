@@ -9,7 +9,7 @@ namespace core {
 
 void parse_files(const std::vector<std::string>& files)
 {
-    Lang project_lang = lang_from_filenames(files);
+    lang_t project_lang = lang_from_filenames(files);
     for (auto file : files) {
         if (lang_from_filename(file) != project_lang) { continue; }
 
@@ -25,9 +25,6 @@ void parse_files(const std::vector<std::string>& files)
         default:
             continue;
         }
-
-
-
     }
     exit(1);
 }

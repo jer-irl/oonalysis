@@ -2,7 +2,6 @@
 #define CTX_H
 
 #include <vector>
-#include "SrcFile.h"
 #include "OOProg.h"
 
 
@@ -19,11 +18,7 @@ public:
     OOProg gen_program();
 
 private:
-    void add_file(SrcFile& file);
-
     void add_file(const std::string& filename);
-
-    std::vector<SrcFile> files;
 }; // class Ctx
 
 Ctx& CTX();

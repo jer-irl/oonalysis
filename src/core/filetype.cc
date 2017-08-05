@@ -13,7 +13,7 @@ std::string file_ext(const std::string& filename)
     return toks.back();
 }
 
-Lang lang_from_filename(const std::string& filename)
+lang_t lang_from_filename(const std::string& filename)
 {
     std::string ext = to_lower(file_ext(filename));
 
@@ -46,9 +46,9 @@ Lang lang_from_filename(const std::string& filename)
     return UNKNOWN;
 }
 
-Lang lang_from_filenames(const std::vector<std::string>& filenames)
+lang_t lang_from_filenames(const std::vector<std::string>& filenames)
 {
-    std::map<Lang, int> score;
+    std::map<lang_t, int> score;
     score[C]   = 0;
     score[CPP] = 0;
     score[HS]  = 0;
@@ -58,7 +58,7 @@ Lang lang_from_filenames(const std::vector<std::string>& filenames)
         score[lang_from_filename(filename)]++;
     }
 
-    Lang res = NONE;
+    lang_t res = NONE;
     int max_count = 0;
     for (auto it = score.begin(); it != score.end(); ++it) {
         if (it->second > max_count) {

@@ -5,8 +5,9 @@
 namespace oonalysis {
 namespace db {
 
-bool add_dbfile(SQLite::Database& db, db_file f)
+bool add_dbfile(db_file f)
 {
+    SQLite::Database db(DB_NAME);
     // See if file already added
     if (f.id != 0) {
         SQLite::Statement query(db, "SELECT id FROM FILE_TABLE WHERE id = ?");
@@ -23,8 +24,9 @@ bool add_dbfile(SQLite::Database& db, db_file f)
     return true;
 }
 
-bool add_dbcppinclusion(SQLite::Database& db, db_cppinclusion incl)
+bool add_dbcppinclusion(db_cppinclusion incl)
 {
+    SQLite::Database db(DB_NAME);
     // See if file already added
     if (incl.id != 0) {
         SQLite::Statement query(db, "SELECT id FROM cppinclusion WHERE id = ?");

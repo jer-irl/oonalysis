@@ -9,8 +9,8 @@
 namespace oonalysis {
 namespace core {
 
-Lang lang_from_filenames(std::vector<std::string> filenames);
-Lang lang_from_filename(std::string filename);
+lang_t lang_from_filenames(const std::vector<std::string>& filenames);
+lang_t lang_from_filename(const std::string& filename);
 
 } // namespace core
 } // namespace oonalysis

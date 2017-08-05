@@ -5,7 +5,7 @@
 
 namespace oonalysis {
 
-enum Lang
+enum lang_t
 {
     C, CPP, PY, HS, NONE, OTHER, UNKNOWN,
 };

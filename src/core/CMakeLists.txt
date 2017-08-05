@@ -1,4 +1,7 @@
-add_library (core cpreprocessor.cc Ctx.cc filetype.cc ghc.cc srcfile.cc strutils.cc parse.cc)
-
 include_directories (/usr/local/opt/llvm/include)
-link_directories (/usr/local/opt/llvm/lib)
+
+add_library (core cpreprocessor.cc Ctx.cc ghc.cc strutils.cc parse.cc clang.cc filetype.cc)
+
+find_package (clang REQUIRED)
+target_link_libraries(core /usr/local/opt/llvm/lib/libclang.dylib)
+

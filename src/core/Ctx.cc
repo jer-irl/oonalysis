@@ -4,7 +4,6 @@
 #include "Ctx.h"
 #include "OOProg.h"
 #include "oonalysis.h"
-#include "SrcFile.h"
 
 namespace oonalysis {
 namespace core {
@@ -17,16 +16,6 @@ Ctx* Ctx::CTX()
 
 Ctx::Ctx()
 {
-}
-
-void Ctx::add_file(SrcFile& file)
-{
-    this->files.push_back(file);
-}
-
-void Ctx::add_file(const std::string& filename)
-{
-    this->files.push_back(SrcFile(filename));
 }
 
 OOProg gen_program();
