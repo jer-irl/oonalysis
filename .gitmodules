@@ -2,3 +2,7 @@
 	path = lib/SQLiteCpp
 	url = git@github.com:SRombauts/SQLiteCpp.git
     ignore = dirty
+[submodule "lib/spdlog"]
+	path = lib/spdlog
+	url = git@github.com:gabime/spdlog.git
+    ignore = dirty
