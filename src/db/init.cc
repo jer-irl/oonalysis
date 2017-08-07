@@ -6,7 +6,7 @@
 namespace oonalysis {
 namespace db {
 
-extern char DB_NAME[256];
+char DB_NAME[256];
 
 void set_db_name(const std::string& name)
 {

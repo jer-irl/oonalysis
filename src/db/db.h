@@ -9,7 +9,7 @@ namespace db {
 
 #define MAX_FILENAME 256
 
-char DB_NAME[MAX_FILENAME];
+extern char DB_NAME[MAX_FILENAME];
 
 #define GET_DB SQLite::Database db(db_name);
 
