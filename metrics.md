@@ -1,25 +1,25 @@
-- [ ] Cyclomatic Complexity
-- [ ] Inclusions
-    - [ ] Average number of inclusions
-    - [ ] Number of inclusions for file
-    - [ ] Number of times included
-    - [x] Number of inclusions
-- [ ] Functions
-    - [ ] Function length
-    - [ ] Average function length for file
-    - [ ] Average function length
-    - [ ] Files that call function
-    - [ ] Number of files that call function
-- [ ] Lines of code
-    - [x] LOC per file
-    - [ ] LOC total
-- [ ] Global vars
-    - [ ] Files that reference a global var
-    - [ ] Number of files that reference global var
-- [ ] Files
-    - [x] Number of files
-- [ ] Columns
-    - [ ] Number of columns for line
-    - [ ] Max number of columns in file
-    - [ ] Average number of columns in file
-    - [ ] Average number of columns overall
+[ ] Cyclomatic Complexity
+[ ] Inclusions
+    [ ] Average number of inclusions
+    [ ] Number of inclusions for file
+    [ ] Number of times included
+    [x] Number of inclusions
+[ ] Functions
+    [ ] Function length
+    [ ] Average function length for file
+    [ ] Average function length
+    [ ] Files that call function
+    [ ] Number of files that call function
+[ ] Lines of code
+    [x] LOC per file
+    [ ] LOC total
+[ ] Global vars
+    [ ] Files that reference a global var
+    [ ] Number of files that reference global var
+[ ] Files
+    [x] Number of files
+[ ] Columns
+    [ ] Number of columns for line
+    [ ] Max number of columns in file
+    [ ] Average number of columns in file
+    [ ] Average number of columns overall
