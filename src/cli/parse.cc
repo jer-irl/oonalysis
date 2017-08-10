@@ -16,6 +16,11 @@ subcmd_t determine_cmd(const std::vector<std::string>& args)
 {
     LOG(DEBUG, "Determining subcommand");
 
+    if (args.size() == 1) {
+        LOG(ERROR, "Subcommand required");
+        throw std::invalid_argument("No subcommand");
+    }
+
     const std::string cmd = args[1];
     if (cmd == "parse") {
         return PARSE;
@@ -23,6 +28,9 @@ subcmd_t determine_cmd(const std::vector<std::string>& args)
         return SHOW;
     } else if (cmd == "analyze") {
         return ANALYZE;
+    } else if (cmd == "") {
+        LOG(ERROR, "Subcommand required");
+        throw std::invalid_argument("No subcommand");
     } else {
         throw std::invalid_argument("bad subcommand");
     }
@@ -33,6 +41,7 @@ void dispatch_cmd(subcmd_t cmd, const std::vector<std::string>& args)
     switch (cmd) {
     case PARSE:
         dispatch_parse(args);
+        break;
     case SHOW:
     case ANALYZE:
     default:
