@@ -5,12 +5,17 @@
 #include "parse.h"
 #include "core/parse.h"
 #include "db/init.h"
+extern "C" {
+#include "util/log.h"
+}
 
 namespace oonalysis {
 namespace cli {
 
 subcmd_t determine_cmd(const std::vector<std::string>& args)
 {
+    LOG(DEBUG, "Determining subcommand");
+
     const std::string cmd = args[1];
     if (cmd == "parse") {
         return PARSE;

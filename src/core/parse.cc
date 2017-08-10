@@ -26,7 +26,6 @@ void parse_files(const std::vector<std::string>& files)
             continue;
         }
     }
-    exit(1);
 }
 
 } // namespace core
