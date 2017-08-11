@@ -3,6 +3,9 @@
 #include <clang-c/Index.h>
 #include "db/dbrepo.h"
 #include "db/dbtypes.h"
+extern "C" {
+#include "util/log.h"
+}
 
 
 namespace oonalysis {
@@ -50,6 +53,7 @@ CXChildVisitResult cursor_visitor(CXCursor cur, CXCursor parent, CXClientData cl
 
 void main_clang(const std::string& filename)
 {
+    LOG(INFO, "Entering clang main");
     CXIndex index = clang_createIndex(1, 1);
     db::db_file file;
     file.id = 0;

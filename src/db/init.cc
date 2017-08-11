@@ -2,6 +2,10 @@
 #include <SQLiteCpp.h>
 #include "init.h"
 #include "db.h"
+extern "C" {
+#include "util/log.h"
+}
+
 
 namespace oonalysis {
 namespace db {
@@ -10,6 +14,9 @@ char DB_NAME[256];
 
 void set_db_name(const std::string& name)
 {
+    std::string log_msg = std::string("DB name: ") + name;
+    LOG(DEBUG, log_msg.c_str());
+
     strncpy(DB_NAME, name.c_str(), 256);
     SQLite::Database db(DB_NAME, SQLite::OPEN_CREATE | SQLite::OPEN_READWRITE);
 }

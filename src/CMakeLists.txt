@@ -5,6 +5,9 @@ add_executable (oonalysis main.cc)
 option(GUI "Run with gui" OFF)
 option(CLI "Run with cli" ON)
 
+find_package (boost COMPONENTS filesystem REQUIRED)
+include_directories (${Boost_INCLUDE_DIR})
+
 add_subdirectory (db)
 add_subdirectory (metrics)
 add_subdirectory (core)
@@ -17,6 +20,7 @@ target_link_libraries (oonalysis metrics)
 target_link_libraries (oonalysis SQLiteCpp)
 target_link_libraries (oonalysis cli)
 target_link_libraries (oonalysis util)
+target_link_libraries (oonalysis ${Boost_LIBRARIES})
 
 if(GUI)
     add_definitions(-DWITH_GUI)

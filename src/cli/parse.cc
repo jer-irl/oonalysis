@@ -2,12 +2,38 @@
 #include <string>
 #include <exception>
 #include <tuple>
+#include <boost/filesystem.hpp>
 #include "parse.h"
 #include "core/parse.h"
 #include "db/init.h"
 extern "C" {
 #include "util/log.h"
 }
+
+namespace fs = boost::filesystem;
+namespace {
+
+static std::vector<std::string> glob(const std::string& filename)
+{
+    LOG(TRACE, "Globbing filenames");
+    std::vector<std::string> res;
+    fs::path p = filename;
+
+    if (fs::is_regular_file(p)) {
+        res.push_back(p.native());
+        return res;
+    }
+
+    for (auto iter : fs::recursive_directory_iterator(p)) {
+        if (fs::is_regular_file(iter)) {
+            res.push_back(iter.path().native());
+        }
+    }
+
+    return res;
+}
+
+} // anon namespace
 
 namespace oonalysis {
 namespace cli {
@@ -52,6 +78,8 @@ void dispatch_cmd(subcmd_t cmd, const std::vector<std::string>& args)
 
 void dispatch_parse(const std::vector<std::string>& args)
 {
+    LOG(TRACE, "Dispatching parse");
+
     std::vector<std::string> filenames;
     std::string output = ":memory:";
     for (auto iter = args.begin() + 2; iter != args.end(); iter++) {
@@ -63,7 +91,8 @@ void dispatch_parse(const std::vector<std::string>& args)
         }
 
         // Positional filenames
-        filenames.push_back(*iter);
+        std::vector<std::string> globbed = glob(*iter);
+        filenames.insert(filenames.end(), globbed.begin(), globbed.end());
     }
 
     db::set_db_name(output);
