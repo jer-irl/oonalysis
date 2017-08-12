@@ -6,9 +6,11 @@
 
 namespace oonalysis {
 namespace core {
+namespace clang {
 
-void main_clang(const std::string& filename);
+void main_clang(const std::vector<std::string>& filename);
 
+} // namespace clang
 } // namespace core
 } // namespace oonalysis
 
