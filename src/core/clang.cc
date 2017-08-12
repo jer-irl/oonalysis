@@ -13,6 +13,8 @@ namespace core {
 
 void handle_inclusion_directive(CXCursor cur, CXCursor parent, CXClientData client_data)
 {
+    LOG(DEBUG, "Handling inclusion directive");
+
     CXFile includee = clang_getIncludedFile(cur);
     CXString filename = clang_getFileName(includee);
     std::string includee_name = clang_getCString(filename);
@@ -31,7 +33,10 @@ void handle_inclusion_directive(CXCursor cur, CXCursor parent, CXClientData clie
 
 CXChildVisitResult cursor_visitor(CXCursor cur, CXCursor parent, CXClientData client_data)
 {
+    LOG(TRACE, "Cursor visiting");
+
     if (!clang_Location_isFromMainFile(clang_getCursorLocation(cur))) {
+        LOG(TRACE, "Breaking as we're traversing non-main file");
         return CXChildVisit_Break;
     }
 

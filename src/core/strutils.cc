@@ -1,23 +1,23 @@
 #include <string>
+#include <sstream>
 #include <vector>
-
 #include "strutils.h"
+extern "C" {
+#include "util/log.h"
+}
 
 
 namespace oonalysis {
 namespace core {
 
 std::vector<std::string> str_split(const std::string& str,
-                                   const std::string& delim)
+                                   char delim)
 {
     std::vector<std::string> res;
-    int pos = 0;
-    int prev_pos = 0;
-    int count = 0;
-    while ((pos = str.substr(prev_pos).find(delim, pos)) != -1) {
-        res.push_back(str.substr(prev_pos, pos));
-        prev_pos = pos + delim.length();
-        count++;
+    std::stringstream ss(str);
+    std::string item;
+    while (std::getline(ss, item, delim)) {
+        res.push_back(item);
     }
     return res;
 }

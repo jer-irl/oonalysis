@@ -14,6 +14,7 @@ char DB_NAME[256];
 
 void set_db_name(const std::string& name)
 {
+    LOG(TRACE, "Setting DB name");
     std::string log_msg = std::string("DB name: ") + name;
     LOG(DEBUG, log_msg.c_str());
 
@@ -23,6 +24,8 @@ void set_db_name(const std::string& name)
 
 void init_db()
 {
+    LOG(DEBUG, "Initializing DB");
+
     SQLite::Database db(DB_NAME, SQLite::OPEN_READWRITE);
 
     db.exec(

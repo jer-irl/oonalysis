@@ -3,18 +3,42 @@
 #include <string>
 #include "oonalysis.h"
 #include "strutils.h"
+extern "C" {
+#include "util/log.h"
+}
 
 namespace oonalysis {
 namespace core {
 
+void log_filetype(lang_t l)
+{
+    switch(l) {
+    case C:
+        LOG(DEBUG, "C language");
+        break;
+    case CPP:
+        LOG(DEBUG, "CPP language");
+        break;
+    case PY:
+    case HS:
+    case NONE:
+    case UNKNOWN:
+    case OTHER:
+    default:
+        LOG(WARNING, "Unsupported language");
+        break;
+    }
+}
+
 std::string file_ext(const std::string& filename)
 {
-    std::vector<std::string> toks = str_split(filename, ".");
+    std::vector<std::string> toks = str_split(filename, '.');
     return toks.back();
 }
 
 lang_t lang_from_filename(const std::string& filename)
 {
+    LOG(TRACE, "Getting lang from filename");
     std::string ext = to_lower(file_ext(filename));
 
     // Obvious
@@ -67,6 +91,7 @@ lang_t lang_from_filenames(const std::vector<std::string>& filenames)
         }
     }
 
+    log_filetype(res);
     return res;
 }
 

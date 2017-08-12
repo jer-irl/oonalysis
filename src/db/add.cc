@@ -1,13 +1,18 @@
 #include <SQLiteCpp.h>
 #include "dbtypes.h"
 #include "dbrepo.h"
+extern "C" {
+#include "util/log.h"
+}
 
 namespace oonalysis {
 namespace db {
 
 bool add_dbfile(db_file f)
 {
-    SQLite::Database db(DB_NAME);
+    LOG(DEBUG, "Adding db_file");
+
+    SQLite::Database db(DB_NAME, SQLite::OPEN_READWRITE);
     // See if file already added
     if (f.id != 0) {
         SQLite::Statement query(db, "SELECT id FROM FILE_TABLE WHERE id = ?");
@@ -17,16 +22,22 @@ bool add_dbfile(db_file f)
     }
 
     // File not already added
-    std::string stmt = "INSERT INTO file VALUES (" + f.filename + ");";
+    std::string stmt = "INSERT INTO file VALUES ('" + f.filename + "');";
 
-    db.exec(stmt);
+    db.exec(
+            "INSERT INTO file (filename) VALUES ('"
+          + f.filename
+          + "');"
+            );
 
     return true;
 }
 
 bool add_dbcppinclusion(db_cppinclusion incl)
 {
-    SQLite::Database db(DB_NAME);
+    LOG(DEBUG, "Adding db_cppinclusion");
+
+    SQLite::Database db(DB_NAME, SQLite::OPEN_READWRITE);
     // See if file already added
     if (incl.id != 0) {
         SQLite::Statement query(db, "SELECT id FROM cppinclusion WHERE id = ?");
@@ -35,10 +46,12 @@ bool add_dbcppinclusion(db_cppinclusion incl)
         if (!query.isDone()) { return false; }
     }
 
-    // File not already added
-    std::string stmt = "INSERT INTO file VALUES (" + incl.includer + ", " + incl.includee + ");";
-
-    db.exec(stmt);
+    db.exec(
+            "INSERT INTO cppinclustion (includer, includee) VALUES ('"
+          + incl.includer
+          + "', '"
+          + incl.includee
+          + "');");
 
     return true;
 }
