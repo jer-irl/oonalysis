@@ -1,4 +1,4 @@
-add_library (myclang clang.cc)
+include_directories (.)
+add_library (myclang clang.cc cursor_dispatch.cc handlers.cc)
 
-find_package (clang REQUIRED)
 target_link_libraries(myclang /usr/local/opt/llvm/lib/libclang.dylib)

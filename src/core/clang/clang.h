@@ -2,6 +2,7 @@
 #define CORE_CLANG_H
 
 #include <string>
+#include <clang-c/Index.h>
 
 
 namespace oonalysis {

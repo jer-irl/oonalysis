@@ -1,7 +1,7 @@
 #include <stdlib.h>
 #include "parse.h"
 #include "filetype.h"
-#include "clang.h"
+#include "clang/clang.h"
 extern "C" {
 #include "util/log.h"
 }
@@ -18,15 +18,19 @@ void parse_files(const std::vector<std::string>& files)
     switch (project_lang) {
     case C:
     case CPP:
-        main_clang(files);
+        clang::main_clang(files);
+        break;
     case HS:
     case PY:
     case UNKNOWN:
     case OTHER:
     case NONE:
     default:
-        continue;
+        LOG(ERROR, "Unsupported project type");
+        exit(1);
     }
+
+    LOG(INFO, "Done parsing");
 }
 
 } // namespace core

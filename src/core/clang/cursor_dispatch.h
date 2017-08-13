@@ -6,7 +6,7 @@
 
 namespace oonalysis::core::clang {
 
-std::function<void(CXCursor, CXCursor, CXClientData)> dispatch_cursor(CXCursor cur, CXCursor parent, CXClientData client_data);
+std::function<CXChildVisitResult(CXCursor, CXCursor, CXClientData)> dispatch_cursor(CXCursor cur);
 
 } // end namespace
 
