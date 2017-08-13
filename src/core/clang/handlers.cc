@@ -18,8 +18,8 @@ CXChildVisitResult handle_inclusion_directive(CXCursor cur, CXCursor parent, CXC
     CXString filename = clang_getFileName(includee);
     std::string includee_name = clang_getCString(filename);
 
-    CXFile includer = clang_getIncludedFile(parent);
-    CXString filename2 = clang_getFileName(includer);
+    auto tu = clang_Cursor_getTranslationUnit(cur);
+    CXString filename2 = clang_getTranslationUnitSpelling(tu);
     std::string includer_name = clang_getCString(filename2);
 
     db::db_cppinclusion inclusion;

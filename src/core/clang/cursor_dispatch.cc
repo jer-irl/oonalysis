@@ -9,6 +9,7 @@ namespace oonalysis::core::clang {
 std::function<CXChildVisitResult(CXCursor, CXCursor, CXClientData)> dispatch_cursor(CXCursor cur)
 {
     switch (cur.kind) {
+    case CXCursor_FirstPreprocessing: // CXCursor_PreprocessingDirective
     case CXCursor_InclusionDirective: // CXCursor_LastPreprocessing
         return handle_inclusion_directive;
     case CXCursor_StructDecl:
@@ -217,7 +218,6 @@ std::function<CXChildVisitResult(CXCursor, CXCursor, CXClientData)> dispatch_cur
     case CXCursor_LastAttr: // CXCursor_DLLImport
     case CXCursor_MacroDefinition:
     case CXCursor_MacroInstantiation: // CXCursor_MacroExpansion
-    case CXCursor_FirstPreprocessing: // CXCursor_PreprocessingDirective
     case CXCursor_TypeAliasTemplateDecl:
     case CXCursor_StaticAssert:
     case CXCursor_FirstExtraDecl: // CXCursor_ModuleImportDecl

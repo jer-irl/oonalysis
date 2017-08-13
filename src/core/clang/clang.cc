@@ -17,13 +17,6 @@ namespace clang {
 
 CXChildVisitResult cursor_visitor(CXCursor cur, CXCursor parent, CXClientData client_data)
 {
-    LOG(TRACE, "Cursor visiting");
-
-    if (!clang_Location_isFromMainFile(clang_getCursorLocation(cur))) {
-        LOG(TRACE, "Breaking as we're traversing non-main file");
-        return CXChildVisit_Break;
-    }
-
     auto handler = dispatch_cursor(cur);
     return handler(cur, parent, client_data);
 }
@@ -43,7 +36,7 @@ void parse_translation_unit(CXTranslationUnit tu)
     clang_visitChildren(
             clang_getTranslationUnitCursor(tu),
             cursor_visitor,
-            0);
+            nullptr);
 }
 
 std::vector<CXTranslationUnit> make_translation_units(CXIndex* index, const std::vector<std::string>& files)
@@ -59,7 +52,7 @@ std::vector<CXTranslationUnit> make_translation_units(CXIndex* index, const std:
                 0,
                 nullptr,
                 0,
-                CXTranslationUnit_None,
+                CXTranslationUnit_DetailedPreprocessingRecord,
                 &tu);
 
         if (err != CXError_Success) {

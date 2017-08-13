@@ -47,7 +47,7 @@ bool add_dbcppinclusion(db_cppinclusion incl)
     }
 
     db.exec(
-            "INSERT INTO cppinclustion (includer, includee) VALUES ('"
+            "INSERT INTO cppinclusion (includer, includee) VALUES ('"
           + incl.includer
           + "', '"
           + incl.includee
