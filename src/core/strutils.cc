@@ -7,8 +7,7 @@ extern "C" {
 }
 
 
-namespace oonalysis {
-namespace core {
+namespace oonalysis::core {
 
 std::vector<std::string> str_split(const std::string& str,
                                    char delim)
@@ -51,5 +50,4 @@ std::string to_lower(const std::string& str)
     return res;
 }
 
-} // namespace core
-} // namespace oonalysis
+} // namespace oonalysis::core

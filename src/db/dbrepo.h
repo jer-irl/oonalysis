@@ -6,8 +6,7 @@
 #include "dbtypes.h"
 
 
-namespace oonalysis {
-namespace db {
+namespace oonalysis::db {
 
 bool add_dbfile(db_file dbfile);
 bool get_dbfile(int id, db_file* dbfile);
@@ -22,7 +21,6 @@ std::vector<db_cppinclusion> get_dbcppinclusions(SQLite::Database& db);
 bool update_dbcppinclusion(db_cppinclusion inclusion, int id);
 bool delete_dbcppinclusion(int id);
 
-} // namespace db
-} // namespace oonalysis
+} // namespace oonalysis::db
 
 #endif // DBREPO_H

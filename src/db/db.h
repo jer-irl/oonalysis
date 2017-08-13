@@ -1,19 +1,13 @@
 #ifndef DB_H
 #define DB_H
 
-#include <SQLiteCpp.h>
 
-
-namespace oonalysis {
-namespace db {
+namespace oonalysis::db {
 
 #define MAX_FILENAME 256
 
 extern char DB_NAME[MAX_FILENAME];
 
-#define GET_DB SQLite::Database db(db_name);
-
-} // namespace db
-} // namespace oonalysis
+} // namespace oonalysis::db
 
 #endif // DB_H

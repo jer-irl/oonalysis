@@ -1,8 +1,6 @@
 #include <string>
 #include <vector>
-#include <SQLiteCpp.h>
 #include "oonalysis.h"
-#include "db/init.h"
 #include "cli/parse.h"
 extern "C" {
 #include "util/log.h"

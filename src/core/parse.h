@@ -3,15 +3,12 @@
 
 #include <string>
 #include <vector>
-#include <tuple>
 
 
-namespace oonalysis {
-namespace core {
+namespace oonalysis::core {
 
 void parse_files(const std::vector<std::string>& files);
 
-} // namespace core
-} // namespace oonalysis
+} // namespace oonalysis::core
 
 #endif // CORE_PARSE_H

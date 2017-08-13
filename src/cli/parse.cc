@@ -81,7 +81,7 @@ void dispatch_parse(const std::vector<std::string>& args)
     LOG(TRACE, "Dispatching parse");
 
     std::vector<std::string> filenames;
-    std::string output = ":memory:";
+    std::string output = "tmp.db";
     for (auto iter = args.begin() + 2; iter != args.end(); iter++) {
         // Output option
         if (*iter == "-o") {

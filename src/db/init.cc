@@ -7,8 +7,7 @@ extern "C" {
 }
 
 
-namespace oonalysis {
-namespace db {
+namespace oonalysis::db {
 
 char DB_NAME[256];
 
@@ -46,5 +45,4 @@ void init_db()
     );
 }
 
-} // namespace db
-} // namespace oonalysis
+} // namespace oonalysis::db

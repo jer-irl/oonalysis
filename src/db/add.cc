@@ -1,12 +1,12 @@
 #include <SQLiteCpp.h>
 #include "dbtypes.h"
 #include "dbrepo.h"
+#include "db.h"
 extern "C" {
 #include "util/log.h"
 }
 
-namespace oonalysis {
-namespace db {
+namespace oonalysis::db {
 
 bool add_dbfile(db_file f)
 {
@@ -56,5 +56,4 @@ bool add_dbcppinclusion(db_cppinclusion incl)
     return true;
 }
 
-} // namespace db
-} // namespace oonalysis
+} // namespace oonalysis::db

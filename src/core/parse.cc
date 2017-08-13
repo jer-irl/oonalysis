@@ -7,8 +7,7 @@ extern "C" {
 }
 
 
-namespace oonalysis {
-namespace core {
+namespace oonalysis::core {
 
 void parse_files(const std::vector<std::string>& files)
 {
@@ -33,5 +32,4 @@ void parse_files(const std::vector<std::string>& files)
     LOG(INFO, "Done parsing");
 }
 
-} // namespace core
-} // namespace oonalysis
+} // namespace oonalysis::core

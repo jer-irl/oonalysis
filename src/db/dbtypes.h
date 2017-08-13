@@ -1,10 +1,10 @@
 #ifndef DBTYPES_H
 #define DBTYPES_H
 
-#include "db.h"
+#include <string>
 
-namespace oonalysis {
-namespace db {
+
+namespace oonalysis::db {
 
 typedef struct db_file
 {
@@ -19,7 +19,6 @@ typedef struct db_cppinclusion
     std::string includee;
 } db_cppinclusion;
 
-} // namespace db
-} // namespace oonalysis
+} // namespace oonalysis::db
 
 #endif // DBTYPES_H

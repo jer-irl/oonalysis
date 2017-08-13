@@ -4,8 +4,8 @@
 #include "db.h"
 #include "dbrepo.h"
 
-namespace oonalysis {
-namespace db {
+
+namespace oonalysis::db {
 
 bool get_dbfile(SQLite::Database& db, int id, db_file* dbfile)
 {
@@ -73,5 +73,4 @@ std::vector<db_cppinclusion> get_dbcppinclusions(SQLite::Database& db)
     return res;
 }
 
-} // namespace db
-} // namespace oonalysis
+} // namespace oonalysis::db

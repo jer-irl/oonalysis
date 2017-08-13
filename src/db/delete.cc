@@ -2,8 +2,7 @@
 #include "dbrepo.h"
 
 
-namespace oonalysis {
-namespace db {
+namespace oonalysis::db {
 
 bool delete_dbfile(SQLite::Database& db, int id)
 {
@@ -17,5 +16,4 @@ bool delete_dbcppinclusion(SQLite::Database& db, int id)
     return true;
 }
 
-} // namespace db
-} // namespace oonalysis
+} // namespace oonalysis::db

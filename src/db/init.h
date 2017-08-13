@@ -2,15 +2,12 @@
 #define INIT_H
 
 #include <string>
-#include <SQLiteCpp.h>
 
-namespace oonalysis {
-namespace db {
+namespace oonalysis::db {
 
 void init_db();
 void set_db_name(const std::string& name);
 
-} // namespace db
-} // namespace oonalysis
+} // namespace oonalysis::db
 
 #endif // INIT_H

@@ -1,7 +1,6 @@
 #ifndef OONALYSIS_H
 #define OONALYSIS_H
 
-#include <SQLiteCpp.h>
 
 namespace oonalysis {
 
