@@ -30,7 +30,8 @@ void init_db()
     db.exec(
             "CREATE TABLE IF NOT EXISTS file ( "
             "id INTEGER PRIMARY KEY, "
-            "filename TEXT NOT NULL"
+            "filename TEXT NOT NULL, "
+            "loc INTEGER NOT NULL"
             ");"
     );
 

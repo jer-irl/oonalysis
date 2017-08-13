@@ -9,23 +9,25 @@ namespace oonalysis::db {
 
 bool get_dbfile(SQLite::Database& db, int id, db_file* dbfile)
 {
-    SQLite::Statement stmt(db, "SELECT filename FROM file WHERE id = " + std::to_string(id));
+    SQLite::Statement stmt(db, "SELECT filename, loc FROM file WHERE id = " + std::to_string(id));
 
     stmt.executeStep();
 
     dbfile->id = id;
     dbfile->filename = stmt.getColumn(0).getText();
+    dbfile->loc = stmt.getColumn(1).getInt();
     return true;
 }
 
 bool get_dbfile(SQLite::Database& db, const std::string filename, db_file* dbfile)
 {
-    SQLite::Statement stmt(db, "SELECT id, filename FROM file WHERE filename = " + filename);
+    SQLite::Statement stmt(db, "SELECT id, filename, loc FROM file WHERE filename = " + filename);
 
     stmt.executeStep();
 
     dbfile->id = stmt.getColumn(0).getInt();
     dbfile->filename = stmt.getColumn(1).getText();
+    dbfile->loc = stmt.getColumn(2).getInt();
     return true;
 }
 

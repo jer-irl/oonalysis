@@ -14,6 +14,7 @@ bool update_dbfile(SQLite::Database& db, db_file dbfile, int id)
     }
 
     db.exec("UPDATE TABLE file SET filename = " + dbfile.filename + " WHERE id = " + std::to_string(id));
+    db.exec("UPDATE TABLE file SET loc " + std::to_string(dbfile.loc) + " WHERE id = " + std::to_string(id));
     return true;
 }
 

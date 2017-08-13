@@ -9,11 +9,20 @@ extern "C" {
 
 namespace oonalysis::core {
 
+void universal_parse(const std::vector<std::string>& files)
+{
+    for (auto file : files) {
+        parse_loc(file);
+    }
+}
+
 void parse_files(const std::vector<std::string>& files)
 {
     LOG(INFO, "Parsing files");
-    lang_t project_lang = lang_from_filenames(files);
 
+    universal_parse(files);
+
+    lang_t project_lang = lang_from_filenames(files);
     switch (project_lang) {
     case C:
     case CPP:

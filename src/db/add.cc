@@ -25,9 +25,11 @@ bool add_dbfile(db_file f)
     std::string stmt = "INSERT INTO file VALUES ('" + f.filename + "');";
 
     db.exec(
-            "INSERT INTO file (filename) VALUES ('"
+            "INSERT INTO file (filename, loc) VALUES ('"
           + f.filename
-          + "');"
+          + "', "
+          + std::to_string(f.loc)
+          + ");"
             );
 
     return true;

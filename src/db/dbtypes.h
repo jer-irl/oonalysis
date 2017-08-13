@@ -10,6 +10,7 @@ typedef struct db_file
 {
     int id;
     std::string filename;
+    int loc;
 } db_file;
 
 typedef struct db_cppinclusion
