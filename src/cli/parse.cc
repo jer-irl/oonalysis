@@ -6,6 +6,7 @@
 #include "parse.h"
 #include "core/parse.h"
 #include "db/init.h"
+#include "metrics/metrics.h"
 extern "C" {
 #include "util/log.h"
 }
@@ -68,12 +69,26 @@ void dispatch_cmd(subcmd_t cmd, const std::vector<std::string>& args)
     case PARSE:
         dispatch_parse(args);
         break;
-    case SHOW:
     case ANALYZE:
+        dispatch_analyze(args);
+    case SHOW:
     default:
         throw std::invalid_argument("bad subcommand");
         break;
     }
+}
+
+void dispatch_analyze(const std::vector<std::string>& args)
+{
+    LOG(TRACE, "Dispatching analyze");
+
+    if (args.size() != 4) {
+        LOG(ERROR, "Command format is cmd analyze [metric] [db]");
+        exit(1);
+    }
+
+    db::set_db_name(args[3]);
+    metrics::main_metrics(args[2]);
 }
 
 void dispatch_parse(const std::vector<std::string>& args)
