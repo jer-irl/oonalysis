@@ -1,6 +1,7 @@
 #include <map>
 #include <vector>
 #include <string>
+#include <iostream>
 #include <cstdlib>
 #include "oonalysis.h"
 #include "strutils.h"
@@ -85,7 +86,6 @@ lang_t lang_from_filenames(const std::vector<std::string>& filenames)
             LOG(ERROR, "Unknown filetype: %s", filename.c_str());
             exit(1);
         }
-
         score[lang_from_filename(filename)]++;
     }
 

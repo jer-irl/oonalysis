@@ -8,7 +8,7 @@ namespace oonalysis::metrics {
 
 // Parse
 void parse_loc(const std::string& file);
-uint32_t loc_in_file(std::ifstream file);
+uint32_t loc_in_file(const std::string& file);
 
 // Retrieve
 void main_loc();

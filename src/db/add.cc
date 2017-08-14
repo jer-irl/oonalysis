@@ -13,13 +13,6 @@ bool add_dbfile(db_file f)
     LOG(DEBUG, "Adding db_file");
 
     SQLite::Database db(DB_NAME, SQLite::OPEN_READWRITE);
-    // See if file already added
-    if (f.id != 0) {
-        SQLite::Statement query(db, "SELECT id FROM FILE_TABLE WHERE id = ?");
-        query.bind(f.id);
-        query.executeStep();
-        if (!query.isDone()) { return false; }
-    }
 
     // File not already added
     std::string stmt = "INSERT INTO file VALUES ('" + f.filename + "');";

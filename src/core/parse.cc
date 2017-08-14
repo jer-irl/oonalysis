@@ -3,6 +3,8 @@
 #include "filetype.h"
 #include "metrics/loc.h"
 #include "clang/clang.h"
+#include "db/dbtypes.h"
+#include "db/dbrepo.h"
 extern "C" {
 #include "util/log.h"
 }
@@ -13,7 +15,13 @@ namespace oonalysis::core {
 void universal_parse(const std::vector<std::string>& files)
 {
     for (auto file : files) {
-        metrics::parse_loc(file);
+        db::db_file dbfile;
+        dbfile.filename = file;
+
+        int loc = metrics::loc_in_file(file);
+        dbfile.loc = loc;
+
+        db::add_dbfile(dbfile);
     }
 }
 
