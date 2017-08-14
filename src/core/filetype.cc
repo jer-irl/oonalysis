@@ -1,6 +1,7 @@
 #include <map>
 #include <vector>
 #include <string>
+#include <cstdlib>
 #include "oonalysis.h"
 #include "strutils.h"
 extern "C" {
@@ -38,7 +39,6 @@ std::string file_ext(const std::string& filename)
 
 lang_t lang_from_filename(const std::string& filename)
 {
-    LOG(TRACE, "Getting lang from filename");
     std::string ext = to_lower(file_ext(filename));
 
     // Obvious
@@ -66,7 +66,6 @@ lang_t lang_from_filename(const std::string& filename)
      || ext == "xml"
      || ext == "yaml") { return NONE; }
 
-    // TODO make warning
     return UNKNOWN;
 }
 
@@ -79,6 +78,14 @@ lang_t lang_from_filenames(const std::vector<std::string>& filenames)
     score[PY]  = 0;
 
     for (std::string filename : filenames) {
+        lang_t lang = lang_from_filename(filename);
+        if (lang == NONE || lang == OTHER) { continue; }
+
+        if (lang == UNKNOWN) {
+            LOG(ERROR, "Unknown filetype: %s", filename.c_str());
+            exit(1);
+        }
+
         score[lang_from_filename(filename)]++;
     }
 

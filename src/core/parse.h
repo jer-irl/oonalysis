@@ -7,7 +7,6 @@
 
 namespace oonalysis::core {
 
-void parse_loc(const std::string& file);
 void universal_parse(const std::vector<std::string>& files);
 void parse_files(const std::vector<std::string>& files);
 

@@ -27,6 +27,11 @@ int avg_loc()
     return -1;
 }
 
+void parse_loc(const std::string& filename)
+{
+    // TODO
+}
+
 void main_loc()
 {
     std::string filename;

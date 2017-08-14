@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include "parse.h"
 #include "filetype.h"
+#include "metrics/loc.h"
 #include "clang/clang.h"
 extern "C" {
 #include "util/log.h"
@@ -12,7 +13,7 @@ namespace oonalysis::core {
 void universal_parse(const std::vector<std::string>& files)
 {
     for (auto file : files) {
-        parse_loc(file);
+        metrics::parse_loc(file);
     }
 }
 
