@@ -2,10 +2,10 @@
 #include <vector>
 #include <SQLiteCpp.h>
 #include "db.h"
-#include "dbrepo.h"
+#include "repo.h"
 
 
-namespace oonalysis::db {
+namespace oonalysis::db::repo {
 
 bool get_dbfile(SQLite::Database& db, int id, db_file* dbfile)
 {
@@ -75,4 +75,4 @@ std::vector<db_cppinclusion> get_dbcppinclusions(SQLite::Database& db)
     return res;
 }
 
-} // namespace oonalysis::db
+} // namespace oonalysis::db::repo

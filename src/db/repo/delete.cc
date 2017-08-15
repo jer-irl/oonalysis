@@ -1,8 +1,8 @@
 #include <SQLiteCpp.h>
-#include "dbrepo.h"
+#include "repo.h"
 
 
-namespace oonalysis::db {
+namespace oonalysis::db::repo {
 
 bool delete_dbfile(SQLite::Database& db, int id)
 {
@@ -16,4 +16,4 @@ bool delete_dbcppinclusion(SQLite::Database& db, int id)
     return true;
 }
 
-} // namespace oonalysis::db
+} // namespace oonalysis::db::repo

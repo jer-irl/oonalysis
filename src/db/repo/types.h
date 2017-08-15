@@ -4,7 +4,7 @@
 #include <string>
 
 
-namespace oonalysis::db {
+namespace oonalysis::db::repo {
 
 typedef struct db_file
 {
@@ -20,6 +20,6 @@ typedef struct db_cppinclusion
     std::string includee;
 } db_cppinclusion;
 
-} // namespace oonalysis::db
+} // namespace oonalysis::db::repo
 
 #endif // DBTYPES_H

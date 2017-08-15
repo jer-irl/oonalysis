@@ -1,6 +1,6 @@
 #include <clang-c/Index.h>
 #include "handlers.h"
-#include "db/dbrepo.h"
+#include "db/repo/repo.h"
 extern "C" {
 #include "util/log.h"
 }
@@ -22,7 +22,7 @@ CXChildVisitResult handle_inclusion_directive(CXCursor cur, CXCursor parent, CXC
     CXString filename2 = clang_getTranslationUnitSpelling(tu);
     std::string includer_name = clang_getCString(filename2);
 
-    db::db_cppinclusion inclusion;
+    db::repo::db_cppinclusion inclusion;
     inclusion.id = 0;
     inclusion.includer = includer_name;
     inclusion.includee = includee_name;

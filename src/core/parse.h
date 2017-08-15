@@ -7,7 +7,7 @@
 
 namespace oonalysis::core {
 
-void universal_parse(const std::vector<std::string>& files);
+void common_parse(const std::vector<std::string>& files);
 void parse_files(const std::vector<std::string>& files);
 
 } // namespace oonalysis::core

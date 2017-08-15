@@ -1,12 +1,12 @@
-#ifndef DBREPO_H
-#define DBREPO_H
+#ifndef REPO_H
+#define REPO_H
 
 #include <vector>
 #include <SQLiteCpp.h>
-#include "dbtypes.h"
+#include "types.h"
 
 
-namespace oonalysis::db {
+namespace oonalysis::db::repo {
 
 bool add_dbfile(db_file dbfile);
 bool get_dbfile(int id, db_file* dbfile);
@@ -21,6 +21,6 @@ std::vector<db_cppinclusion> get_dbcppinclusions(SQLite::Database& db);
 bool update_dbcppinclusion(db_cppinclusion inclusion, int id);
 bool delete_dbcppinclusion(int id);
 
-} // namespace oonalysis::db
+} // namespace oonalysis::db::repo
 
-#endif // DBREPO_H
+#endif // REPO_H
