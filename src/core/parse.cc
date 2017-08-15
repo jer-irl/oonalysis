@@ -5,6 +5,7 @@
 #include "clang/clang.h"
 #include "db/dbtypes.h"
 #include "db/dbrepo.h"
+#include "common/loc.h"
 extern "C" {
 #include "util/log.h"
 }
@@ -18,7 +19,7 @@ void universal_parse(const std::vector<std::string>& files)
         db::db_file dbfile;
         dbfile.filename = file;
 
-        int loc = metrics::loc_in_file(file);
+        int loc = common::loc_in_file(file);
         dbfile.loc = loc;
 
         db::add_dbfile(dbfile);
