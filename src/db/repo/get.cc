@@ -7,39 +7,91 @@
 
 namespace oonalysis::db::repo {
 
-bool get_dbfile(SQLite::Database& db, int id, db_file* dbfile)
+/* ======================================== */
+/* Presence Checks */
+/* ======================================== */
+
+bool dbfile_present(int id)
 {
-    SQLite::Statement stmt(db, "SELECT filename, loc FROM file WHERE id = " + std::to_string(id));
+    SQLite::Database db(DB_NAME, SQLite::OPEN_READONLY);
+    SQLite::Statement stmt(db, "SELECT id FROM file WHERE id = " + std::to_string(id));
 
-    stmt.executeStep();
-
-    dbfile->id = id;
-    dbfile->filename = stmt.getColumn(0).getText();
-    dbfile->loc = stmt.getColumn(1).getInt();
-    return true;
+    return stmt.executeStep();
 }
 
-bool get_dbfile(SQLite::Database& db, const std::string filename, db_file* dbfile)
+bool dbfile_present(const std::string& filename)
 {
+    SQLite::Database db(DB_NAME, SQLite::OPEN_READONLY);
+    SQLite::Statement stmt(db, "SELECT id FROM file WHERE filename = " + filename);
+
+    return stmt.executeStep();
+}
+
+bool dbcppinclusion_present(const std::string& includer, const std::string& includee)
+{
+    SQLite::Database db(DB_NAME, SQLite::OPEN_READONLY);
+    SQLite::Statement stmt(db,
+            "SELECT id FROM cppinclusion WHERE includer = "
+          + includer
+          + " AND includee = "
+          + includee);
+
+    return stmt.executeStep();
+}
+
+/* ======================================== */
+/* Retrieval */
+/* ======================================== */
+
+std::shared_ptr<db_file> get_dbfile(int id)
+{
+    if (!dbfile_present(id)) {
+        return nullptr;
+    }
+
+    SQLite::Database db(DB_NAME, SQLite::OPEN_READWRITE);
+
+    auto res = std::make_shared<db_file>();
+
+    SQLite::Statement stmt(db, "SELECT filename, loc FROM file WHERE id = " + std::to_string(id));
+
+    bool present = stmt.executeStep();
+    if (!present) {
+        return nullptr;
+    }
+
+    res->id = id;
+    res->filename = stmt.getColumn(0).getText();
+    res->loc = stmt.getColumn(1).getInt();
+    return res;
+}
+
+std::shared_ptr<db_file> get_dbfile(const std::string& filename)
+{
+    SQLite::Database db(DB_NAME, SQLite::OPEN_READWRITE);
+
     SQLite::Statement stmt(db, "SELECT id, filename, loc FROM file WHERE filename = " + filename);
 
     stmt.executeStep();
 
+    auto dbfile = std::make_shared<db_file>();
     dbfile->id = stmt.getColumn(0).getInt();
     dbfile->filename = stmt.getColumn(1).getText();
     dbfile->loc = stmt.getColumn(2).getInt();
-    return true;
+    return dbfile;
 }
 
-std::vector<db_file> get_dbfiles(SQLite::Database& db)
+std::vector<std::shared_ptr<db_file>> get_dbfiles()
 {
-    std::vector<db_file> res;
+    SQLite::Database db(DB_NAME, SQLite::OPEN_READWRITE);
+
+    std::vector<std::shared_ptr<db_file>> res;
     SQLite::Statement stmt(db, "SELECT id, filename FROM file");
 
     while (stmt.executeStep()) {
-        db_file retrieved;
-        retrieved.id = stmt.getColumn(0).getInt();
-        retrieved.filename = stmt.getColumn(1).getText();
+        auto retrieved = std::make_shared<db_file>();
+        retrieved->id = stmt.getColumn(0).getInt();
+        retrieved->filename = stmt.getColumn(1).getText();
         res.push_back(retrieved);
     }
 
@@ -47,8 +99,10 @@ std::vector<db_file> get_dbfiles(SQLite::Database& db)
 }
 
 
-bool get_dbcppinclusion(SQLite::Database& db, int id, db_cppinclusion* incl)
+bool get_dbcppinclusion(int id, db_cppinclusion* incl)
 {
+    SQLite::Database db(DB_NAME, SQLite::OPEN_READWRITE);
+
     SQLite::Statement stmt(db, "SELECT includer, includee FROM file WHERE id = " + std::to_string(id));
 
     stmt.executeStep();
@@ -59,16 +113,19 @@ bool get_dbcppinclusion(SQLite::Database& db, int id, db_cppinclusion* incl)
     return true;
 }
 
-std::vector<db_cppinclusion> get_dbcppinclusions(SQLite::Database& db)
+std::vector<std::shared_ptr<db_cppinclusion>> get_dbcppinclusions()
 {
-    std::vector<db_cppinclusion> res;
+    SQLite::Database db(DB_NAME, SQLite::OPEN_READWRITE);
+
+    std::vector<std::shared_ptr<db_cppinclusion>> res;
+
     SQLite::Statement stmt(db, "SELECT id, includer, includee FROM cppinclusion");
 
     while (stmt.executeStep()) {
-        db_cppinclusion retrieved;
-        retrieved.id = stmt.getColumn(0).getInt();
-        retrieved.includer = stmt.getColumn(1).getText();
-        retrieved.includee = stmt.getColumn(2).getText();
+        auto retrieved = std::make_shared<db_cppinclusion>();
+        retrieved->id = stmt.getColumn(0).getInt();
+        retrieved->includer = stmt.getColumn(1).getText();
+        retrieved->includee = stmt.getColumn(2).getText();
         res.push_back(retrieved);
     }
 

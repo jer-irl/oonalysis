@@ -1,10 +1,13 @@
 #include <SQLiteCpp.h>
+#include "db.h"
 #include "repo.h"
 
 namespace oonalysis::db::repo {
 
-bool update_dbfile(SQLite::Database& db, db_file dbfile, int id)
+bool update_dbfile(int id, db_file dbfile)
 {
+    SQLite::Database db(DB_NAME, SQLite::OPEN_READWRITE);
+
     // See if file already added
     if (dbfile.id != 0) {
         SQLite::Statement query(db, "SELECT id FROM FILE_TABLE WHERE id = ?");
