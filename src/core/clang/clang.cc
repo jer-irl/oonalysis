@@ -1,10 +1,9 @@
 #include <string>
 #include <vector>
+#include <cstdlib>
 #include <clang-c/Index.h>
 #include <functional>
 #include "cursor_dispatch.h"
-#include "db/repo/repo.h"
-#include "db/repo/types.h"
 extern "C" {
 #include "util/log.h"
 }
@@ -24,14 +23,6 @@ CXChildVisitResult cursor_visitor(CXCursor cur, CXCursor parent, CXClientData cl
 void parse_translation_unit(CXTranslationUnit tu)
 {
     LOG(INFO, "Parsing clang file");
-
-    // Get file and add to db
-    CXString cxname = clang_getTranslationUnitSpelling(tu);
-    db::repo::db_file file;
-    file.id = 0;
-    file.filename = clang_getCString(cxname);
-    add_dbfile(file);
-    clang_disposeString(cxname);
 
     clang_visitChildren(
             clang_getTranslationUnitCursor(tu),
