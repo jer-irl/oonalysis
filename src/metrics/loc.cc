@@ -1,26 +1,30 @@
+#include <iostream>
+#include <tuple>
 #include <fstream>
 #include "loc.h"
 
 namespace oonalysis::metrics {
 
-int max_loc(std::string& filename)
+std::tuple<int, std::string> max_loc()
 {
-    filename = "BAD RESULT";
+    // TODO
     return -1;
 }
 
 int avg_loc()
 {
+    // TODO
     return -1;
 }
 
 void main_loc()
 {
-    std::string filename;
-    int max = max_loc(filename);
-    printf("Max lines of code in a file is %d in file %s\n", max, filename.c_str());
+    std::cout << "Printing Lines of Code Stats:" << std::endl;
 
-    printf("Average lines of code in a file si %d\n", avg_loc());
+    auto max_res = max_loc();
+    std::cout << "Max LOC is " << std::get<0>(max_res) << " in file " << std::get<1>(max_res) << std::endl;
+
+    std::cout << "Avg LOC is " << avg_loc() << std::endl;
 }
 
 } // namespace oonalysis::metrics

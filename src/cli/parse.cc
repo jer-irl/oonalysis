@@ -2,7 +2,9 @@
 #include <string>
 #include <exception>
 #include <tuple>
+#include <iostream>
 #include <boost/filesystem.hpp>
+#include <boost/program_options.hpp>
 #include "parse.h"
 #include "core/parse.h"
 #include "db/init.h"
@@ -36,19 +38,14 @@ static std::vector<std::string> glob(const std::string& filename)
 
 } // anon namespace
 
+namespace po = boost::program_options;
 namespace oonalysis {
 namespace cli {
 
-subcmd_t determine_cmd(const std::vector<std::string>& args)
+subcmd_t determine_cmd(const std::string& cmd)
 {
     LOG(DEBUG, "Determining subcommand");
 
-    if (args.size() == 1) {
-        LOG(ERROR, "Subcommand required");
-        throw std::invalid_argument("No subcommand");
-    }
-
-    const std::string cmd = args[1];
     if (cmd == "parse") {
         return PARSE;
     } else if (cmd == "show") {
@@ -63,14 +60,14 @@ subcmd_t determine_cmd(const std::vector<std::string>& args)
     }
 }
 
-void dispatch_cmd(subcmd_t cmd, const std::vector<std::string>& args)
+void dispatch_cmd(subcmd_t cmd, const std::vector<std::string>& inputs, const std::string& output)
 {
     switch (cmd) {
     case PARSE:
-        dispatch_parse(args);
+        dispatch_parse(inputs, output);
         break;
     case ANALYZE:
-        dispatch_analyze(args);
+        dispatch_analyze(inputs, output);
     case SHOW:
     default:
         throw std::invalid_argument("bad subcommand");
@@ -78,33 +75,26 @@ void dispatch_cmd(subcmd_t cmd, const std::vector<std::string>& args)
     }
 }
 
-void dispatch_analyze(const std::vector<std::string>& args)
+void dispatch_analyze(const std::vector<std::string>& inputs, const std::string& output)
 {
     LOG(TRACE, "Dispatching analyze");
 
-    if (args.size() != 4) {
-        LOG(ERROR, "Command format is cmd analyze [metric] [db]");
+    if (inputs.size() > 1) {
+        LOG(ERROR, "Cannot have multiple inputs to analyze");
         exit(1);
     }
 
-    db::set_db_name(args[3]);
-    metrics::main_metrics(args[2]);
+    db::set_db_name(output);
+    metrics::main_metrics(inputs[0]);
 }
 
-void dispatch_parse(const std::vector<std::string>& args)
+void dispatch_parse(const std::vector<std::string>& inputs, const std::string& output)
 {
     LOG(TRACE, "Dispatching parse");
 
     std::vector<std::string> filenames;
-    std::string output = "tmp.db";
-    for (auto iter = args.begin() + 2; iter != args.end(); iter++) {
-        // Output option
-        if (*iter == "-o") {
-            iter++;
-            output = *iter;
-            continue;
-        }
 
+    for (auto iter = inputs.begin(); iter != inputs.end(); iter++) {
         // Positional filenames
         std::vector<std::string> globbed = glob(*iter);
         filenames.insert(filenames.end(), globbed.begin(), globbed.end());
@@ -113,6 +103,50 @@ void dispatch_parse(const std::vector<std::string>& args)
     db::set_db_name(output);
     db::init_db();
     core::parse_files(filenames);
+}
+
+void main_cli(int argc, char** argv)
+{
+    // Describe
+    po::options_description desc("Allowed options");
+    desc.add_options()
+        ("subcommand", po::value<std::string>(), "analyze or parse")
+        ("input,i", po::value<std::vector<std::string>>(), "input file")
+        ("output,o", po::value<std::string>(), "output file")
+    ;
+
+    po::positional_options_description pd;
+    pd.add("subcommand", 1);
+    pd.add("input", -1);
+
+    // Parse
+    po::variables_map vm;
+    po::store(
+            po::command_line_parser(argc, argv).options(desc).positional(pd).run(),
+            vm);
+    po::notify(vm);
+
+    // Use options
+    subcmd_t cmd;
+    if (!vm.count("subcommand")) {
+        LOG(ERROR, "No subcommand");
+        std::cout << "Subcommand required" << std::endl;
+        exit(1);
+    } else {
+        cmd = determine_cmd(vm["subcommand"].as<std::string>());
+    }
+
+    std::vector<std::string> inputs;
+    if (vm.count("input")) {
+        inputs = vm["input"].as<std::vector<std::string>>();
+    }
+
+    std::string output;
+    if (vm.count("output")) {
+        output = vm["output"].as<std::string>();
+    }
+
+    dispatch_cmd(cmd, inputs, output);
 }
 
 } // namespace cli

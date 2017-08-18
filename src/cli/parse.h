@@ -12,13 +12,9 @@ typedef enum subcmd_t {
     PARSE, SHOW, ANALYZE
 } subcmd_t;
 
-void dispatch_cmd(subcmd_t cmd, const std::vector<std::string>& args);
-subcmd_t determine_cmd(const std::vector<std::string>& args);
-std::string dbname_from_args(std::vector<std::string> args);
-
-void dispatch_parse(const std::vector<std::string>& args);
-void dispatch_show(const std::vector<std::string>& args);
-void dispatch_analyze(const std::vector<std::string>& args);
+void main_cli(int argc, char** argv);
+void dispatch_analyze(const std::vector<std::string>& inputs, const std::string& output);
+void dispatch_parse(const std::vector<std::string>& inputs, const std::string& output);
 
 } // namespace cli
 } // namespace oonalysis
