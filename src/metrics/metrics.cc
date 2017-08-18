@@ -15,9 +15,9 @@ void main_metrics(const std::string& metric)
 {
     if (metric == "loc") {
         main_loc();
-    } else if (metric == "files") {
+    } else if (metric == "files" || metric == "file") {
         main_files();
-    } else if (metric == "cppinclusions") {
+    } else if (metric == "cppinclusions" || metric == "cppinclusion") {
         main_cppinclusions();
     } else {
         LOG(CRITICAL, "Unknown metric");

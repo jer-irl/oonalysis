@@ -22,7 +22,8 @@ bool dbfile_present(int id)
 bool dbfile_present(const std::string& filename)
 {
     SQLite::Database db(DB_NAME, SQLite::OPEN_READONLY);
-    SQLite::Statement stmt(db, "SELECT id FROM file WHERE filename = " + filename);
+    SQLite::Statement stmt(db, "SELECT id FROM file WHERE filename = ?");
+    stmt.bind(1, filename);
 
     return stmt.executeStep();
 }
@@ -31,10 +32,10 @@ bool dbcppinclusion_present(const std::string& includer, const std::string& incl
 {
     SQLite::Database db(DB_NAME, SQLite::OPEN_READONLY);
     SQLite::Statement stmt(db,
-            "SELECT id FROM cppinclusion WHERE includer = "
-          + includer
-          + " AND includee = "
-          + includee);
+            "SELECT id FROM cppinclusion WHERE includer = ? "
+            "AND includee = ?;");
+    stmt.bind(1, includer);
+    stmt.bind(2, includee);
 
     return stmt.executeStep();
 }

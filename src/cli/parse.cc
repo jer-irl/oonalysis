@@ -67,7 +67,8 @@ void dispatch_cmd(subcmd_t cmd, const std::vector<std::string>& inputs, const st
         dispatch_parse(inputs, output);
         break;
     case ANALYZE:
-        dispatch_analyze(inputs, output);
+        dispatch_analyze(inputs);
+        break;
     case SHOW:
     default:
         throw std::invalid_argument("bad subcommand");
@@ -75,16 +76,19 @@ void dispatch_cmd(subcmd_t cmd, const std::vector<std::string>& inputs, const st
     }
 }
 
-void dispatch_analyze(const std::vector<std::string>& inputs, const std::string& output)
+void dispatch_analyze(const std::vector<std::string>& inputs)
 {
     LOG(TRACE, "Dispatching analyze");
 
-    if (inputs.size() > 1) {
+    if (inputs.size() > 2) {
         LOG(ERROR, "Cannot have multiple inputs to analyze");
+        exit(1);
+    } else if (inputs.size() < 2) {
+        LOG(ERROR, "Need an input and a command");
         exit(1);
     }
 
-    db::set_db_name(output);
+    db::set_db_name(inputs[1]);
     metrics::main_metrics(inputs[0]);
 }
 

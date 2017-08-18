@@ -6,10 +6,9 @@
 
 namespace oonalysis::db {
 
-int get_num_files()
+uint32_t get_num_files()
 {
-    // TODO
-    return -1;
+    return repo::get_dbfiles().size();
 }
 
 bool add_new_file(const std::string& filename, int* loc)

@@ -36,7 +36,7 @@ bool add_dbcppinclusion(db_cppinclusion incl)
     // See if file already added
     if (incl.id != 0) {
         SQLite::Statement query(db, "SELECT id FROM cppinclusion WHERE id = ?");
-        query.bind(incl.id);
+        query.bind(1, incl.id);
         query.executeStep();
         if (!query.isDone()) { return false; }
     }
