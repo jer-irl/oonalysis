@@ -6,6 +6,12 @@
 
 namespace oonalysis::db {
 
+int get_num_files()
+{
+    // TODO
+    return -1;
+}
+
 bool add_new_file(const std::string& filename, int* loc)
 {
     if(repo::dbfile_present(filename)) {

@@ -7,7 +7,7 @@ namespace oonalysis::metrics {
 
 void main_files();
 
-uint32_t num_files(SQLite::Database& db);
+uint32_t num_files();
 
 } // namespace oonalysis::metrics
 
