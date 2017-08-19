@@ -3,9 +3,8 @@
 
 namespace oonalysis { namespace gui {
 
-MainWindow::MainWindow() : Fl_Window(0, 0, 400, 400, "oonalysis")
+MainWindow::MainWindow(int w, int h, const char* t) : Fl_Window(w, h, t)
 {
 }
-
 
 } } // namespace oonalysis::gui

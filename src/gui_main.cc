@@ -3,7 +3,7 @@
 
 int main(void)
 {
-    oonalysis::gui::MainWindow* mw{};
-    mw->show();
+    oonalysis::gui::MainWindow mw(400, 400, "oonalysis");
+    mw.show();
     return Fl::run();
 }

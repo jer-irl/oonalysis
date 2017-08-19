@@ -6,9 +6,9 @@
 namespace oonalysis::gui {
 
 class MainWindow : public Fl_Window {
-
 public:
-    MainWindow();
+    MainWindow(int w, int h, const char* t);
+    ~MainWindow() { }
 
 }; // class MainWindow
 
