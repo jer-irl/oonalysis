@@ -1,33 +1,24 @@
-add_definitions(-DWITH_CLI)
 include_directories(.)
-add_executable (oonalysis main.cc)
-
-option(GUI "Run with gui" OFF)
-option(CLI "Run with cli" ON)
 
 find_package (boost COMPONENTS filesystem REQUIRED)
 include_directories (${Boost_INCLUDE_DIR})
 
+add_subdirectory (util)
 add_subdirectory (db)
 add_subdirectory (metrics)
 add_subdirectory (core)
+
+# ===========================
+# CLI
+# ===========================
 add_subdirectory (cli)
-add_subdirectory (util)
+add_executable (oonalysis-cli cli_main.cc)
 
-target_link_libraries (oonalysis core)
-target_link_libraries (oonalysis db)
-target_link_libraries (oonalysis metrics)
-target_link_libraries (oonalysis SQLiteCpp)
-target_link_libraries (oonalysis cli)
-target_link_libraries (oonalysis util)
-target_link_libraries (oonalysis ${Boost_LIBRARIES})
+target_link_libraries (oonalysis-cli cli)
+target_link_libraries (oonalysis-cli util)
 
-if(GUI)
-    add_definitions(-DWITH_GUI)
-    #add_subdirectory(gui)
-    #target_link_libraries(oonalysis gui)
-elseif(CLI)
-else()
-    message (FATAL_ERROR "Need an interface")
-endif()
-
+# ===========================
+# GUI
+# ===========================
+add_subdirectory (gui)
+add_executable (oonalysis-gui gui_main.cc)

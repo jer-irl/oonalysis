@@ -5,7 +5,7 @@
 		<Option title="oonalysis"/>
 		<Option makefile_is_custom="1"/>
 		<Option compiler="gcc"/>
-		<Option virtualFolders="CMake Files\;CMake Files\lib\;CMake Files\lib\SQLiteCpp\;CMake Files\lib\SQLiteCpp\sqlite3\;CMake Files\src\;CMake Files\src\db\;CMake Files\src\db\repo\;CMake Files\src\metrics\;CMake Files\src\core\;CMake Files\src\core\clang\;CMake Files\src\core\common\;CMake Files\src\cli\;CMake Files\src\util\;"/>
+		<Option virtualFolders="CMake Files\;CMake Files\lib\;CMake Files\lib\SQLiteCpp\;CMake Files\lib\SQLiteCpp\sqlite3\;CMake Files\src\;CMake Files\src\util\;CMake Files\src\db\;CMake Files\src\db\repo\;CMake Files\src\metrics\;CMake Files\src\core\;CMake Files\src\core\clang\;CMake Files\src\core\common\;CMake Files\src\cli\;CMake Files\src\gui\;CMake Files\..\;CMake Files\..\..\;CMake Files\..\..\Qt\;CMake Files\..\..\Qt\5.9.1\;CMake Files\..\..\Qt\5.9.1\clang_64\;CMake Files\..\..\Qt\5.9.1\clang_64\lib\;CMake Files\..\..\Qt\5.9.1\clang_64\lib\cmake\;CMake Files\..\..\Qt\5.9.1\clang_64\lib\cmake\Qt5\;CMake Files\..\..\Qt\5.9.1\clang_64\lib\cmake\Qt5Core\;CMake Files\..\..\Qt\5.9.1\clang_64\lib\cmake\Qt5Gui\;CMake Files\..\..\Qt\5.9.1\clang_64\lib\cmake\Qt5Widgets\;"/>
 		<Build>
 			<Target title="all">
 				<Option working_dir="/Users/Jeremy/Programming/oonalysis"/>
@@ -197,14 +197,13 @@
 					<DistClean command="/usr/local/bin/gmake -j4 -f &quot;/Users/Jeremy/Programming/oonalysis/lib/SQLiteCpp/sqlite3/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
-			<Target title="oonalysis">
-				<Option output="/Users/Jeremy/Programming/oonalysis/bin/oonalysis" prefix_auto="0" extension_auto="0"/>
+			<Target title="oonalysis-cli">
+				<Option output="/Users/Jeremy/Programming/oonalysis/bin/oonalysis-cli" prefix_auto="0" extension_auto="0"/>
 				<Option working_dir="/Users/Jeremy/Programming/oonalysis/bin"/>
 				<Option object_output="./"/>
 				<Option type="1"/>
 				<Option compiler="gcc"/>
 				<Compiler>
-					<Add option="-DWITH_CLI"/>
 					<Add directory="/Users/Jeremy/Programming/oonalysis/lib/SQLiteCpp/include"/>
 					<Add directory="/Users/Jeremy/Programming/oonalysis/lib/SQLiteCpp/include/SQLiteCpp"/>
 					<Add directory="/Users/Jeremy/Programming/oonalysis/src/."/>
@@ -218,20 +217,19 @@
 					<Add directory="/Library/Frameworks"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="/usr/local/bin/gmake -j4 -f &quot;/Users/Jeremy/Programming/oonalysis/src/Makefile&quot;  VERBOSE=1 oonalysis"/>
+					<Build command="/usr/local/bin/gmake -j4 -f &quot;/Users/Jeremy/Programming/oonalysis/src/Makefile&quot;  VERBOSE=1 oonalysis-cli"/>
 					<CompileFile command="/usr/local/bin/gmake -j4 -f &quot;/Users/Jeremy/Programming/oonalysis/src/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
 					<Clean command="/usr/local/bin/gmake -j4 -f &quot;/Users/Jeremy/Programming/oonalysis/src/Makefile&quot;  VERBOSE=1 clean"/>
 					<DistClean command="/usr/local/bin/gmake -j4 -f &quot;/Users/Jeremy/Programming/oonalysis/src/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
-			<Target title="oonalysis/fast">
-				<Option output="/Users/Jeremy/Programming/oonalysis/bin/oonalysis" prefix_auto="0" extension_auto="0"/>
+			<Target title="oonalysis-cli/fast">
+				<Option output="/Users/Jeremy/Programming/oonalysis/bin/oonalysis-cli" prefix_auto="0" extension_auto="0"/>
 				<Option working_dir="/Users/Jeremy/Programming/oonalysis/bin"/>
 				<Option object_output="./"/>
 				<Option type="1"/>
 				<Option compiler="gcc"/>
 				<Compiler>
-					<Add option="-DWITH_CLI"/>
 					<Add directory="/Users/Jeremy/Programming/oonalysis/lib/SQLiteCpp/include"/>
 					<Add directory="/Users/Jeremy/Programming/oonalysis/lib/SQLiteCpp/include/SQLiteCpp"/>
 					<Add directory="/Users/Jeremy/Programming/oonalysis/src/."/>
@@ -245,10 +243,110 @@
 					<Add directory="/Library/Frameworks"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="/usr/local/bin/gmake -j4 -f &quot;/Users/Jeremy/Programming/oonalysis/src/Makefile&quot;  VERBOSE=1 oonalysis/fast"/>
+					<Build command="/usr/local/bin/gmake -j4 -f &quot;/Users/Jeremy/Programming/oonalysis/src/Makefile&quot;  VERBOSE=1 oonalysis-cli/fast"/>
 					<CompileFile command="/usr/local/bin/gmake -j4 -f &quot;/Users/Jeremy/Programming/oonalysis/src/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
 					<Clean command="/usr/local/bin/gmake -j4 -f &quot;/Users/Jeremy/Programming/oonalysis/src/Makefile&quot;  VERBOSE=1 clean"/>
 					<DistClean command="/usr/local/bin/gmake -j4 -f &quot;/Users/Jeremy/Programming/oonalysis/src/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="oonalysis-gui">
+				<Option output="/Users/Jeremy/Programming/oonalysis/bin/oonalysis-gui" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/Jeremy/Programming/oonalysis/bin"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/Users/Jeremy/Programming/oonalysis/lib/SQLiteCpp/include"/>
+					<Add directory="/Users/Jeremy/Programming/oonalysis/lib/SQLiteCpp/include/SQLiteCpp"/>
+					<Add directory="/Users/Jeremy/Programming/oonalysis/src/."/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../lib/clang/8.1.0/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include"/>
+					<Add directory="/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/local/bin/gmake -j4 -f &quot;/Users/Jeremy/Programming/oonalysis/src/Makefile&quot;  VERBOSE=1 oonalysis-gui"/>
+					<CompileFile command="/usr/local/bin/gmake -j4 -f &quot;/Users/Jeremy/Programming/oonalysis/src/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/local/bin/gmake -j4 -f &quot;/Users/Jeremy/Programming/oonalysis/src/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/local/bin/gmake -j4 -f &quot;/Users/Jeremy/Programming/oonalysis/src/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="oonalysis-gui/fast">
+				<Option output="/Users/Jeremy/Programming/oonalysis/bin/oonalysis-gui" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/Jeremy/Programming/oonalysis/bin"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/Users/Jeremy/Programming/oonalysis/lib/SQLiteCpp/include"/>
+					<Add directory="/Users/Jeremy/Programming/oonalysis/lib/SQLiteCpp/include/SQLiteCpp"/>
+					<Add directory="/Users/Jeremy/Programming/oonalysis/src/."/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../lib/clang/8.1.0/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include"/>
+					<Add directory="/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/local/bin/gmake -j4 -f &quot;/Users/Jeremy/Programming/oonalysis/src/Makefile&quot;  VERBOSE=1 oonalysis-gui/fast"/>
+					<CompileFile command="/usr/local/bin/gmake -j4 -f &quot;/Users/Jeremy/Programming/oonalysis/src/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/local/bin/gmake -j4 -f &quot;/Users/Jeremy/Programming/oonalysis/src/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/local/bin/gmake -j4 -f &quot;/Users/Jeremy/Programming/oonalysis/src/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="util">
+				<Option output="/Users/Jeremy/Programming/oonalysis/src/util/libutil.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/Jeremy/Programming/oonalysis/src/util"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/Users/Jeremy/Programming/oonalysis/lib/SQLiteCpp/include"/>
+					<Add directory="/Users/Jeremy/Programming/oonalysis/lib/SQLiteCpp/include/SQLiteCpp"/>
+					<Add directory="/Users/Jeremy/Programming/oonalysis/src/."/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../lib/clang/8.1.0/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include"/>
+					<Add directory="/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/local/bin/gmake -j4 -f &quot;/Users/Jeremy/Programming/oonalysis/src/util/Makefile&quot;  VERBOSE=1 util"/>
+					<CompileFile command="/usr/local/bin/gmake -j4 -f &quot;/Users/Jeremy/Programming/oonalysis/src/util/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/local/bin/gmake -j4 -f &quot;/Users/Jeremy/Programming/oonalysis/src/util/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/local/bin/gmake -j4 -f &quot;/Users/Jeremy/Programming/oonalysis/src/util/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="util/fast">
+				<Option output="/Users/Jeremy/Programming/oonalysis/src/util/libutil.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/Jeremy/Programming/oonalysis/src/util"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/Users/Jeremy/Programming/oonalysis/lib/SQLiteCpp/include"/>
+					<Add directory="/Users/Jeremy/Programming/oonalysis/lib/SQLiteCpp/include/SQLiteCpp"/>
+					<Add directory="/Users/Jeremy/Programming/oonalysis/src/."/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../lib/clang/8.1.0/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include"/>
+					<Add directory="/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/local/bin/gmake -j4 -f &quot;/Users/Jeremy/Programming/oonalysis/src/util/Makefile&quot;  VERBOSE=1 util/fast"/>
+					<CompileFile command="/usr/local/bin/gmake -j4 -f &quot;/Users/Jeremy/Programming/oonalysis/src/util/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/local/bin/gmake -j4 -f &quot;/Users/Jeremy/Programming/oonalysis/src/util/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/local/bin/gmake -j4 -f &quot;/Users/Jeremy/Programming/oonalysis/src/util/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="db">
@@ -258,7 +356,6 @@
 				<Option type="2"/>
 				<Option compiler="gcc"/>
 				<Compiler>
-					<Add option="-DWITH_CLI"/>
 					<Add directory="/Users/Jeremy/Programming/oonalysis/lib/SQLiteCpp/include"/>
 					<Add directory="/Users/Jeremy/Programming/oonalysis/lib/SQLiteCpp/include/SQLiteCpp"/>
 					<Add directory="/Users/Jeremy/Programming/oonalysis/src/."/>
@@ -286,7 +383,6 @@
 				<Option type="2"/>
 				<Option compiler="gcc"/>
 				<Compiler>
-					<Add option="-DWITH_CLI"/>
 					<Add directory="/Users/Jeremy/Programming/oonalysis/lib/SQLiteCpp/include"/>
 					<Add directory="/Users/Jeremy/Programming/oonalysis/lib/SQLiteCpp/include/SQLiteCpp"/>
 					<Add directory="/Users/Jeremy/Programming/oonalysis/src/."/>
@@ -314,7 +410,6 @@
 				<Option type="2"/>
 				<Option compiler="gcc"/>
 				<Compiler>
-					<Add option="-DWITH_CLI"/>
 					<Add directory="/Users/Jeremy/Programming/oonalysis/lib/SQLiteCpp/include"/>
 					<Add directory="/Users/Jeremy/Programming/oonalysis/lib/SQLiteCpp/include/SQLiteCpp"/>
 					<Add directory="/Users/Jeremy/Programming/oonalysis/src/."/>
@@ -341,7 +436,6 @@
 				<Option type="2"/>
 				<Option compiler="gcc"/>
 				<Compiler>
-					<Add option="-DWITH_CLI"/>
 					<Add directory="/Users/Jeremy/Programming/oonalysis/lib/SQLiteCpp/include"/>
 					<Add directory="/Users/Jeremy/Programming/oonalysis/lib/SQLiteCpp/include/SQLiteCpp"/>
 					<Add directory="/Users/Jeremy/Programming/oonalysis/src/."/>
@@ -368,7 +462,6 @@
 				<Option type="2"/>
 				<Option compiler="gcc"/>
 				<Compiler>
-					<Add option="-DWITH_CLI"/>
 					<Add directory="/Users/Jeremy/Programming/oonalysis/lib/SQLiteCpp/include"/>
 					<Add directory="/Users/Jeremy/Programming/oonalysis/lib/SQLiteCpp/include/SQLiteCpp"/>
 					<Add directory="/Users/Jeremy/Programming/oonalysis/src/."/>
@@ -394,7 +487,6 @@
 				<Option type="2"/>
 				<Option compiler="gcc"/>
 				<Compiler>
-					<Add option="-DWITH_CLI"/>
 					<Add directory="/Users/Jeremy/Programming/oonalysis/lib/SQLiteCpp/include"/>
 					<Add directory="/Users/Jeremy/Programming/oonalysis/lib/SQLiteCpp/include/SQLiteCpp"/>
 					<Add directory="/Users/Jeremy/Programming/oonalysis/src/."/>
@@ -420,7 +512,6 @@
 				<Option type="2"/>
 				<Option compiler="gcc"/>
 				<Compiler>
-					<Add option="-DWITH_CLI"/>
 					<Add directory="/Users/Jeremy/Programming/oonalysis/lib/SQLiteCpp/include"/>
 					<Add directory="/Users/Jeremy/Programming/oonalysis/lib/SQLiteCpp/include/SQLiteCpp"/>
 					<Add directory="/Users/Jeremy/Programming/oonalysis/src/."/>
@@ -447,7 +538,6 @@
 				<Option type="2"/>
 				<Option compiler="gcc"/>
 				<Compiler>
-					<Add option="-DWITH_CLI"/>
 					<Add directory="/Users/Jeremy/Programming/oonalysis/lib/SQLiteCpp/include"/>
 					<Add directory="/Users/Jeremy/Programming/oonalysis/lib/SQLiteCpp/include/SQLiteCpp"/>
 					<Add directory="/Users/Jeremy/Programming/oonalysis/src/."/>
@@ -474,7 +564,6 @@
 				<Option type="2"/>
 				<Option compiler="gcc"/>
 				<Compiler>
-					<Add option="-DWITH_CLI"/>
 					<Add directory="/Users/Jeremy/Programming/oonalysis/lib/SQLiteCpp/include"/>
 					<Add directory="/Users/Jeremy/Programming/oonalysis/lib/SQLiteCpp/include/SQLiteCpp"/>
 					<Add directory="/Users/Jeremy/Programming/oonalysis/src/."/>
@@ -502,7 +591,6 @@
 				<Option type="2"/>
 				<Option compiler="gcc"/>
 				<Compiler>
-					<Add option="-DWITH_CLI"/>
 					<Add directory="/Users/Jeremy/Programming/oonalysis/lib/SQLiteCpp/include"/>
 					<Add directory="/Users/Jeremy/Programming/oonalysis/lib/SQLiteCpp/include/SQLiteCpp"/>
 					<Add directory="/Users/Jeremy/Programming/oonalysis/src/."/>
@@ -530,7 +618,6 @@
 				<Option type="2"/>
 				<Option compiler="gcc"/>
 				<Compiler>
-					<Add option="-DWITH_CLI"/>
 					<Add directory="/Users/Jeremy/Programming/oonalysis/lib/SQLiteCpp/include"/>
 					<Add directory="/Users/Jeremy/Programming/oonalysis/lib/SQLiteCpp/include/SQLiteCpp"/>
 					<Add directory="/Users/Jeremy/Programming/oonalysis/src/."/>
@@ -557,7 +644,6 @@
 				<Option type="2"/>
 				<Option compiler="gcc"/>
 				<Compiler>
-					<Add option="-DWITH_CLI"/>
 					<Add directory="/Users/Jeremy/Programming/oonalysis/lib/SQLiteCpp/include"/>
 					<Add directory="/Users/Jeremy/Programming/oonalysis/lib/SQLiteCpp/include/SQLiteCpp"/>
 					<Add directory="/Users/Jeremy/Programming/oonalysis/src/."/>
@@ -584,12 +670,12 @@
 				<Option type="2"/>
 				<Option compiler="gcc"/>
 				<Compiler>
-					<Add option="-DWITH_CLI"/>
 					<Add directory="/Users/Jeremy/Programming/oonalysis/lib/SQLiteCpp/include"/>
 					<Add directory="/Users/Jeremy/Programming/oonalysis/lib/SQLiteCpp/include/SQLiteCpp"/>
 					<Add directory="/Users/Jeremy/Programming/oonalysis/src/."/>
 					<Add directory="/usr/local/include"/>
 					<Add directory="/Users/Jeremy/Programming/oonalysis/src/cli/."/>
+					<Add directory="/Users/Jeremy/Programming/oonalysis/lib/SQLiteCpp/sqlite3"/>
 					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1"/>
 					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../lib/clang/8.1.0/include"/>
 					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include"/>
@@ -611,12 +697,12 @@
 				<Option type="2"/>
 				<Option compiler="gcc"/>
 				<Compiler>
-					<Add option="-DWITH_CLI"/>
 					<Add directory="/Users/Jeremy/Programming/oonalysis/lib/SQLiteCpp/include"/>
 					<Add directory="/Users/Jeremy/Programming/oonalysis/lib/SQLiteCpp/include/SQLiteCpp"/>
 					<Add directory="/Users/Jeremy/Programming/oonalysis/src/."/>
 					<Add directory="/usr/local/include"/>
 					<Add directory="/Users/Jeremy/Programming/oonalysis/src/cli/."/>
+					<Add directory="/Users/Jeremy/Programming/oonalysis/lib/SQLiteCpp/sqlite3"/>
 					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1"/>
 					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../lib/clang/8.1.0/include"/>
 					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include"/>
@@ -631,18 +717,31 @@
 					<DistClean command="/usr/local/bin/gmake -j4 -f &quot;/Users/Jeremy/Programming/oonalysis/src/cli/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
-			<Target title="util">
-				<Option output="/Users/Jeremy/Programming/oonalysis/src/util/libutil.a" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="/Users/Jeremy/Programming/oonalysis/src/util"/>
+			<Target title="gui">
+				<Option output="/Users/Jeremy/Programming/oonalysis/src/gui/libgui.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/Jeremy/Programming/oonalysis/src/gui"/>
 				<Option object_output="./"/>
 				<Option type="2"/>
 				<Option compiler="gcc"/>
 				<Compiler>
-					<Add option="-DWITH_CLI"/>
+					<Add option="-DQT_WIDGETS_LIB"/>
+					<Add option="-DQT_GUI_LIB"/>
+					<Add option="-DQT_CORE_LIB"/>
+					<Add directory="/Users/Jeremy/Programming/oonalysis/src/gui"/>
+					<Add directory="/Users/Jeremy/Programming/oonalysis/src/gui/gui_autogen/include"/>
 					<Add directory="/Users/Jeremy/Programming/oonalysis/lib/SQLiteCpp/include"/>
 					<Add directory="/Users/Jeremy/Programming/oonalysis/lib/SQLiteCpp/include/SQLiteCpp"/>
 					<Add directory="/Users/Jeremy/Programming/oonalysis/src/."/>
 					<Add directory="/usr/local/include"/>
+					<Add directory="/Users/Jeremy/Qt/5.9.1/clang_64/include"/>
+					<Add directory="/Users/Jeremy/Qt/5.9.1/clang_64/lib/QtWidgets.framework"/>
+					<Add directory="/Users/Jeremy/Qt/5.9.1/clang_64/lib/QtWidgets.framework/Headers"/>
+					<Add directory="/Users/Jeremy/Qt/5.9.1/clang_64/lib/QtGui.framework"/>
+					<Add directory="/Users/Jeremy/Qt/5.9.1/clang_64/lib/QtGui.framework/Headers"/>
+					<Add directory="/System/Library/Frameworks/OpenGL.framework/Headers"/>
+					<Add directory="/Users/Jeremy/Qt/5.9.1/clang_64/lib/QtCore.framework"/>
+					<Add directory="/Users/Jeremy/Qt/5.9.1/clang_64/lib/QtCore.framework/Headers"/>
+					<Add directory="/Users/Jeremy/Qt/5.9.1/clang_64/./mkspecs/macx-clang"/>
 					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1"/>
 					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../lib/clang/8.1.0/include"/>
 					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include"/>
@@ -651,24 +750,37 @@
 					<Add directory="/Library/Frameworks"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="/usr/local/bin/gmake -j4 -f &quot;/Users/Jeremy/Programming/oonalysis/src/util/Makefile&quot;  VERBOSE=1 util"/>
-					<CompileFile command="/usr/local/bin/gmake -j4 -f &quot;/Users/Jeremy/Programming/oonalysis/src/util/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/local/bin/gmake -j4 -f &quot;/Users/Jeremy/Programming/oonalysis/src/util/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/local/bin/gmake -j4 -f &quot;/Users/Jeremy/Programming/oonalysis/src/util/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/local/bin/gmake -j4 -f &quot;/Users/Jeremy/Programming/oonalysis/src/gui/Makefile&quot;  VERBOSE=1 gui"/>
+					<CompileFile command="/usr/local/bin/gmake -j4 -f &quot;/Users/Jeremy/Programming/oonalysis/src/gui/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/local/bin/gmake -j4 -f &quot;/Users/Jeremy/Programming/oonalysis/src/gui/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/local/bin/gmake -j4 -f &quot;/Users/Jeremy/Programming/oonalysis/src/gui/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
-			<Target title="util/fast">
-				<Option output="/Users/Jeremy/Programming/oonalysis/src/util/libutil.a" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="/Users/Jeremy/Programming/oonalysis/src/util"/>
+			<Target title="gui/fast">
+				<Option output="/Users/Jeremy/Programming/oonalysis/src/gui/libgui.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/Jeremy/Programming/oonalysis/src/gui"/>
 				<Option object_output="./"/>
 				<Option type="2"/>
 				<Option compiler="gcc"/>
 				<Compiler>
-					<Add option="-DWITH_CLI"/>
+					<Add option="-DQT_WIDGETS_LIB"/>
+					<Add option="-DQT_GUI_LIB"/>
+					<Add option="-DQT_CORE_LIB"/>
+					<Add directory="/Users/Jeremy/Programming/oonalysis/src/gui"/>
+					<Add directory="/Users/Jeremy/Programming/oonalysis/src/gui/gui_autogen/include"/>
 					<Add directory="/Users/Jeremy/Programming/oonalysis/lib/SQLiteCpp/include"/>
 					<Add directory="/Users/Jeremy/Programming/oonalysis/lib/SQLiteCpp/include/SQLiteCpp"/>
 					<Add directory="/Users/Jeremy/Programming/oonalysis/src/."/>
 					<Add directory="/usr/local/include"/>
+					<Add directory="/Users/Jeremy/Qt/5.9.1/clang_64/include"/>
+					<Add directory="/Users/Jeremy/Qt/5.9.1/clang_64/lib/QtWidgets.framework"/>
+					<Add directory="/Users/Jeremy/Qt/5.9.1/clang_64/lib/QtWidgets.framework/Headers"/>
+					<Add directory="/Users/Jeremy/Qt/5.9.1/clang_64/lib/QtGui.framework"/>
+					<Add directory="/Users/Jeremy/Qt/5.9.1/clang_64/lib/QtGui.framework/Headers"/>
+					<Add directory="/System/Library/Frameworks/OpenGL.framework/Headers"/>
+					<Add directory="/Users/Jeremy/Qt/5.9.1/clang_64/lib/QtCore.framework"/>
+					<Add directory="/Users/Jeremy/Qt/5.9.1/clang_64/lib/QtCore.framework/Headers"/>
+					<Add directory="/Users/Jeremy/Qt/5.9.1/clang_64/./mkspecs/macx-clang"/>
 					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1"/>
 					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../lib/clang/8.1.0/include"/>
 					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include"/>
@@ -677,10 +789,20 @@
 					<Add directory="/Library/Frameworks"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="/usr/local/bin/gmake -j4 -f &quot;/Users/Jeremy/Programming/oonalysis/src/util/Makefile&quot;  VERBOSE=1 util/fast"/>
-					<CompileFile command="/usr/local/bin/gmake -j4 -f &quot;/Users/Jeremy/Programming/oonalysis/src/util/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/local/bin/gmake -j4 -f &quot;/Users/Jeremy/Programming/oonalysis/src/util/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/local/bin/gmake -j4 -f &quot;/Users/Jeremy/Programming/oonalysis/src/util/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/local/bin/gmake -j4 -f &quot;/Users/Jeremy/Programming/oonalysis/src/gui/Makefile&quot;  VERBOSE=1 gui/fast"/>
+					<CompileFile command="/usr/local/bin/gmake -j4 -f &quot;/Users/Jeremy/Programming/oonalysis/src/gui/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/local/bin/gmake -j4 -f &quot;/Users/Jeremy/Programming/oonalysis/src/gui/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/local/bin/gmake -j4 -f &quot;/Users/Jeremy/Programming/oonalysis/src/gui/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="gui_autogen">
+				<Option working_dir="/Users/Jeremy/Programming/oonalysis/src/gui"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/local/bin/gmake -j4 -f &quot;/Users/Jeremy/Programming/oonalysis/src/gui/Makefile&quot;  VERBOSE=1 gui_autogen"/>
+					<CompileFile command="/usr/local/bin/gmake -j4 -f &quot;/Users/Jeremy/Programming/oonalysis/src/gui/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/local/bin/gmake -j4 -f &quot;/Users/Jeremy/Programming/oonalysis/src/gui/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/local/bin/gmake -j4 -f &quot;/Users/Jeremy/Programming/oonalysis/src/gui/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 		</Build>
@@ -774,6 +896,9 @@
 		<Unit filename="/Users/Jeremy/Programming/oonalysis/src/cli/parse.h">
 			<Option target="cli"/>
 		</Unit>
+		<Unit filename="/Users/Jeremy/Programming/oonalysis/src/cli_main.cc">
+			<Option target="oonalysis-cli"/>
+		</Unit>
 		<Unit filename="/Users/Jeremy/Programming/oonalysis/src/core/Ctx.cc">
 			<Option target="core"/>
 		</Unit>
@@ -861,8 +986,11 @@
 		<Unit filename="/Users/Jeremy/Programming/oonalysis/src/db/repo/update.cc">
 			<Option target="repo"/>
 		</Unit>
-		<Unit filename="/Users/Jeremy/Programming/oonalysis/src/main.cc">
-			<Option target="oonalysis"/>
+		<Unit filename="/Users/Jeremy/Programming/oonalysis/src/gui/gui_autogen/moc_compilation.cpp">
+			<Option target="gui"/>
+		</Unit>
+		<Unit filename="/Users/Jeremy/Programming/oonalysis/src/gui_main.cc">
+			<Option target="oonalysis-gui"/>
 		</Unit>
 		<Unit filename="/Users/Jeremy/Programming/oonalysis/src/metrics/cppinclusions.cc">
 			<Option target="metrics"/>
@@ -915,6 +1043,9 @@
 		<Unit filename="/Users/Jeremy/Programming/oonalysis/src/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\src\"/>
 		</Unit>
+		<Unit filename="/Users/Jeremy/Programming/oonalysis/src/util/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\src\util\"/>
+		</Unit>
 		<Unit filename="/Users/Jeremy/Programming/oonalysis/src/db/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\src\db\"/>
 		</Unit>
@@ -936,8 +1067,95 @@
 		<Unit filename="/Users/Jeremy/Programming/oonalysis/src/cli/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\src\cli\"/>
 		</Unit>
-		<Unit filename="/Users/Jeremy/Programming/oonalysis/src/util/CMakeLists.txt">
-			<Option virtualFolder="CMake Files\src\util\"/>
+		<Unit filename="/Users/Jeremy/Programming/oonalysis/src/gui/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\src\gui\"/>
+		</Unit>
+		<Unit filename="/Users/Jeremy/Programming/oonalysis/../../Qt/5.9.1/clang_64/lib/cmake/Qt5/Qt5ConfigVersion.cmake">
+			<Option virtualFolder="CMake Files\..\..\Qt\5.9.1\clang_64\lib\cmake\Qt5\"/>
+		</Unit>
+		<Unit filename="/Users/Jeremy/Programming/oonalysis/../../Qt/5.9.1/clang_64/lib/cmake/Qt5/Qt5Config.cmake">
+			<Option virtualFolder="CMake Files\..\..\Qt\5.9.1\clang_64\lib\cmake\Qt5\"/>
+		</Unit>
+		<Unit filename="/Users/Jeremy/Programming/oonalysis/../../Qt/5.9.1/clang_64/lib/cmake/Qt5/Qt5ModuleLocation.cmake">
+			<Option virtualFolder="CMake Files\..\..\Qt\5.9.1\clang_64\lib\cmake\Qt5\"/>
+		</Unit>
+		<Unit filename="/Users/Jeremy/Programming/oonalysis/../../Qt/5.9.1/clang_64/lib/cmake/Qt5Core/Qt5CoreConfigVersion.cmake">
+			<Option virtualFolder="CMake Files\..\..\Qt\5.9.1\clang_64\lib\cmake\Qt5Core\"/>
+		</Unit>
+		<Unit filename="/Users/Jeremy/Programming/oonalysis/../../Qt/5.9.1/clang_64/lib/cmake/Qt5Core/Qt5CoreConfig.cmake">
+			<Option virtualFolder="CMake Files\..\..\Qt\5.9.1\clang_64\lib\cmake\Qt5Core\"/>
+		</Unit>
+		<Unit filename="/Users/Jeremy/Programming/oonalysis/../../Qt/5.9.1/clang_64/lib/cmake/Qt5Core/Qt5CoreConfigExtras.cmake">
+			<Option virtualFolder="CMake Files\..\..\Qt\5.9.1\clang_64\lib\cmake\Qt5Core\"/>
+		</Unit>
+		<Unit filename="/Users/Jeremy/Programming/oonalysis/../../Qt/5.9.1/clang_64/lib/cmake/Qt5Core/Qt5CoreConfigExtrasMkspecDir.cmake">
+			<Option virtualFolder="CMake Files\..\..\Qt\5.9.1\clang_64\lib\cmake\Qt5Core\"/>
+		</Unit>
+		<Unit filename="/Users/Jeremy/Programming/oonalysis/../../Qt/5.9.1/clang_64/lib/cmake/Qt5Core/Qt5CoreMacros.cmake">
+			<Option virtualFolder="CMake Files\..\..\Qt\5.9.1\clang_64\lib\cmake\Qt5Core\"/>
+		</Unit>
+		<Unit filename="/Users/Jeremy/Programming/oonalysis/../../Qt/5.9.1/clang_64/lib/cmake/Qt5Gui/Qt5GuiConfigVersion.cmake">
+			<Option virtualFolder="CMake Files\..\..\Qt\5.9.1\clang_64\lib\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="/Users/Jeremy/Programming/oonalysis/../../Qt/5.9.1/clang_64/lib/cmake/Qt5Gui/Qt5GuiConfig.cmake">
+			<Option virtualFolder="CMake Files\..\..\Qt\5.9.1\clang_64\lib\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="/Users/Jeremy/Programming/oonalysis/../../Qt/5.9.1/clang_64/lib/cmake/Qt5Gui/Qt5Gui_QCocoaIntegrationPlugin.cmake">
+			<Option virtualFolder="CMake Files\..\..\Qt\5.9.1\clang_64\lib\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="/Users/Jeremy/Programming/oonalysis/../../Qt/5.9.1/clang_64/lib/cmake/Qt5Gui/Qt5Gui_QGifPlugin.cmake">
+			<Option virtualFolder="CMake Files\..\..\Qt\5.9.1\clang_64\lib\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="/Users/Jeremy/Programming/oonalysis/../../Qt/5.9.1/clang_64/lib/cmake/Qt5Gui/Qt5Gui_QICNSPlugin.cmake">
+			<Option virtualFolder="CMake Files\..\..\Qt\5.9.1\clang_64\lib\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="/Users/Jeremy/Programming/oonalysis/../../Qt/5.9.1/clang_64/lib/cmake/Qt5Gui/Qt5Gui_QICOPlugin.cmake">
+			<Option virtualFolder="CMake Files\..\..\Qt\5.9.1\clang_64\lib\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="/Users/Jeremy/Programming/oonalysis/../../Qt/5.9.1/clang_64/lib/cmake/Qt5Gui/Qt5Gui_QJpegPlugin.cmake">
+			<Option virtualFolder="CMake Files\..\..\Qt\5.9.1\clang_64\lib\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="/Users/Jeremy/Programming/oonalysis/../../Qt/5.9.1/clang_64/lib/cmake/Qt5Gui/Qt5Gui_QMacJp2Plugin.cmake">
+			<Option virtualFolder="CMake Files\..\..\Qt\5.9.1\clang_64\lib\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="/Users/Jeremy/Programming/oonalysis/../../Qt/5.9.1/clang_64/lib/cmake/Qt5Gui/Qt5Gui_QMinimalIntegrationPlugin.cmake">
+			<Option virtualFolder="CMake Files\..\..\Qt\5.9.1\clang_64\lib\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="/Users/Jeremy/Programming/oonalysis/../../Qt/5.9.1/clang_64/lib/cmake/Qt5Gui/Qt5Gui_QOffscreenIntegrationPlugin.cmake">
+			<Option virtualFolder="CMake Files\..\..\Qt\5.9.1\clang_64\lib\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="/Users/Jeremy/Programming/oonalysis/../../Qt/5.9.1/clang_64/lib/cmake/Qt5Gui/Qt5Gui_QTgaPlugin.cmake">
+			<Option virtualFolder="CMake Files\..\..\Qt\5.9.1\clang_64\lib\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="/Users/Jeremy/Programming/oonalysis/../../Qt/5.9.1/clang_64/lib/cmake/Qt5Gui/Qt5Gui_QTiffPlugin.cmake">
+			<Option virtualFolder="CMake Files\..\..\Qt\5.9.1\clang_64\lib\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="/Users/Jeremy/Programming/oonalysis/../../Qt/5.9.1/clang_64/lib/cmake/Qt5Gui/Qt5Gui_QTuioTouchPlugin.cmake">
+			<Option virtualFolder="CMake Files\..\..\Qt\5.9.1\clang_64\lib\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="/Users/Jeremy/Programming/oonalysis/../../Qt/5.9.1/clang_64/lib/cmake/Qt5Gui/Qt5Gui_QVirtualKeyboardPlugin.cmake">
+			<Option virtualFolder="CMake Files\..\..\Qt\5.9.1\clang_64\lib\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="/Users/Jeremy/Programming/oonalysis/../../Qt/5.9.1/clang_64/lib/cmake/Qt5Gui/Qt5Gui_QWbmpPlugin.cmake">
+			<Option virtualFolder="CMake Files\..\..\Qt\5.9.1\clang_64\lib\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="/Users/Jeremy/Programming/oonalysis/../../Qt/5.9.1/clang_64/lib/cmake/Qt5Gui/Qt5Gui_QWebpPlugin.cmake">
+			<Option virtualFolder="CMake Files\..\..\Qt\5.9.1\clang_64\lib\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="/Users/Jeremy/Programming/oonalysis/../../Qt/5.9.1/clang_64/lib/cmake/Qt5Gui/Qt5GuiConfigExtras.cmake">
+			<Option virtualFolder="CMake Files\..\..\Qt\5.9.1\clang_64\lib\cmake\Qt5Gui\"/>
+		</Unit>
+		<Unit filename="/Users/Jeremy/Programming/oonalysis/../../Qt/5.9.1/clang_64/lib/cmake/Qt5Widgets/Qt5WidgetsConfigVersion.cmake">
+			<Option virtualFolder="CMake Files\..\..\Qt\5.9.1\clang_64\lib\cmake\Qt5Widgets\"/>
+		</Unit>
+		<Unit filename="/Users/Jeremy/Programming/oonalysis/../../Qt/5.9.1/clang_64/lib/cmake/Qt5Widgets/Qt5WidgetsConfig.cmake">
+			<Option virtualFolder="CMake Files\..\..\Qt\5.9.1\clang_64\lib\cmake\Qt5Widgets\"/>
+		</Unit>
+		<Unit filename="/Users/Jeremy/Programming/oonalysis/../../Qt/5.9.1/clang_64/lib/cmake/Qt5Widgets/Qt5WidgetsConfigExtras.cmake">
+			<Option virtualFolder="CMake Files\..\..\Qt\5.9.1\clang_64\lib\cmake\Qt5Widgets\"/>
+		</Unit>
+		<Unit filename="/Users/Jeremy/Programming/oonalysis/../../Qt/5.9.1/clang_64/lib/cmake/Qt5Widgets/Qt5WidgetsMacros.cmake">
+			<Option virtualFolder="CMake Files\..\..\Qt\5.9.1\clang_64\lib\cmake\Qt5Widgets\"/>
 		</Unit>
 	</Project>
 </CodeBlocks_project_file>
