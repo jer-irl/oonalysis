@@ -2,3 +2,7 @@
 	path = lib/SQLiteCpp
 	url = git@github.com:SRombauts/SQLiteCpp.git
     ignore = dirty
+[submodule "lib/FLTK"]
+	path = lib/FLTK
+	url = https://github.com/IngwiePhoenix/FLTK
+    ignore = dirty
