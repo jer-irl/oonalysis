@@ -10,7 +10,6 @@ include_directories (lib/SQLiteCpp/include)
 add_subdirectory (lib)
 
 include_directories (lib/SQLiteCpp/include/SQLiteCpp)
-include_directories (lib/FLTK)
 add_subdirectory (src)
 
 
