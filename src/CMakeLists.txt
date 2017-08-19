@@ -22,3 +22,4 @@ target_link_libraries (oonalysis-cli util)
 # ===========================
 add_subdirectory (gui)
 add_executable (oonalysis-gui gui_main.cc)
+target_link_libraries (oonalysis-gui FLTK)

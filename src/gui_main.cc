@@ -1,4 +1,9 @@
+#include <FL/Fl.H>
+#include "gui/mainwindow.h"
+
 int main(void)
 {
-    return 0;
+    oonalysis::gui::MainWindow* mw{};
+    mw->show();
+    return Fl::run();
 }
