@@ -2,3 +2,7 @@
 	path = lib/SQLiteCpp
 	url = git@github.com:SRombauts/SQLiteCpp.git
     ignore = dirty
+[submodule "lib/Catch"]
+	path = lib/Catch
+	url = git@github.com:philsquared/Catch.git
+    ignore = dirty

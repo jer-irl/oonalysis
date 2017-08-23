@@ -1,1 +1,3 @@
-add_library (repo add.cc delete.cc get.cc update.cc)
+include_directories (..)
+
+target_sources (db PRIVATE repo/add.cc repo/delete.cc repo/get.cc repo/update.cc)

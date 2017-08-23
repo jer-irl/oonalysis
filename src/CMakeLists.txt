@@ -24,3 +24,8 @@ add_subdirectory (gui)
 add_executable (oonalysis-gui gui_main.cc)
 target_link_libraries (oonalysis-gui FLTK)
 target_link_libraries (oonalysis-gui gui)
+
+# ===========================
+# Tests
+# ===========================
+add_executable (oonalysis-test test_main.cc)
