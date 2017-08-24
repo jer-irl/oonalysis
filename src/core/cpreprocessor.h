@@ -3,12 +3,10 @@
 
 #include <string>
 
-namespace oonalysis {
-namespace core {
+namespace oonalysis::core {
 
 std::string pprocess_str(std::string input);
 
-} // namespace core
-} // namespace oonalysis
+} // namespace oonalysis::core
 
 #endif // CPREPROCESSOR_H

@@ -1,15 +1,13 @@
 #ifndef OOPROG_H
 #define OOPROG_H
 
-namespace oonalysis {
-namespace core {
+namespace oonalysis::core {
 
 class OOProg
 {
 
 }; // class Program
 
-} // namespace core
-} // namespace oonalysis
+} // namespace oonalysis::core
 
 #endif // OOPROG_H

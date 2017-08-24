@@ -1,7 +1,7 @@
 #include <FL/Fl_Menu_Bar.H>
 #include "menubar.h"
 
-namespace oonalysis { namespace gui {
+namespace oonalysis::gui {
 
 MenuBar::MenuBar(int width) : Fl_Menu_Bar(0, 0, width, 20, "oonalysis")
 {
@@ -10,4 +10,4 @@ MenuBar::MenuBar(int width) : Fl_Menu_Bar(0, 0, width, 20, "oonalysis")
     this->add("Action");
 }
 
-} } // namespace oonalysis::gui
+} // namespace oonalysis::gui

@@ -5,8 +5,7 @@
 #include "OOProg.h"
 #include "oonalysis.h"
 
-namespace oonalysis {
-namespace core {
+namespace oonalysis::core {
 
 Ctx* Ctx::CTX()
 {
@@ -20,5 +19,4 @@ Ctx::Ctx()
 
 OOProg gen_program();
 
-} // namespace core
-} // namespace oonalysis
+} // namespace oonalysis::core

@@ -1,7 +1,7 @@
 #include <FL/Fl_Window.H>
 #include "mainwindow.h"
 
-namespace oonalysis { namespace gui {
+namespace oonalysis::gui {
 
 MainWindow::MainWindow(int w, int h, const char* t) : Fl_Window(w, h, t),
                                                       menu_bar(w)
@@ -13,4 +13,4 @@ MainWindow::MainWindow(int w, int h, const char* t) : Fl_Window(w, h, t),
     this->add(menu_bar);
 }
 
-} } // namespace oonalysis::gui
+} // namespace oonalysis::gui

@@ -39,8 +39,7 @@ static std::vector<std::string> glob(const std::string& filename)
 } // anon namespace
 
 namespace po = boost::program_options;
-namespace oonalysis {
-namespace cli {
+namespace oonalysis::cli {
 
 subcmd_t determine_cmd(const std::string& cmd)
 {
@@ -153,6 +152,5 @@ void main_cli(int argc, char** argv)
     dispatch_cmd(cmd, inputs, output);
 }
 
-} // namespace cli
-} // namespace oonalysis
+} // namespace oonalysis::cli
 

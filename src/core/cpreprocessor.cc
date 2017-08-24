@@ -5,8 +5,7 @@
 #include "cpreprocessor.h"
 #include "strutils.h"
 
-namespace oonalysis {
-namespace core {
+namespace oonalysis::core {
 
 std::string pprocess_str(std::string input)
 {
@@ -27,5 +26,4 @@ std::string pprocess_str(std::string input)
     return res;
 }
 
-} // namespace core
-} // namespace oonalysis
+} // namespace oonalysis::core

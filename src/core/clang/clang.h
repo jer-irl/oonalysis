@@ -5,14 +5,10 @@
 #include <clang-c/Index.h>
 
 
-namespace oonalysis {
-namespace core {
-namespace clang {
+namespace oonalysis::core::clang {
 
 void main_clang(const std::vector<std::string>& filename);
 
-} // namespace clang
-} // namespace core
-} // namespace oonalysis
+} // namespace oonalysis::core::clang
 
 #endif // CORE_CLANG_H

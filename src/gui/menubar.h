@@ -4,7 +4,7 @@
 #include <FL/Fl_Menu_Bar.H>
 #include <FL/Fl_Menu_Button.H>
 
-namespace oonalysis { namespace gui {
+namespace oonalysis::gui {
 
 class MenuBar : public Fl_Menu_Bar {
 public:
@@ -14,6 +14,6 @@ private:
 
 }; // class MenuBar
 
-} } // namespace oonalysis::gui
+} // namespace oonalysis::gui
 
 #endif // GUI_MENUBAR_H

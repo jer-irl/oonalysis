@@ -1,7 +1,6 @@
 #include <string>
 
-namespace oonalysis {
-namespace core {
+namespace oonalysis::core {
 
 std::string ghc_output(const std::string& path)
 {
@@ -22,5 +21,4 @@ std::string ghc_output(const std::string& path)
     return res;
 }
 
-} // namespace core
-} // namespace oonalysis
+} // namespace oonalysis::core

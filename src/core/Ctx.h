@@ -5,8 +5,7 @@
 #include "OOProg.h"
 
 
-namespace oonalysis {
-namespace core {
+namespace oonalysis::core {
 
 class Ctx
 {
@@ -23,7 +22,6 @@ private:
 
 Ctx& CTX();
 
-} // namespace core
-} // namespace oonalysis
+} // namespace oonalysis::core
 
 #endif // CTX_H

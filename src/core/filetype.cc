@@ -9,8 +9,7 @@ extern "C" {
 #include "util/log.h"
 }
 
-namespace oonalysis {
-namespace core {
+namespace oonalysis::core {
 
 void log_filetype(lang_t l)
 {
@@ -102,5 +101,4 @@ lang_t lang_from_filenames(const std::vector<std::string>& filenames)
     return res;
 }
 
-} // namespace core
-} // namespace oonalysis
+} // namespace oonalysis::core

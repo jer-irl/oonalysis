@@ -9,10 +9,7 @@ extern "C" {
 }
 
 
-namespace oonalysis {
-namespace core {
-namespace clang {
-
+namespace oonalysis::core::clang {
 
 CXChildVisitResult cursor_visitor(CXCursor cur, CXCursor parent, CXClientData client_data)
 {
@@ -67,6 +64,4 @@ void main_clang(const std::vector<std::string>& files)
 }
 
 
-} // namespace clang
-} // namespace core
-} // namespace oonalysis
+} // namespace oonalysis::core::clang
