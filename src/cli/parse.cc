@@ -22,7 +22,7 @@ static std::vector<std::string> glob(const std::string& filename)
     std::vector<std::string> res;
     fs::path p = filename;
 
-    if (fs::is_regular_file(p)) {
+    if (!fs::is_directory(p)) {
         res.push_back(p.native());
         return res;
     }
