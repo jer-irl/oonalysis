@@ -37,6 +37,33 @@ bool dbcppinclusion_present(const std::string& includer, const std::string& incl
     return stmt.executeStep();
 }
 
+
+/* ======================================== */
+/* Statistics */
+/* ======================================== */
+uint32_t max_loc() {
+    SQLite::Database db(DB_NAME, SQLite::OPEN_READONLY);
+    SQLite::Statement stmt(db, "SELECT MAX(loc) FROM file");
+
+    stmt.executeStep();
+    uint32_t res = stmt.getColumn(1).getInt();
+    stmt.reset();
+
+    return res;
+}
+
+float avg_loc() {
+    SQLite::Database db(DB_NAME, SQLite::OPEN_READONLY);
+    SQLite::Statement stmt(db, "SELECT AVG(loc) FROM file");
+
+    stmt.executeStep();
+    float res = stmt.getColumn(1).getDouble();
+    stmt.reset();
+
+    return res;
+}
+
+
 /* ======================================== */
 /* Retrieval */
 /* ======================================== */

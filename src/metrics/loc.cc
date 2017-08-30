@@ -2,17 +2,16 @@
 #include <tuple>
 #include <fstream>
 #include "loc.h"
+#include "db/file.h"
 
 namespace oonalysis::metrics {
 
 std::tuple<int, std::string> max_loc() {
-    // TODO
-    return -1;
+    return db::max_loc();
 }
 
 int avg_loc() {
-    // TODO
-    return -1;
+    return db::avg_loc();
 }
 
 void main_loc() {

@@ -44,4 +44,12 @@ int loc_in_file(const std::string& filename) {
     return retrieved->loc;
 }
 
+uint32_t max_loc() {
+    return repo::max_loc();
+}
+
+float avg_loc() {
+    return repo::avg_loc();
+}
+
 } // namespace oonalysis::db

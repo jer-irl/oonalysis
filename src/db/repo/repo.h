@@ -17,6 +17,8 @@ std::shared_ptr<db_file> get_dbfile(const std::string& filename);
 std::vector<std::shared_ptr<db_file>> get_dbfiles();
 bool update_dbfile(int id, db_file dbfile);
 bool delete_dbfile(int id);
+uint32_t max_loc();
+float avg_loc();
 
 bool dbcppinclusion_present(const std::string& includer, const std::string& includee);
 bool add_dbcppinclusion(db_cppinclusion inclusion);
