@@ -4,8 +4,7 @@
 namespace oonalysis::gui {
 
 MainWindow::MainWindow(int w, int h, const char* t) : Fl_Window(w, h, t),
-                                                      menu_bar(w)
-{
+                                                      menu_bar(w) {
     // Config
     this->resizable(this);
 

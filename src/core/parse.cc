@@ -12,16 +12,14 @@ extern "C" {
 
 namespace oonalysis::core {
 
-void common_parse(const std::vector<std::string>& files)
-{
+void common_parse(const std::vector<std::string>& files) {
     for (auto file : files) {
         int loc = common::loc_in_file(file);
         db::add_new_file(file, &loc);
     }
 }
 
-void parse_files(const std::vector<std::string>& files)
-{
+void parse_files(const std::vector<std::string>& files) {
     LOG(INFO, "Parsing files");
 
     common_parse(files);

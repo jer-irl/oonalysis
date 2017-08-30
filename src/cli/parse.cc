@@ -16,8 +16,7 @@ extern "C" {
 namespace fs = boost::filesystem;
 namespace {
 
-static std::vector<std::string> glob(const std::string& filename)
-{
+static std::vector<std::string> glob(const std::string& filename) {
     LOG(TRACE, "Globbing filenames");
     std::vector<std::string> res;
     fs::path p = filename;
@@ -41,8 +40,7 @@ static std::vector<std::string> glob(const std::string& filename)
 namespace po = boost::program_options;
 namespace oonalysis::cli {
 
-subcmd_t determine_cmd(const std::string& cmd)
-{
+subcmd_t determine_cmd(const std::string& cmd) {
     LOG(DEBUG, "Determining subcommand");
 
     if (cmd == "parse") {
@@ -59,8 +57,7 @@ subcmd_t determine_cmd(const std::string& cmd)
     }
 }
 
-void dispatch_cmd(subcmd_t cmd, const std::vector<std::string>& inputs, const std::string& output)
-{
+void dispatch_cmd(subcmd_t cmd, const std::vector<std::string>& inputs, const std::string& output) {
     switch (cmd) {
     case PARSE:
         dispatch_parse(inputs, output);
@@ -75,8 +72,7 @@ void dispatch_cmd(subcmd_t cmd, const std::vector<std::string>& inputs, const st
     }
 }
 
-void dispatch_analyze(const std::vector<std::string>& inputs)
-{
+void dispatch_analyze(const std::vector<std::string>& inputs) {
     LOG(TRACE, "Dispatching analyze");
 
     if (inputs.size() > 2) {
@@ -91,8 +87,7 @@ void dispatch_analyze(const std::vector<std::string>& inputs)
     metrics::main_metrics(inputs[0]);
 }
 
-void dispatch_parse(const std::vector<std::string>& inputs, const std::string& output)
-{
+void dispatch_parse(const std::vector<std::string>& inputs, const std::string& output) {
     LOG(TRACE, "Dispatching parse");
 
     std::vector<std::string> filenames;
@@ -108,8 +103,7 @@ void dispatch_parse(const std::vector<std::string>& inputs, const std::string& o
     core::parse_files(filenames);
 }
 
-void main_cli(int argc, char** argv)
-{
+void main_cli(int argc, char** argv) {
     // Describe
     po::options_description desc("Allowed options");
     desc.add_options()

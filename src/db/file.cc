@@ -6,13 +6,11 @@
 
 namespace oonalysis::db {
 
-uint32_t get_num_files()
-{
+uint32_t get_num_files() {
     return repo::get_dbfiles().size();
 }
 
-bool add_new_file(const std::string& filename, int* loc)
-{
+bool add_new_file(const std::string& filename, int* loc) {
     if(repo::dbfile_present(filename)) {
         return false;
     }
@@ -30,8 +28,7 @@ bool add_new_file(const std::string& filename, int* loc)
     return true;
 }
 
-bool update_loc(const std::string& filename, int loc)
-{
+bool update_loc(const std::string& filename, int loc) {
     if (!repo::dbfile_present(filename)) {
         return false;
     }
@@ -42,8 +39,7 @@ bool update_loc(const std::string& filename, int loc)
     return update_dbfile(existing->id, *existing);
 }
 
-int loc_in_file(const std::string& filename)
-{
+int loc_in_file(const std::string& filename) {
     std::shared_ptr<repo::db_file> retrieved = repo::get_dbfile(filename);
     return retrieved->loc;
 }

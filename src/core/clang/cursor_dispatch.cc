@@ -6,8 +6,7 @@
 
 namespace oonalysis::core::clang {
 
-std::function<CXChildVisitResult(CXCursor, CXCursor, CXClientData)> dispatch_cursor(CXCursor cur)
-{
+std::function<CXChildVisitResult(CXCursor, CXCursor, CXClientData)> dispatch_cursor(CXCursor cur) {
     switch (cur.kind) {
     case CXCursor_FirstPreprocessing: // CXCursor_PreprocessingDirective
     case CXCursor_InclusionDirective: // CXCursor_LastPreprocessing

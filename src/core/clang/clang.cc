@@ -11,14 +11,12 @@ extern "C" {
 
 namespace oonalysis::core::clang {
 
-CXChildVisitResult cursor_visitor(CXCursor cur, CXCursor parent, CXClientData client_data)
-{
+CXChildVisitResult cursor_visitor(CXCursor cur, CXCursor parent, CXClientData client_data) {
     auto handler = dispatch_cursor(cur);
     return handler(cur, parent, client_data);
 }
 
-void parse_translation_unit(CXTranslationUnit tu)
-{
+void parse_translation_unit(CXTranslationUnit tu) {
     LOG(INFO, "Parsing clang file");
 
     clang_visitChildren(
@@ -27,8 +25,7 @@ void parse_translation_unit(CXTranslationUnit tu)
             nullptr);
 }
 
-std::vector<CXTranslationUnit> make_translation_units(CXIndex* index, const std::vector<std::string>& files)
-{
+std::vector<CXTranslationUnit> make_translation_units(CXIndex* index, const std::vector<std::string>& files) {
     std::vector<CXTranslationUnit> res;
 
     for (auto file : files) {
@@ -52,8 +49,7 @@ std::vector<CXTranslationUnit> make_translation_units(CXIndex* index, const std:
     return res;
 }
 
-void main_clang(const std::vector<std::string>& files)
-{
+void main_clang(const std::vector<std::string>& files) {
     LOG(INFO, "Entering clang main");
     CXIndex index = clang_createIndex(1, 1);
     std::vector<CXTranslationUnit> tus =  make_translation_units(&index, files);

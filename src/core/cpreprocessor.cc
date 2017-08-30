@@ -7,8 +7,7 @@
 
 namespace oonalysis::core {
 
-std::string pprocess_str(std::string input)
-{
+std::string pprocess_str(std::string input) {
     std::vector<std::string> lines;
     std::istringstream iss(input);
     char buf[1024];

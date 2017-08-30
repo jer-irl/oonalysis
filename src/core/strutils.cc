@@ -10,8 +10,7 @@ extern "C" {
 namespace oonalysis::core {
 
 std::vector<std::string> str_split(const std::string& str,
-                                   char delim)
-{
+                                   char delim) {
     std::vector<std::string> res;
     std::stringstream ss(str);
     std::string item;
@@ -22,8 +21,7 @@ std::vector<std::string> str_split(const std::string& str,
 }
 
 std::string str_join(const std::vector<std::string>& strings,
-                     const std::string& glue)
-{
+                     const std::string& glue) {
     std::string res = "";
     for (std::string str : strings) {
         res += glue + str;
@@ -31,8 +29,7 @@ std::string str_join(const std::vector<std::string>& strings,
     return res;
 }
 
-char first_nonwhitespace(const std::string& line)
-{
+char first_nonwhitespace(const std::string& line) {
     for (int i = 0; line[i] != '\0'; ++i) {
         if (!iswspace(line[i])) {
             return line[i];
@@ -41,8 +38,7 @@ char first_nonwhitespace(const std::string& line)
     return '\0';
 }
 
-std::string to_lower(const std::string& str)
-{
+std::string to_lower(const std::string& str) {
     std::string res("");
     for (char c : str) {
         res += std::tolower(c);

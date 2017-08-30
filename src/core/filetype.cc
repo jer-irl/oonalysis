@@ -11,8 +11,7 @@ extern "C" {
 
 namespace oonalysis::core {
 
-void log_filetype(lang_t l)
-{
+void log_filetype(lang_t l) {
     switch(l) {
     case C:
         LOG(DEBUG, "C language");
@@ -31,14 +30,12 @@ void log_filetype(lang_t l)
     }
 }
 
-std::string file_ext(const std::string& filename)
-{
+std::string file_ext(const std::string& filename) {
     std::vector<std::string> toks = str_split(filename, '.');
     return toks.back();
 }
 
-lang_t lang_from_filename(const std::string& filename)
-{
+lang_t lang_from_filename(const std::string& filename) {
     std::string ext = to_lower(file_ext(filename));
 
     // Obvious
@@ -69,8 +66,7 @@ lang_t lang_from_filename(const std::string& filename)
     return UNKNOWN;
 }
 
-lang_t lang_from_filenames(const std::vector<std::string>& filenames)
-{
+lang_t lang_from_filenames(const std::vector<std::string>& filenames) {
     std::map<lang_t, int> score;
     score[C]   = 0;
     score[CPP] = 0;

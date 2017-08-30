@@ -2,8 +2,7 @@
 
 namespace oonalysis::core {
 
-std::string ghc_output(const std::string& path)
-{
+std::string ghc_output(const std::string& path) {
     std::string res;
     std::string cmd = "ghc -ddump-rn " + path;
     FILE* f = popen(cmd.c_str(), "r");

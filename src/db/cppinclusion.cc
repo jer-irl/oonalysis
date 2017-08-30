@@ -6,8 +6,7 @@
 
 namespace oonalysis::db {
 
-bool add_new_inclusion(const std::string& includer, const std::string& includee)
-{
+bool add_new_inclusion(const std::string& includer, const std::string& includee) {
     if (repo::dbcppinclusion_present(includer, includee)) {
         return false;
     }
@@ -20,8 +19,7 @@ bool add_new_inclusion(const std::string& includer, const std::string& includee)
     return true;
 }
 
-std::vector<std::string> get_inclusions_in_file(const std::string& filename)
-{
+std::vector<std::string> get_inclusions_in_file(const std::string& filename) {
     std::vector<std::string> res;
 
     auto incls = repo::get_dbcppinclusions();
@@ -34,8 +32,7 @@ std::vector<std::string> get_inclusions_in_file(const std::string& filename)
     return res;
 }
 
-std::vector<std::string> get_inclusions_of_file(const std::string& filename)
-{
+std::vector<std::string> get_inclusions_of_file(const std::string& filename) {
     std::vector<std::string> res;
 
     auto incls = repo::get_dbcppinclusions();

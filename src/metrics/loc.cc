@@ -5,20 +5,17 @@
 
 namespace oonalysis::metrics {
 
-std::tuple<int, std::string> max_loc()
-{
+std::tuple<int, std::string> max_loc() {
     // TODO
     return -1;
 }
 
-int avg_loc()
-{
+int avg_loc() {
     // TODO
     return -1;
 }
 
-void main_loc()
-{
+void main_loc() {
     std::cout << "Printing Lines of Code Stats:" << std::endl;
 
     auto max_res = max_loc();

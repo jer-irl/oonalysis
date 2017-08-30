@@ -10,8 +10,7 @@ namespace oonalysis::core::clang {
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wall"
 
-CXChildVisitResult handle_inclusion_directive(CXCursor cur, CXCursor parent, CXClientData client_data)
-{
+CXChildVisitResult handle_inclusion_directive(CXCursor cur, CXCursor parent, CXClientData client_data) {
     LOG(DEBUG, "Handling inclusion directive");
 
     CXFile includee = clang_getIncludedFile(cur);
@@ -27,8 +26,7 @@ CXChildVisitResult handle_inclusion_directive(CXCursor cur, CXCursor parent, CXC
     return CXChildVisit_Continue;
 }
 
-CXChildVisitResult handle_other(CXCursor cur, CXCursor parent, CXClientData client_data)
-{
+CXChildVisitResult handle_other(CXCursor cur, CXCursor parent, CXClientData client_data) {
     return CXChildVisit_Recurse;
 }
 

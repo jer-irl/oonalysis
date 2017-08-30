@@ -11,16 +11,14 @@ namespace oonalysis::db::repo {
 /* Presence Checks */
 /* ======================================== */
 
-bool dbfile_present(int id)
-{
+bool dbfile_present(int id) {
     SQLite::Database db(DB_NAME, SQLite::OPEN_READONLY);
     SQLite::Statement stmt(db, "SELECT id FROM file WHERE id = " + std::to_string(id));
 
     return stmt.executeStep();
 }
 
-bool dbfile_present(const std::string& filename)
-{
+bool dbfile_present(const std::string& filename) {
     SQLite::Database db(DB_NAME, SQLite::OPEN_READONLY);
     SQLite::Statement stmt(db, "SELECT id FROM file WHERE filename = ?");
     stmt.bind(1, filename);
@@ -28,8 +26,7 @@ bool dbfile_present(const std::string& filename)
     return stmt.executeStep();
 }
 
-bool dbcppinclusion_present(const std::string& includer, const std::string& includee)
-{
+bool dbcppinclusion_present(const std::string& includer, const std::string& includee) {
     SQLite::Database db(DB_NAME, SQLite::OPEN_READONLY);
     SQLite::Statement stmt(db,
             "SELECT id FROM cppinclusion WHERE includer = ? "
@@ -44,8 +41,7 @@ bool dbcppinclusion_present(const std::string& includer, const std::string& incl
 /* Retrieval */
 /* ======================================== */
 
-std::shared_ptr<db_file> get_dbfile(int id)
-{
+std::shared_ptr<db_file> get_dbfile(int id) {
     if (!dbfile_present(id)) {
         return nullptr;
     }
@@ -67,8 +63,7 @@ std::shared_ptr<db_file> get_dbfile(int id)
     return res;
 }
 
-std::shared_ptr<db_file> get_dbfile(const std::string& filename)
-{
+std::shared_ptr<db_file> get_dbfile(const std::string& filename) {
     SQLite::Database db(DB_NAME, SQLite::OPEN_READWRITE);
 
     SQLite::Statement stmt(db, "SELECT id, filename, loc FROM file WHERE filename = " + filename);
@@ -82,8 +77,7 @@ std::shared_ptr<db_file> get_dbfile(const std::string& filename)
     return dbfile;
 }
 
-std::vector<std::shared_ptr<db_file>> get_dbfiles()
-{
+std::vector<std::shared_ptr<db_file>> get_dbfiles() {
     SQLite::Database db(DB_NAME, SQLite::OPEN_READWRITE);
 
     std::vector<std::shared_ptr<db_file>> res;
@@ -100,8 +94,7 @@ std::vector<std::shared_ptr<db_file>> get_dbfiles()
 }
 
 
-bool get_dbcppinclusion(int id, db_cppinclusion* incl)
-{
+bool get_dbcppinclusion(int id, db_cppinclusion* incl) {
     SQLite::Database db(DB_NAME, SQLite::OPEN_READWRITE);
 
     SQLite::Statement stmt(db, "SELECT includer, includee FROM file WHERE id = " + std::to_string(id));
@@ -114,8 +107,7 @@ bool get_dbcppinclusion(int id, db_cppinclusion* incl)
     return true;
 }
 
-std::vector<std::shared_ptr<db_cppinclusion>> get_dbcppinclusions()
-{
+std::vector<std::shared_ptr<db_cppinclusion>> get_dbcppinclusions() {
     SQLite::Database db(DB_NAME, SQLite::OPEN_READWRITE);
 
     std::vector<std::shared_ptr<db_cppinclusion>> res;

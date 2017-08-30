@@ -11,8 +11,7 @@ extern "C" {
 
 namespace oonalysis::metrics {
 
-void main_metrics(const std::string& metric)
-{
+void main_metrics(const std::string& metric) {
     if (metric == "loc") {
         main_loc();
     } else if (metric == "files" || metric == "file") {

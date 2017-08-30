@@ -8,8 +8,7 @@ extern "C" {
 
 namespace oonalysis::db::repo {
 
-bool add_dbfile(db_file f)
-{
+bool add_dbfile(db_file f) {
     LOG(DEBUG, "Adding db_file");
 
     SQLite::Database db(DB_NAME, SQLite::OPEN_READWRITE);
@@ -28,8 +27,7 @@ bool add_dbfile(db_file f)
     return true;
 }
 
-bool add_dbcppinclusion(db_cppinclusion incl)
-{
+bool add_dbcppinclusion(db_cppinclusion incl) {
     LOG(DEBUG, "Adding db_cppinclusion");
 
     SQLite::Database db(DB_NAME, SQLite::OPEN_READWRITE);

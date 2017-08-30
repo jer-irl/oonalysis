@@ -7,14 +7,12 @@
 
 namespace oonalysis::core {
 
-Ctx* Ctx::CTX()
-{
+Ctx* Ctx::CTX() {
     static Ctx* CTX = new Ctx();
     return CTX;
 }
 
-Ctx::Ctx()
-{
+Ctx::Ctx() {
 }
 
 OOProg gen_program();

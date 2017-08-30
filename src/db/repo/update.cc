@@ -4,8 +4,7 @@
 
 namespace oonalysis::db::repo {
 
-bool update_dbfile(int id, db_file dbfile)
-{
+bool update_dbfile(int id, db_file dbfile) {
     SQLite::Database db(DB_NAME, SQLite::OPEN_READWRITE);
 
     // See if file already added
@@ -21,8 +20,7 @@ bool update_dbfile(int id, db_file dbfile)
     return true;
 }
 
-bool update_dbcppinclusion(SQLite::Database& db, db_cppinclusion incl, int id)
-{
+bool update_dbcppinclusion(SQLite::Database& db, db_cppinclusion incl, int id) {
     // See if file already added
     if (incl.id != 0) {
         SQLite::Statement query(db, "SELECT id FROM cppinclusion WHERE id = ?");
