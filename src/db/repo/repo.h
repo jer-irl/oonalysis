@@ -19,6 +19,7 @@ bool update_dbfile(int id, db_file dbfile);
 bool delete_dbfile(int id);
 uint32_t max_loc();
 float avg_loc();
+uint32_t num_files();
 
 bool dbcppinclusion_present(const std::string& includer, const std::string& includee);
 bool add_dbcppinclusion(db_cppinclusion inclusion);
@@ -26,6 +27,7 @@ std::shared_ptr<db_cppinclusion> get_dbcppinclusion(int id);
 std::vector<std::shared_ptr<db_cppinclusion>> get_dbcppinclusions();
 bool update_dbcppinclusion(db_cppinclusion inclusion, int id);
 bool delete_dbcppinclusion(int id);
+uint32_t num_cppinclusions();
 
 } // namespace oonalysis::db::repo
 

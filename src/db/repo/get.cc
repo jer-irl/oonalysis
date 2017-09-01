@@ -63,6 +63,24 @@ float avg_loc() {
     return res;
 }
 
+uint32_t num_cppinclusions() {
+    SQLite::Database db(DB_NAME, SQLite::OPEN_READONLY);
+
+    SQLite::Statement query(db, "SELECT COUNT(*) FROM cppinclusion;");
+    query.executeStep();
+
+    return query.getColumn(0).getInt();
+}
+
+uint32_t num_files() {
+    SQLite::Database db(DB_NAME, SQLite::OPEN_READONLY);
+
+    SQLite::Statement query(db, "SELECT COUNT(*) FROM file;");
+    query.executeStep();
+
+    return query.getColumn(0).getInt();
+}
+
 
 /* ======================================== */
 /* Retrieval */

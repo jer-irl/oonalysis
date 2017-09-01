@@ -3,6 +3,7 @@
 #include "cppinclusion.h"
 #include "repo/repo.h"
 #include "repo/types.h"
+#include "file.h"
 
 namespace oonalysis::db {
 
@@ -44,5 +45,14 @@ std::vector<std::string> get_inclusions_of_file(const std::string& filename) {
 
     return res;
 }
+
+uint32_t num_cppinclusions() {
+    return repo::num_cppinclusions();
+}
+
+float avg_num_cppinclusions() {
+    return num_cppinclusions() / num_files();
+}
+
 
 } // namespace oonalysis::db

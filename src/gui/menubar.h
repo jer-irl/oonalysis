@@ -1,12 +1,12 @@
 #ifndef GUI_MENUBAR_H
 #define GUI_MENUBAR_H
 
-#include <FL/Fl_Menu_Bar.H>
+#include <FL/Fl_Sys_Menu_Bar.H>
 #include <FL/Fl_Menu_Button.H>
 
 namespace oonalysis::gui {
 
-class MenuBar : public Fl_Menu_Bar {
+class MenuBar : public Fl_Sys_Menu_Bar {
 public:
     MenuBar(int w);
     ~MenuBar() { }

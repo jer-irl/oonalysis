@@ -11,6 +11,7 @@ int loc_in_file(const std::string& filename);
 uint32_t get_num_files();
 float avg_loc();
 uint32_t max_loc();
+uint32_t num_files();
 
 } // namespace oonalysis::db
 

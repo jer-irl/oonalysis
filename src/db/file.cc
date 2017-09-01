@@ -52,4 +52,8 @@ float avg_loc() {
     return repo::avg_loc();
 }
 
+uint32_t num_files() {
+    return repo::num_files();
+}
+
 } // namespace oonalysis::db

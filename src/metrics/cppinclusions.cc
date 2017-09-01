@@ -1,20 +1,13 @@
-#include "files.h"
+#include <iostream>
+#include "db/cppinclusion.h"
 #include "cppinclusions.h"
 
 namespace oonalysis::metrics {
 
-uint32_t num_cppinclusions(SQLite::Database& db) {
-    SQLite::Statement query(db, "SELECT COUNT(*) FROM cppinclusions;");
-    query.executeStep();
-    return query.getColumn(0).getInt();
-}
-
-float avg_num_cppinclusions(SQLite::Database& db) {
-    return num_cppinclusions(db) / num_files();
-}
-
 void main_cppinclusions() {
-    // TODO
+    std::cout << "Metrics for C preprocessor inclusions:" << std::endl;
+    std::cout << "Average inclusions: " << db::avg_num_cppinclusions() << std::endl;
+    return;
 }
 
 } // namespace oonalysis::metrics
