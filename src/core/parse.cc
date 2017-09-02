@@ -25,10 +25,16 @@ void parse_files(const std::vector<std::string>& files) {
     common_parse(files);
 
     lang_t project_lang = lang_from_filenames(files);
+    std::vector<std::string> to_parse;
     switch (project_lang) {
     case C:
     case CPP:
-        clang::main_clang(files);
+        for (std::string f : files) {
+            if (lang_from_filename(f) == C || lang_from_filename(f) == CPP) {
+                to_parse.push_back(f);
+            }
+        }
+        clang::main_clang(to_parse);
         break;
     case HS:
     case PY:

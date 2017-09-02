@@ -30,8 +30,13 @@ void log_filetype(lang_t l) {
     }
 }
 
+std::string file_from_path(const std::string& path) {
+    std::vector<std::string> toks = str_split(path, '/');
+    return toks.back();
+}
+
 std::string file_ext(const std::string& filename) {
-    std::vector<std::string> toks = str_split(filename, '.');
+    std::vector<std::string> toks = str_split(file_from_path(filename), '.');
     return toks.back();
 }
 
@@ -48,7 +53,17 @@ lang_t lang_from_filename(const std::string& filename) {
 
     // Not Obvious
     if (ext == "makefile"
+     || ext == "cmake"
+     || ext == "make"
+     || ext == "includecache"
+     || ext == "internal"
+     || ext == "marks"
      || ext == "so"
+     || ext == "a"
+     || ext == "h"
+     || ext == "hpp"
+     || ext == "hh"
+     || ext == "dylib"
      || ext == "dll"
      || ext == "o"
      || ext == "gitignore") { return NONE; }
@@ -61,6 +76,7 @@ lang_t lang_from_filename(const std::string& filename) {
      || ext == "markdown"
      || ext == "yml"
      || ext == "xml"
+     || ext == "swp"
      || ext == "yaml") { return NONE; }
 
     return UNKNOWN;

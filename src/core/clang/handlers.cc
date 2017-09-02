@@ -14,6 +14,10 @@ CXChildVisitResult handle_inclusion_directive(CXCursor cur, CXCursor parent, CXC
     LOG(DEBUG, "Handling inclusion directive");
 
     CXFile includee = clang_getIncludedFile(cur);
+    if (!includee) {
+        LOG(ERROR, "Couldn't get includee");
+        return CXChildVisit_Continue;
+    }
     CXString filename = clang_getFileName(includee);
     std::string includee_name = clang_getCString(filename);
 
