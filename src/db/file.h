@@ -1,10 +1,12 @@
 #ifndef DB_FILE_H
 #define DB_FILE_H
 
+#include <vector>
 #include <string>
 
 namespace oonalysis::db {
 
+std::vector<std::string> all_project_filenames();
 bool add_new_file(const std::string& filename, int* loc);
 bool update_loc(const std::string& filename, int loc);
 int loc_in_file(const std::string& filename);

@@ -7,5 +7,13 @@ Ctx* Ctx::inst() {
     return &ctx;
 }
 
+Ctx::Ctx() :
+        mw(400, 400, "oonalysis") {
+}
+
+void Ctx::show() {
+    mw.show();
+}
+
 } // oonalysis::gui
 
