@@ -31,6 +31,7 @@ target_link_libraries (oonalysis-cli util)
 # ===========================
 # GUI
 # ===========================
+add_subdirectory (graph)
 add_subdirectory (gui)
 target_link_libraries (oonalysis-gui FLTK)
 target_link_libraries (oonalysis-gui gui)

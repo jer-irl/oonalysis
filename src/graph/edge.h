@@ -6,6 +6,7 @@
 
 namespace oonalysis::graph {
 
+struct Node;
 struct Edge {
     std::weak_ptr<Node> A;
     std::weak_ptr<Node> B;

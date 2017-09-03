@@ -1,1 +1,1 @@
-add_library (graph)
+add_library (graph layout.cc)
