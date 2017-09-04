@@ -1,1 +1,1 @@
-add_library (util log.c)
+add_library (util log.c project.cc)

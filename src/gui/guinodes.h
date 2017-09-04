@@ -6,10 +6,13 @@
 
 namespace oonalysis::gui {
 
-class GuiNode : public graph::Node, public Fl_Box {
+class GuiNode : public graph::Node {
 public:
     GuiNode();
+    void show();
 
+protected:
+    Fl_Box gui_box;
 }; // class GuiNode
 
 class FileNode : public GuiNode {

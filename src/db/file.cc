@@ -56,4 +56,15 @@ uint32_t num_files() {
     return repo::num_files();
 }
 
+std::vector<std::string> all_project_filenames() {
+    std::vector<std::string> res;
+    std::vector<std::shared_ptr<repo::db_file>> db_files = repo::get_dbfiles();
+
+    for (auto db_file : db_files) {
+        res.push_back(db_file->filename);
+    }
+
+    return res;
+}
+
 } // namespace oonalysis::db

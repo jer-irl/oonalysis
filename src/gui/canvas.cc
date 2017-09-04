@@ -5,7 +5,7 @@
 #include "db/cppinclusion.h"
 #include "graph/field.h"
 #include "ctx.h"
-#include "guinode.h"
+#include "guinodes.h"
 #include "canvas.h"
 
 namespace oonalysis::gui {
