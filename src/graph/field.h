@@ -2,22 +2,22 @@
 #define GRAPH_FIELD_H
 
 #include <vector>
+#include <memory>
 #include "node.h"
-#include "edge.h"
 
 namespace oonalysis::graph {
 
 class Field {
 public:
-    Field(float xsize, float ysize, float zsize, std::vector<Node> nodes, std::vector<Edge> edges);
-    void relax();
-    void relax(Node& node);
+    Field(float xsize, float ysize, float zsize, std::vector<std::shared_ptr<Node>> nodes);
+    void relax_all(int times);
 
     std::vector<Node> nodes;
-    std::vector<Edge> edges;
 
 private:
     float xsize, ysize, zsize;
+    void relax(Node& node);
+    void relax_all();
 
 }; // class Field
 

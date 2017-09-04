@@ -3,17 +3,15 @@
 
 #include <memory>
 #include <vector>
-#include "edge.h"
 #include "point.h"
 
 namespace oonalysis::graph {
 
-struct Edge;
-
 struct Node : public Point {
     Node(float x, float y, float z, float weight);
+    Node();
     float weight;
-    std::vector<std::weak_ptr<Edge>> edges;
+    std::vector<std::weak_ptr<Node>> connections_to;
 };
 
 } // namespace oonalysis::graph
