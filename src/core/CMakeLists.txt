@@ -1,6 +1,6 @@
 include_directories (/usr/local/opt/llvm/include)
 
-add_library (core cpreprocessor.cc Ctx.cc ghc.cc strutils.cc parse.cc filetype.cc)
+add_library (core strutils.cc parse.cc filetype.cc)
 
 add_subdirectory (clang)
 add_subdirectory (common)
