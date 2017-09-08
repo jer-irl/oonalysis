@@ -4,14 +4,18 @@
 #include <memory>
 #include <vector>
 #include "point.h"
+#include "force.h"
 
 namespace oonalysis::graph {
+
+struct Force;
 
 struct Node : public Point {
     Node(float x, float y, float z, float weight);
     Node();
     float weight;
     std::vector<std::weak_ptr<Node>> connections_to;
+    Force force_from(Node& n);
 };
 
 } // namespace oonalysis::graph

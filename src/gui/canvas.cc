@@ -4,6 +4,7 @@
 #include "db/file.h"
 #include "db/cppinclusion.h"
 #include "graph/field.h"
+#include "graph/layout.h"
 #include "ctx.h"
 #include "guinodes.h"
 #include "canvas.h"
@@ -41,7 +42,7 @@ void Canvas::display() {
 
     // Make field and relax
     graph::Field field(100, 100, 0, as_graph_nodes);
-    field.relax_all(50);
+    graph::force_directed(field);
 
     for (auto node_ptr : nodes) {
         node_ptr->show();

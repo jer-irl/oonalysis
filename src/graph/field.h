@@ -12,7 +12,7 @@ public:
     Field(float xsize, float ysize, float zsize, std::vector<std::shared_ptr<Node>> nodes);
     void relax_all(int times);
 
-    std::vector<Node> nodes;
+    std::vector<std::shared_ptr<Node>> nodes;
 
 private:
     float xsize, ysize, zsize;

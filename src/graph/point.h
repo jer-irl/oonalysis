@@ -5,6 +5,9 @@ namespace oonalysis::graph {
 
 struct Point {
     float x, y, z;
+
+protected:
+    bool operator==(const Point& p2);
 }; // struct Point
 
 } // namespace oonalyisis::graph

@@ -2,3 +2,4 @@ add_library (gui mainwindow.cc menubar.cc menucallbacks.cc ctx.cc canvas.cc guin
 
 target_link_libraries (gui fltk)
 target_link_libraries (gui db)
+target_link_libraries (gui graph)
