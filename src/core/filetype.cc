@@ -4,7 +4,7 @@
 #include <iostream>
 #include <cstdlib>
 #include "oonalysis.h"
-#include "strutils.h"
+#include "util/strutils.h"
 extern "C" {
 #include "util/log.h"
 }

@@ -12,31 +12,11 @@
 extern "C" {
 #include "util/log.h"
 }
+#include "util/files.h"
 
-namespace fs = boost::filesystem;
 namespace po = boost::program_options;
 
 namespace oonalysis::cli {
-
-static std::vector<std::string> glob(const std::string& filename) {
-    LOG(TRACE, "Globbing filenames");
-    std::vector<std::string> res;
-    fs::path p = filename;
-
-    if (!fs::is_directory(p)) {
-        res.push_back(p.native());
-        return res;
-    }
-
-    for (auto iter : fs::recursive_directory_iterator(p)) {
-        if (fs::is_regular_file(iter)) {
-            res.push_back(iter.path().native());
-        }
-    }
-
-    return res;
-}
-
 subcmd_t determine_cmd(const std::string& cmd) {
     LOG(DEBUG, "Determining subcommand");
 
@@ -91,7 +71,7 @@ void dispatch_parse(const std::vector<std::string>& inputs, const std::string& o
 
     for (auto iter = inputs.begin(); iter != inputs.end(); iter++) {
         // Positional filenames
-        std::vector<std::string> globbed = glob(*iter);
+        std::vector<std::string> globbed = util::glob(*iter);
         filenames.insert(filenames.end(), globbed.begin(), globbed.end());
     }
 
