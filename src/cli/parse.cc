@@ -14,7 +14,9 @@ extern "C" {
 }
 
 namespace fs = boost::filesystem;
-namespace {
+namespace po = boost::program_options;
+
+namespace oonalysis::cli {
 
 static std::vector<std::string> glob(const std::string& filename) {
     LOG(TRACE, "Globbing filenames");
@@ -34,11 +36,6 @@ static std::vector<std::string> glob(const std::string& filename) {
 
     return res;
 }
-
-} // anon namespace
-
-namespace po = boost::program_options;
-namespace oonalysis::cli {
 
 subcmd_t determine_cmd(const std::string& cmd) {
     LOG(DEBUG, "Determining subcommand");

@@ -30,6 +30,10 @@ CXChildVisitResult handle_inclusion_directive(CXCursor cur, CXCursor parent, CXC
     return CXChildVisit_Continue;
 }
 
+CXChildVisitResult handle_function_decl(CXCursor cur, CXCursor parent, CXClientData client_data) {
+    return CXChildVisit_Recurse;
+}
+
 CXChildVisitResult handle_other(CXCursor cur, CXCursor parent, CXClientData client_data) {
     return CXChildVisit_Recurse;
 }

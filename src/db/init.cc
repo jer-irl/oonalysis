@@ -42,6 +42,15 @@ void init_db() {
             "FOREIGN KEY (includee) REFERENCES file (id)"
             ");"
     );
+
+    db.exec(
+            "CREATE TABLE IF NOT EXISTS function_decl ( "
+            "id INTEGER PRIMARY KEY, "
+            "name TEXT NOT NULL, "
+            "file INTEGER, "
+            "FOREIGN KEY (file) REFERENCES file (id), "
+            ");"
+    );
 }
 
 } // namespace oonalysis::db

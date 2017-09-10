@@ -18,6 +18,7 @@ std::function<CXChildVisitResult(CXCursor, CXCursor, CXClientData)> dispatch_cur
     case CXCursor_FieldDecl:
     case CXCursor_EnumConstantDecl:
     case CXCursor_FunctionDecl:
+        return handle_function_decl;
     case CXCursor_VarDecl:
     case CXCursor_ParmDecl:
     case CXCursor_ObjCInterfaceDecl:
