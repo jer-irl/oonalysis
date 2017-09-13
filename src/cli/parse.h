@@ -3,17 +3,20 @@
 
 #include <string>
 #include <vector>
+#include <boost/program_options.hpp>
 
+namespace po = boost::program_options;
 
 namespace oonalysis::cli {
 
 typedef enum subcmd_t {
-    PARSE, SHOW, ANALYZE
+    PARSE, ANALYZE, HELP
 } subcmd_t;
 
 void main_cli(int argc, char** argv);
-void dispatch_analyze(const std::vector<std::string>& inputs);
-void dispatch_parse(const std::vector<std::string>& inputs, const std::string& output);
+void main_analyze(const std::vector<std::string>& args);
+void main_parse(const std::vector<std::string>& args);
+void main_help(const std::vector<std::string>& args);
 
 } // namespace oonalysis::cli
 
