@@ -20,12 +20,12 @@ typedef struct db_cppinclusion
     std::string includee;
 } db_cppinclusion;
 
-typedef struct db_function_impl
+typedef struct db_function_decl
 {
     int id;
     std::string name;
     std::string file;
-} db_function_impl;
+} db_function_decl;
 
 } // namespace oonalysis::db::repo
 

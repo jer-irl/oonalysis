@@ -29,12 +29,12 @@ bool update_dbcppinclusion(db_cppinclusion inclusion, int id);
 bool delete_dbcppinclusion(int id);
 uint32_t num_cppinclusions();
 
-bool dbfunctionimpl_present(const std::string& name, const std::string& file);
-bool add_dbfunctionimpl(db_function_impl func);
-db_function_impl get_dbfunctionimpl(int id);
-db_function_impl get_dbfunctionimpls();
-bool update_dbfunctionimpl(int id, db_function_impl func);
-bool delete_dbfunctionimpl(int id);
+bool dbfunctiondecl_present(const std::string& name, const std::string& file);
+bool add_dbfunctiondecl(db_function_decl func);
+db_function_decl get_dbfunctiondecl(int id);
+db_function_decl get_dbfunctiondecls();
+bool update_dbfunctiondecl(int id, db_function_decl func);
+bool delete_dbfunctiondecl(int id);
 
 } // namespace oonalysis::db::repo
 

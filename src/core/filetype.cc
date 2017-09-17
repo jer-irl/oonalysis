@@ -94,8 +94,8 @@ lang_t lang_from_filenames(const std::vector<std::string>& filenames) {
         if (lang == NONE || lang == OTHER) { continue; }
 
         if (lang == UNKNOWN) {
-            LOG(ERROR, "Unknown filetype: %s", filename.c_str());
-            exit(1);
+            LOG(WARNING, "Unknown filetype: %s", filename.c_str());
+            continue;
         }
         score[lang_from_filename(filename)]++;
     }

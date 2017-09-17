@@ -48,7 +48,7 @@ void init_db() {
             "id INTEGER PRIMARY KEY, "
             "name TEXT NOT NULL, "
             "file INTEGER, "
-            "FOREIGN KEY (file) REFERENCES file (id), "
+            "FOREIGN KEY (file) REFERENCES file (id)"
             ");"
     );
 }

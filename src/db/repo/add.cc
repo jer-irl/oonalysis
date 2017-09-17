@@ -49,4 +49,26 @@ bool add_dbcppinclusion(db_cppinclusion incl) {
     return true;
 }
 
+bool add_dbfunctiondecl(db_function_decl decl) {
+    LOG(DEBUG, "Adding db_function_decl");
+
+    SQLite::Database db(DB_NAME, SQLite::OPEN_READWRITE);
+    // See if file already added
+    if (decl.id != 0) {
+        SQLite::Statement query(db, "SELECT id FROM cppinclusion WHERE id = ?");
+        query.bind(1, decl.id);
+        query.executeStep();
+        if (!query.isDone()) { return false; }
+    }
+
+    db.exec(
+            "INSERT INTO function_decl (name, file) VALUES ('"
+          + decl.name
+          + "', '"
+          + decl.file
+          + "');");
+
+    return true;
+}
+
 } // namespace oonalysis::db::repo

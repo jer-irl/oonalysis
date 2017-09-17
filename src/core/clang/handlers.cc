@@ -1,6 +1,7 @@
 #include <clang-c/Index.h>
 #include "handlers.h"
 #include "db/cppinclusion.h"
+#include "db/functiondecl.h"
 extern "C" {
 #include "util/log.h"
 }
@@ -31,6 +32,14 @@ CXChildVisitResult handle_inclusion_directive(CXCursor cur, CXCursor parent, CXC
 }
 
 CXChildVisitResult handle_function_decl(CXCursor cur, CXCursor parent, CXClientData client_data) {
+    auto tu = clang_Cursor_getTranslationUnit(cur);
+    CXString filename = clang_getTranslationUnitSpelling(tu);
+    std::string fname = clang_getCString(filename);
+
+    CXString cxname = clang_getCursorSpelling(cur);
+    std::string name = clang_getCString(cxname);
+
+    db::add_new_function_decl(name, fname);
     return CXChildVisit_Recurse;
 }
 

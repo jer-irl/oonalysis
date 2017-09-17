@@ -1,4 +1,4 @@
-add_library (db init.cc file.cc cppinclusion.cc)
+add_library (db init.cc file.cc cppinclusion.cc functiondecl.cc)
 
 include_directories (.)
 add_subdirectory (repo)
