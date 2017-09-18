@@ -5,7 +5,6 @@ include_directories (${Boost_INCLUDE_DIR})
 
 add_executable (oonalysis-test test_main.cc)
 add_executable (oonalysis-cli cli_main.cc)
-add_executable (oonalysis-gui gui_main.cc)
 
 # ===========================
 # Subdirectories
@@ -33,6 +32,12 @@ target_link_libraries (oonalysis-cli util)
 # ===========================
 add_subdirectory (graph)
 add_subdirectory (gui)
-target_link_libraries (oonalysis-gui FLTK)
+
+set(wxWidgets_CONFIGURATION mswu)
+find_package(wxWidgets REQUIRED COMPONENTS core base)
+include(${wxWidgets_USE_FILE})
+include_directories(${wxWidgets_INCLUDE_DIRS})
+
+add_executable (oonalysis-gui gui_main.cc)
 target_link_libraries (oonalysis-gui gui)
 

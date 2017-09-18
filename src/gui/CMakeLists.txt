@@ -1,5 +1,9 @@
-add_library (gui mainwindow.cc menubar.cc menucallbacks.cc ctx.cc canvas.cc guinodes.cc)
+set(wxWidgets_CONFIGURATION mswu)
+find_package(wxWidgets REQUIRED COMPONENTS core base)
+include(${wxWidgets_USE_FILE})
+include_directories(${wxWidgets_INCLUDE_DIRS})
 
-target_link_libraries (gui fltk)
-target_link_libraries (gui db)
-target_link_libraries (gui graph)
+add_library(gui oonalysisapp.cc)
+
+target_link_libraries(gui ${wxWidgets_LIBRARIES})
+

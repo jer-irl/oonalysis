@@ -1,8 +1,3 @@
-#include <FL/Fl.H>
-#include "gui/ctx.h"
+#include "gui/oonalysisapp.h"
 
-int main(void) {
-    oonalysis::gui::Ctx* ctx = oonalysis::gui::Ctx::inst();
-    ctx->show();
-    return Fl::run();
-}
+wxIMPLEMENT_APP(oonalysis::gui::OOnalysisApp);
