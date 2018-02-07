@@ -14,10 +14,11 @@ MainFrame::MainFrame()
     menuFile->Append(wxID_EXIT);
 
     wxMenuBar *menuBar = new wxMenuBar;
-    menuBar->Append( menuFile, "&File" );
+    menuBar->Append(menuFile, "&File");
 
     SetMenuBar(menuBar);
     CreateStatusBar();
+
     SetStatusText("Welcome to wxWidgets!");
 
     Bind(wxEVT_MENU, &MainFrame::on_parse, this, ID_Parse);
