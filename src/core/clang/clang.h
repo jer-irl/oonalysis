@@ -3,6 +3,7 @@
 
 #include <string>
 #include <clang-c/Index.h>
+#include <vector>
 
 
 namespace oonalysis::core::clang {
