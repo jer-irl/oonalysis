@@ -13,4 +13,3 @@ include_directories (lib/SQLiteCpp/include/SQLiteCpp)
 include_directories (lib/Catch/include)
 add_subdirectory (src)
 
-
