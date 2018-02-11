@@ -1,13 +1,13 @@
+#include "parse.h"
+
 #include <vector>
 #include <string>
-#include <exception>
-#include <tuple>
 #include <iostream>
 #include <boost/filesystem.hpp>
 #include <boost/program_options.hpp>
-#include "parse.h"
 #include "core/parse.h"
-#include "db/init.h"
+#include "db/db.h"
+#include "list.h"
 #include "metrics/metrics.h"
 extern "C" {
 #include "util/log.h"
@@ -17,6 +17,11 @@ extern "C" {
 namespace po = boost::program_options;
 
 namespace oonalysis::cli {
+
+typedef enum subcmd_t {
+    PARSE, LIST, HELP
+} subcmd_t;
+
 
 std::tuple<po::options_description, po::positional_options_description> help_options_desc() {
     po::options_description desc("Help pages available");
@@ -57,7 +62,7 @@ subcmd_t determine_cmd(const std::string& cmd) {
     } else if (cmd == "help") {
         return HELP;
     } else if (cmd == "analyze") {
-        return ANALYZE;
+        return LIST;
     } else if (cmd == "") {
         LOG(ERROR, "Subcommand required");
         throw std::invalid_argument("No subcommand");
@@ -71,8 +76,8 @@ void dispatch_cmd(subcmd_t cmd, const std::vector<std::string>& args) throw() {
     case PARSE:
         main_parse(args);
         break;
-    case ANALYZE:
-        main_analyze(args);
+    case LIST:
+        list_main(args);
         break;
     case HELP:
         main_help(args);
@@ -117,24 +122,6 @@ void main_help(const std::vector<std::string>& args) {
     exit(0);
 }
 
-void main_analyze(const std::vector<std::string>& args) {
-    LOG(TRACE, "Dispatching analyze");
-
-    po::options_description desc = analyze_options_desc();
-
-    po::variables_map vm;
-    po::parsed_options parsed = po::command_line_parser(args).options(desc).run();
-    po::store(parsed, vm);
-    po::notify(vm);
-
-    if (!vm.count("input")) {
-        LOG(ERROR, "Need to give input");
-        exit(1);
-    }
-
-    db::set_db_name(vm["input"].as<std::string>());
-    metrics::main_metrics(vm["input"].as<std::string>());
-}
 
 void main_parse(const std::vector<std::string>& args) {
     LOG(TRACE, "Dispatching parse");
@@ -169,11 +156,12 @@ void main_cli(int argc, char** argv) {
     // Describe
     po::options_description desc("Allowed options");
     desc.add_options()
-        ("command", po::value<std::string>(), "parse, analyze, help")
-        ;
+            ("command", po::value<std::string>(), "parse, list, help")
+            ("subargs", po::value<std::vector<std::string>>(), "Arguments for command")
+            ;
 
     po::positional_options_description pd;
-    pd.add("command", 1);
+    pd.add("command", 1).add("subargs", -1);
 
     // Parse
     po::variables_map vm;
@@ -191,7 +179,7 @@ void main_cli(int argc, char** argv) {
     subcmd_t cmd;
     try {
         cmd = determine_cmd(vm["command"].as<std::string>());
-    } catch (std::invalid_argument ex) {
+    } catch (std::invalid_argument& ex) {
         LOG(CRITICAL, "Invalid command");
         exit(1);
     }

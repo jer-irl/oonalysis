@@ -3,7 +3,6 @@
 #include "filetype.h"
 #include "metrics/loc.h"
 #include "clang/clang.h"
-#include "db/file.h"
 #include "common/loc.h"
 extern "C" {
 #include "util/log.h"
@@ -15,7 +14,7 @@ namespace oonalysis::core {
 void common_parse(const std::vector<std::string>& files) {
     for (auto file : files) {
         int loc = common::loc_in_file(file);
-        db::add_new_file(file, &loc);
+        //db::add_new_file(file, &loc);
     }
 }
 

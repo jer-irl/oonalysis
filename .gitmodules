@@ -1,8 +1,8 @@
-[submodule "lib/SQLiteCpp"]
-	path = lib/SQLiteCpp
-	url = git@github.com:SRombauts/SQLiteCpp.git
-    ignore = dirty
 [submodule "lib/Catch"]
 	path = lib/Catch
 	url = git@github.com:philsquared/Catch.git
     ignore = dirty
+[submodule "lib/sqlite_orm"]
+	path = lib/sqlite_orm
+	url = git@github.com:fnc12/sqlite_orm.git
+	ignore = dirty
