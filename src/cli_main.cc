@@ -1,5 +1,4 @@
-#include "oonalysis.h"
-#include "cli/parse.h"
+#include "cli/cli.h"
 extern "C" {
 #include "util/log.h"
 }
