@@ -43,9 +43,8 @@ void list_main(const std::vector<std::string>& args) {
     }
 
     auto storage = db::get_storage(vm["input"].as<std::string>());
-    std::string filename = vm["file"].as<std::string>();
-    auto f = storage.get_all<db::File>(orm::where(orm::c(&db::File::path) == filename));
-    std::vector<db::FunctionDef> funcs = metrics::functions_in_file(storage, f);
+    auto f = storage.get_all<db::File>();
+    std::vector<db::FunctionDef> funcs = metrics::functions_in_file(storage, f[0]);
     for (const db::FunctionDef& fd : funcs) {
         std::cout << fd.function_name << std::endl;
     }

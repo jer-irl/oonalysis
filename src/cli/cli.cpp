@@ -1,9 +1,15 @@
 #include "cli.h"
 
+#include <iostream>
+#include <boost/program_options.hpp>
 #include "help.h"
 #include "list.h"
 #include "parse.h"
+extern "C" {
+#include "util/log.h"
+}
 
+namespace po = boost::program_options;
 namespace oonalysis::cli {
 
 typedef enum subcmd_t {

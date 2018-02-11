@@ -2,7 +2,7 @@
 
 #include <iostream>
 #include <boost/program_options.hpp>
-extern C {
+extern "C" {
 #include "util/log.h"
 };
 
