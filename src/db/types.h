@@ -1,6 +1,8 @@
 #ifndef DB_TYPES_H
 #define DB_TYPES_H
 
+#include <string>
+
 namespace oonalysis::db {
 
 struct File {

@@ -7,7 +7,7 @@ namespace oonalysis::db {
 
 using namespace sqlite_orm;
 
-Database get_storage(std::string& filename) {
+Database get_storage(const std::string& filename) {
     return make_storage(filename,
                         make_table("files",
                                    make_column("id", &File::id, autoincrement(), primary_key()),

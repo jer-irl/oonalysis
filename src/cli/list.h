@@ -7,7 +7,7 @@
 
 namespace oonalysis::cli {
 
-void list_main(const std::vector<std::string>>& args);
+void list_main(const std::vector<std::string>& args);
 
 } // namespace oonalysis::cli
 

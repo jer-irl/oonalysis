@@ -1,13 +1,16 @@
 #include "list.h"
 
+#include <iostream>
 #include <boost/program_options.hpp>
+#include "sqlite_orm/sqlite_orm.h"
 #include "db/db.h"
 #include "metrics/files.h"
-extern C {
+extern "C" {
 #include "util/log.h"
 };
 
-using po = boost::program_options;
+namespace po = boost::program_options;
+namespace orm = sqlite_orm;
 namespace oonalysis::cli {
 
 void list_main(const std::vector<std::string>& args) {
@@ -40,12 +43,12 @@ void list_main(const std::vector<std::string>& args) {
     }
 
     auto storage = db::get_storage(vm["input"].as<std::string>());
-    db::File f = db::get_function_by_name(storage, vm["file"].as<std::string>());
-    std::vector<db::FunctionDef> funcs = metrics::functions_in_file(f);
+    std::string filename = vm["file"].as<std::string>();
+    auto f = storage.get_all<db::File>(orm::where(orm::c(&db::File::path) == filename));
+    std::vector<db::FunctionDef> funcs = metrics::functions_in_file(storage, f);
     for (const db::FunctionDef& fd : funcs) {
-        std::cout << fd.name << std::endl;
+        std::cout << fd.function_name << std::endl;
     }
-    return;
 }
 
 } // namespace oonalysis::cli

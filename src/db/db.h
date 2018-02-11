@@ -40,7 +40,7 @@ using Database = sqlite_orm::internal::storage_t<
         >
 >;
 
-Database get_storage(std::string&);
+Database get_storage(const std::string&);
 
 } // namespace oonalysis::db
 

@@ -18,7 +18,7 @@ void common_parse(const std::vector<std::string>& files) {
     }
 }
 
-void parse_files(const std::vector<std::string>& files) {
+void parse_files(db::Database& db, const std::vector<std::string>& files) {
     LOG(INFO, "Parsing files");
 
     common_parse(files);
