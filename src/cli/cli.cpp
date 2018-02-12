@@ -5,9 +5,6 @@
 #include "help.h"
 #include "list.h"
 #include "parse.h"
-extern "C" {
-#include "util/log.h"
-}
 
 namespace po = boost::program_options;
 namespace oonalysis::cli {
@@ -16,17 +13,27 @@ typedef enum subcmd_t {
     PARSE, LIST, HELP
 } subcmd_t;
 
-static subcmd_t determine_cmd(const std::string& cmd) {
-    LOG(DEBUG, "Determining subcommand");
+static void print_usage() {
+    std::cout <<
+              "Welcome to oonalysis.  The program is broken into subprograms\n"
+              "similarly to git.\n"
+              "\n"
+              "Usage: oonalysis-cli command [args...]\n"
+              "\n"
+              "Available commands:\n"
+              "     list\n"
+              "     parse\n"
+              "     help\n" << std::endl;
+}
 
+static subcmd_t determine_cmd(const std::string& cmd) {
     if (cmd == "parse") {
         return PARSE;
     } else if (cmd == "help") {
         return HELP;
     } else if (cmd == "analyze") {
         return LIST;
-    } else if (cmd == "") {
-        LOG(ERROR, "Subcommand required");
+    } else if (cmd.empty()) {
         throw std::invalid_argument("No subcommand");
     } else {
         throw std::invalid_argument("bad subcommand");
@@ -46,7 +53,6 @@ static void dispatch_cmd(subcmd_t cmd, const std::vector<std::string>& args) thr
             break;
         default:
             throw std::invalid_argument("bad subcommand");
-            break;
     }
 }
 
@@ -69,7 +75,7 @@ void main_cli(int argc, char** argv) {
 
     // Global options
     if (!vm.count("command")) {
-        std::cout << desc;
+        print_usage();
         exit(0);
     }
 
@@ -78,7 +84,6 @@ void main_cli(int argc, char** argv) {
     try {
         cmd = determine_cmd(vm["command"].as<std::string>());
     } catch (std::invalid_argument& ex) {
-        LOG(CRITICAL, "Invalid command");
         exit(1);
     }
 

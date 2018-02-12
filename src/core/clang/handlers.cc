@@ -1,6 +1,7 @@
 #include <clang-c/Index.h>
 #include <string>
-#include "db/types.h"
+#include "db/db.h"
+#include "clang.h"
 #include "sqlite_orm/sqlite_orm.h"
 #include "handlers.h"
 extern "C" {
@@ -42,8 +43,11 @@ CXChildVisitResult handle_function_decl(CXCursor cur, CXCursor parent, CXClientD
     CXString cxname = clang_getCursorSpelling(cur);
     std::string name = clang_getCString(cxname);
 
-    // TODO
-    // db::add_new_function_decl(name, fname);
+    CursorData cd = *(CursorData *) client_data;
+
+    auto fd = db::FunctionDecl{-1, name, cd.file.id};
+    cd.db.insert(fd);
+
     return CXChildVisit_Recurse;
 }
 

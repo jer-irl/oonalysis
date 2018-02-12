@@ -4,11 +4,18 @@
 #include <string>
 #include <clang-c/Index.h>
 #include <vector>
+#include "db/db.h"
+#include "db/types.h"
 
 
 namespace oonalysis::core::clang {
 
-void main_clang(const std::vector<std::string>& filename);
+struct CursorData {
+    db::Database& db;
+    db::File& file;
+};
+
+void main_clang(db::Database&, const std::vector<db::File>& files);
 
 } // namespace oonalysis::core::clang
 

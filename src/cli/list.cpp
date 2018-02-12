@@ -44,8 +44,8 @@ void list_main(const std::vector<std::string>& args) {
 
     auto storage = db::get_storage(vm["input"].as<std::string>());
     auto f = storage.get_all<db::File>();
-    std::vector<db::FunctionDef> funcs = metrics::functions_in_file(storage, f[0]);
-    for (const db::FunctionDef& fd : funcs) {
+    std::vector<db::FunctionDecl> funcs = metrics::functions_in_file(storage, f[0]);
+    for (const db::FunctionDecl& fd : funcs) {
         std::cout << fd.function_name << std::endl;
     }
 }

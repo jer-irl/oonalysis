@@ -18,7 +18,7 @@ public:
     int includee_id;
 };
 
-struct FunctionDef {
+struct FunctionDecl {
 public:
     int id;
     std::string function_name;

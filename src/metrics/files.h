@@ -8,7 +8,7 @@
 
 namespace oonalysis::metrics {
 
-std::vector<db::FunctionDef> functions_in_file(db::Database& db, const db::File& f);
+std::vector<db::FunctionDecl> functions_in_file(db::Database& db, const db::File& f);
 
 } // namespace oonalysis::metrics
 
