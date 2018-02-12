@@ -21,8 +21,6 @@ Database get_storage(const std::string& filename) {
                                 )
     );
     storage.sync_schema(true);
-    storage.remove_all<FunctionDecl>();
-    storage.remove_all<File>();
     return storage;
 }
 

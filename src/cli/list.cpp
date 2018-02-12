@@ -35,10 +35,13 @@ void list_main(const std::vector<std::string>& args) {
         LOG(ERROR, "Need to give input database");
         exit(1);
     } else if (!vm.count("command")) {
+        std::cout << "No listing type given" << std::endl;
         exit(1);
     } else if (!vm.count("file")) {
+        std::cout << "No files given" << std::endl;
         exit(1);
     } else if (vm["command"].as<std::string>() != "functions") {
+        std::cout << "Unsupported list type" << std::endl;
         exit(1);
     }
 

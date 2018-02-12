@@ -31,7 +31,7 @@ static subcmd_t determine_cmd(const std::string& cmd) {
         return PARSE;
     } else if (cmd == "help") {
         return HELP;
-    } else if (cmd == "analyze") {
+    } else if (cmd == "list") {
         return LIST;
     } else if (cmd.empty()) {
         throw std::invalid_argument("No subcommand");
