@@ -1,38 +1,39 @@
+#include "clang.h"
+
 #include <string>
 #include <vector>
+#include <iostream>
 #include <cstdlib>
 #include <clang-c/Index.h>
 #include <functional>
+#include <tuple>
 #include "cursor_dispatch.h"
-extern "C" {
-#include "util/log.h"
-}
+#include "db/db.h"
+#include "db/types.h"
 
 
 namespace oonalysis::core::clang {
 
-CXChildVisitResult cursor_visitor(CXCursor cur, CXCursor parent, CXClientData client_data) {
+static CXChildVisitResult cursor_visitor(CXCursor cur, CXCursor parent, CXClientData client_data) {
     auto handler = dispatch_cursor(cur);
     return handler(cur, parent, client_data);
 }
 
-void parse_translation_unit(CXTranslationUnit tu) {
-    LOG(INFO, "Parsing clang file");
-
+static void parse_translation_unit(db::Database& db, db::File file, CXTranslationUnit tu) {
     clang_visitChildren(
             clang_getTranslationUnitCursor(tu),
             cursor_visitor,
-            nullptr);
+            new CursorData{db, file});
 }
 
-std::vector<CXTranslationUnit> make_translation_units(CXIndex* index, const std::vector<std::string>& files) {
-    std::vector<CXTranslationUnit> res;
+static std::vector<std::tuple<db::File, CXTranslationUnit>> make_translation_units(CXIndex* index, const std::vector<db::File>& files) {
+    std::vector<std::tuple<db::File, CXTranslationUnit>> res;
 
-    for (auto file : files) {
+    for (const auto& file : files) {
         CXTranslationUnit tu;
         auto err = clang_parseTranslationUnit2(
                 *index,
-                file.c_str(),
+                file.path.c_str(),
                 nullptr,
                 0,
                 nullptr,
@@ -41,21 +42,20 @@ std::vector<CXTranslationUnit> make_translation_units(CXIndex* index, const std:
                 &tu);
 
         if (err != CXError_Success) {
-            LOG(ERROR, "Error in creating translation unit");
+            std::cout << "Error in creating translation unit" << std::endl;
             exit(1);
         }
-        res.push_back(tu);
+        res.push_back(std::make_tuple(file, tu));
     }
     return res;
 }
 
-void main_clang(const std::vector<std::string>& files) {
-    LOG(INFO, "Entering clang main");
+void main_clang(db::Database& db, const std::vector<db::File>& files) {
     CXIndex index = clang_createIndex(1, 1);
-    std::vector<CXTranslationUnit> tus =  make_translation_units(&index, files);
+    std::vector<std::tuple<db::File, CXTranslationUnit>> tus =  make_translation_units(&index, files);
 
     for (auto tu : tus) {
-        parse_translation_unit(tu);
+        parse_translation_unit(db, std::get<0>(tu), std::get<1>(tu));
     }
 }
 

@@ -1,2 +1,1 @@
-add_subdirectory (SQLiteCpp)
-add_subdirectory (Catch)
+include_directories(sqlite_orm/include Catch/include)

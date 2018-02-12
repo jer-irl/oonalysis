@@ -1,17 +1,15 @@
-#include <iostream>
-#include <SQLiteCpp.h>
 #include "files.h"
-#include "db/file.h"
 
+#include <iostream>
+#include "sqlite_orm/sqlite_orm.h"
+#include "db/db.h"
+#include "db/types.h"
+
+namespace orm = sqlite_orm;
 namespace oonalysis::metrics {
 
-uint32_t num_files() {
-    return db::get_num_files();
-}
-
-void main_files() {
-    std::cout << "Printing file statistics:" << std::endl;
-    std::cout << "Number of files: " << num_files() << std::endl;
+std::vector<db::FunctionDecl> functions_in_file(db::Database& db, const db::File& f) {
+    return db.get_all<db::FunctionDecl>(orm::where(orm::is_equal(&db::FunctionDecl::file_id, f.id)));
 }
 
 } // namespace oonalysis::metrics

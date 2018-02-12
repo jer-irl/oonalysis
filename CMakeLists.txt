@@ -9,7 +9,7 @@ set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -std=c++1z")
 include_directories (lib/SQLiteCpp/include)
 add_subdirectory (lib)
 
-include_directories (lib/SQLiteCpp/include/SQLiteCpp)
+include_directories (lib/sqlite_orm/include)
 include_directories (lib/Catch/include)
 add_subdirectory (src)
 

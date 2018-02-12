@@ -32,6 +32,7 @@ add_subdirectory (cli)
 
 target_link_libraries (oonalysis-cli cli)
 target_link_libraries (oonalysis-cli util)
+target_link_libraries (oonalysis-cli sqlite3)
 
 # ===========================
 # GUI
