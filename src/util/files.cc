@@ -10,6 +10,11 @@ namespace fs = boost::filesystem;
 
 namespace oonalysis::util {
 
+std::string path_from_partial(const std::string& partial){
+    fs::path p = fs::absolute(partial, fs::current_path());
+    return p.string();
+}
+
 std::vector<std::string> glob(const std::string& filename) {
     LOG(TRACE, "Globbing filenames");
     std::vector<std::string> res;
@@ -20,7 +25,7 @@ std::vector<std::string> glob(const std::string& filename) {
         return res;
     }
 
-    for (auto iter : fs::recursive_directory_iterator(p)) {
+    for (const auto& iter : fs::recursive_directory_iterator(p)) {
         if (fs::is_regular_file(iter)) {
             res.push_back(iter.path().native());
         }

@@ -37,10 +37,15 @@ void main_parse(const std::vector<std::string>& args) {
     }
 
     std::vector<std::string> inputs = vm["input"].as<std::vector<std::string>>();
+    std::vector<std::string> qualified;
+    for (const std::string& input : inputs) {
+        qualified.push_back(util::path_from_partial(input));
+    }
+
     db::Database db = db::get_storage(vm["output"].as<std::string>());
     db.remove_all<db::FunctionDecl>();
     db.remove_all<db::File>();
-    core::parse_files(db, inputs);
+    core::parse_files(db, qualified);
 }
 
 } // namespace oonalysis::cli
