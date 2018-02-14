@@ -2,13 +2,11 @@
 #include <string>
 #include "db/db.h"
 #include "clang.h"
-#include "sqlite_orm/sqlite_orm.h"
 #include "handlers.h"
 extern "C" {
 #include "util/log.h"
 }
 
-namespace orm = sqlite_orm;
 namespace oonalysis::core::clang {
 
 CXChildVisitResult handle_inclusion_directive(CXCursor cur, CXCursor parent, CXClientData client_data) {

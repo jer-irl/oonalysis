@@ -22,7 +22,8 @@ using Database = sqlite_orm::internal::storage_t<
         sqlite_orm::table_t<
                 sqlite_orm::internal::column_t<
                         oonalysis::db::FunctionDecl,
-                        int, sqlite_orm::constraints::autoincrement_t,
+                        int,
+                        sqlite_orm::constraints::autoincrement_t,
                         sqlite_orm::constraints::primary_key_t<>
                 >,
                 sqlite_orm::internal::column_t<
