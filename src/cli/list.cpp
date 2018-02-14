@@ -49,7 +49,7 @@ void list_main(const std::vector<std::string>& args) {
     auto f = storage.get_all<db::File>();
     std::vector<db::FunctionDecl> funcs = metrics::functions_in_file(storage, f[0]);
     for (const db::FunctionDecl& fd : funcs) {
-        std::cout << fd.function_name << std::endl;
+        std::cout << fd.return_type << " " << fd.function_name << std::endl;
     }
 }
 

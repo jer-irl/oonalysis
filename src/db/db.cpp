@@ -17,6 +17,7 @@ Database get_storage(const std::string& filename) {
                                            make_column("id", &FunctionDecl::id, autoincrement(), primary_key()),
                                            make_column("name", &FunctionDecl::function_name),
                                            make_column("file_id", &FunctionDecl::file_id),
+                                           make_column("return_type", &FunctionDecl::return_type),
                                            foreign_key(&FunctionDecl::file_id).references(&File::id)
                                 )
     );

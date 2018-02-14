@@ -23,6 +23,7 @@ public:
     int id;
     std::string function_name;
     int file_id;
+    std::string return_type;
 };
 
 } // namespace oonalysis::db

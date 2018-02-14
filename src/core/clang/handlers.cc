@@ -49,9 +49,15 @@ CXChildVisitResult handle_function_decl(CXCursor cur, CXCursor parent, CXClientD
     std::string name = clang_getCString(cxname);
     clang_disposeString(cxname);
 
+    CXType cxtype = clang_getCursorResultType(cur);
+    CXString cxtypename = clang_getTypeSpelling(cxtype);
+    std::string return_type = clang_getCString(cxtypename);
+    clang_disposeString(cxtypename);
+
+
     CursorData cd = *(CursorData *) client_data;
 
-    auto fd = db::FunctionDecl{-1, name, cd.file.id};
+    auto fd = db::FunctionDecl{-1, name, cd.file.id, return_type};
     cd.db.insert(fd);
 
     return CXChildVisit_Recurse;

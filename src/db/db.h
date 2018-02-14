@@ -33,6 +33,10 @@ using Database = sqlite_orm::internal::storage_t<
                         oonalysis::db::FunctionDecl,
                         int
                 >,
+                sqlite_orm::internal::column_t<
+                        oonalysis::db::FunctionDecl,
+                        std::string
+                >,
                 sqlite_orm::constraints::foreign_key_t<
                         int oonalysis::db::FunctionDecl::*,
                         int oonalysis::db::File::*
