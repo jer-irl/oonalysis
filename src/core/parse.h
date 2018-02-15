@@ -8,8 +8,8 @@
 
 namespace oonalysis::core {
 
-void common_parse(const std::vector<std::string>& files);
 void parse_files(db::Database& db, const std::vector<std::string>& files);
+void parse_file(db::Database& db, const std::string& file);
 
 } // namespace oonalysis::core
 

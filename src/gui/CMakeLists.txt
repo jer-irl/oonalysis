@@ -5,5 +5,4 @@ include_directories(${wxWidgets_INCLUDE_DIRS})
 
 add_library(gui oonalysisapp.cc mainframe.cc project.cpp project.h)
 
-target_link_libraries(gui ${wxWidgets_LIBRARIES})
 

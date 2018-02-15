@@ -11,11 +11,17 @@ extern "C" {
 
 namespace oonalysis::core {
 
-void common_parse(db::Database& db, const std::vector<std::string>& files) {
+static void common_parse(db::Database& db, const std::vector<std::string>& files) {
     for (const auto& file : files) {
         db::File f{-1, file};
         db.insert(f);
     }
+}
+
+void parse_file(db::Database& db, const std::string& file) {
+    std::vector<std::string> vec;
+    vec.push_back(file);
+    parse_files(db, vec);
 }
 
 void parse_files(db::Database& db, const std::vector<std::string>& files) {

@@ -5,7 +5,7 @@
 namespace oonalysis::gui {
 
 bool OOnalysisApp::OnInit() {
-    MainFrame* main_frame = new MainFrame();
+    MainFrame* main_frame = new MainFrame(ctx);
     main_frame->Show(true);
     return true;
 }
