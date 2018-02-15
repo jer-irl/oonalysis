@@ -7,6 +7,7 @@ namespace oonalysis::core::clang {
 
 CXChildVisitResult handle_inclusion_directive(CXCursor cur, CXCursor parent, CXClientData client_data);
 CXChildVisitResult handle_function_decl(CXCursor cur, CXCursor parent, CXClientData client_data);
+CXChildVisitResult handle_var_decl(CXCursor cur, CXCursor parent, CXClientData client_data);
 CXChildVisitResult handle_other(CXCursor cur, CXCursor parent, CXClientData client_data);
 
 } // namespace oonalysis::core::clang

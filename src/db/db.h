@@ -6,6 +6,7 @@
 #include "types.h"
 
 namespace oonalysis::db {
+
 using Database = sqlite_orm::internal::storage_t<
         sqlite_orm::table_t<
                 sqlite_orm::internal::column_t<
@@ -41,6 +42,34 @@ using Database = sqlite_orm::internal::storage_t<
                 sqlite_orm::constraints::foreign_key_t<
                         int oonalysis::db::FunctionDecl::*,
                         int oonalysis::db::File::*
+                >
+        >,
+        sqlite_orm::table_t<
+                sqlite_orm::internal::column_t<
+                        VarDecl,
+                        int,
+                        sqlite_orm::constraints::autoincrement_t,
+                        sqlite_orm::constraints::primary_key_t<>
+                >,
+                sqlite_orm::internal::column_t<
+                        VarDecl,
+                        std::string
+                >,
+                sqlite_orm::internal::column_t<
+                        VarDecl,
+                        std::string
+                >,
+                sqlite_orm::internal::column_t<
+                        VarDecl,
+                        int
+                >,
+                sqlite_orm::internal::column_t<
+                        VarDecl,
+                        int
+                >,
+                sqlite_orm::constraints::foreign_key_t<
+                        int VarDecl::*,
+                        int File::*
                 >
         >
 >;

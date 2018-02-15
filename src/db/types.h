@@ -26,6 +26,15 @@ public:
     std::string return_type;
 };
 
+struct VarDecl {
+public:
+    int id;
+    std::string name;
+    std::string type;
+    int is_global;
+    int file_id;
+};
+
 } // namespace oonalysis::db
 
 #endif // DB_TYPES_H

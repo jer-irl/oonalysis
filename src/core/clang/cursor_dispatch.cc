@@ -11,15 +11,16 @@ std::function<CXChildVisitResult(CXCursor, CXCursor, CXClientData)> dispatch_cur
     case CXCursor_FirstPreprocessing: // CXCursor_PreprocessingDirective
     case CXCursor_InclusionDirective: // CXCursor_LastPreprocessing
         return handle_inclusion_directive;
+    case CXCursor_FunctionDecl:
+        return handle_function_decl;
+    case CXCursor_VarDecl:
+        return handle_var_decl;
     case CXCursor_StructDecl:
     case CXCursor_UnionDecl:
     case CXCursor_ClassDecl:
     case CXCursor_EnumDecl:
     case CXCursor_FieldDecl:
     case CXCursor_EnumConstantDecl:
-    case CXCursor_FunctionDecl:
-        return handle_function_decl;
-    case CXCursor_VarDecl:
     case CXCursor_ParmDecl:
     case CXCursor_ObjCInterfaceDecl:
     case CXCursor_ObjCCategoryDecl:

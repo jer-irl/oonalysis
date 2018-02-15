@@ -4,6 +4,7 @@
 #include <boost/program_options.hpp>
 #include "sqlite_orm/sqlite_orm.h"
 #include "db/db.h"
+#include "db/types.h"
 #include "metrics/files.h"
 extern "C" {
 #include "util/log.h"
@@ -40,16 +41,25 @@ void list_main(const std::vector<std::string>& args) {
     } else if (!vm.count("file")) {
         std::cout << "No files given" << std::endl;
         exit(1);
-    } else if (vm["command"].as<std::string>() != "functions") {
-        std::cout << "Unsupported list type" << std::endl;
-        exit(1);
     }
 
     auto storage = db::get_storage(vm["input"].as<std::string>());
-    auto f = storage.get_all<db::File>();
-    std::vector<db::FunctionDecl> funcs = metrics::functions_in_file(storage, f[0]);
-    for (const db::FunctionDecl& fd : funcs) {
-        std::cout << fd.return_type << " " << fd.function_name << std::endl;
+    if (vm["command"].as<std::string>() == "functions") {
+        auto f = storage.get_all<db::File>();
+        std::vector<db::FunctionDecl> funcs = metrics::functions_in_file(storage, f[0]);
+        for (const db::FunctionDecl& fd : funcs) {
+            std::cout << storage.dump(fd) << std::endl;
+        }
+    } else if (vm["command"].as<std::string>() == "globals") {
+        auto global_vars = storage.get_all<db::VarDecl>(orm::where(orm::is_not_equal(&db::VarDecl::is_global, 0)));
+        /*
+        for (const db::VarDecl& vd : global_vars) {
+            std::cout << storage.dump(vd) << std::endl;
+        }
+         */
+    } else {
+        std::cout << "Unrecognized command" << std::endl;
+        exit(1);
     }
 }
 

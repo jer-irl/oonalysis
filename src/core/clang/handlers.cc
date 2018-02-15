@@ -61,6 +61,34 @@ CXChildVisitResult handle_function_decl(CXCursor cur, CXCursor parent, CXClientD
     return CXChildVisit_Recurse;
 }
 
+CXChildVisitResult handle_var_decl(CXCursor cur, CXCursor parent, CXClientData client_data) {
+    CursorData cd = *(CursorData *) client_data;
+    CXSourceLocation loc = clang_getCursorLocation(cur);
+
+    if (!clang_Location_isFromMainFile(loc)) {
+        return CXChildVisit_Recurse;
+    }
+
+    // Top level variable declaration
+    if (clang_isTranslationUnit(clang_getCursorKind(parent))) {
+        CXString cxname = clang_getCursorSpelling(cur);
+        std::string name = clang_getCString(cxname);
+        clang_disposeString(cxname);
+
+        CXString cxtype = clang_getTypeSpelling(clang_getCursorType(cur));
+        std::string type = clang_getCString(cxtype);
+        clang_disposeString(cxtype);
+
+        int is_global = 1;
+        int file_id = cd.file.id;
+
+        cd.db.insert(db::VarDecl{-1, name, type, is_global, file_id});
+        return CXChildVisit_Recurse;
+    }
+
+    return CXChildVisit_Recurse;
+}
+
 CXChildVisitResult handle_other(CXCursor cur, CXCursor parent, CXClientData client_data) {
     return CXChildVisit_Recurse;
 }
