@@ -5,6 +5,8 @@
 #include <wx/log.h>
 #include <wx/filedlg.h>
 #include <wx/dialog.h>
+#include <wx/webview.h>
+#include <wx/button.h>
 #include "core/parse.h"
 
 namespace oonalysis::gui {
@@ -20,6 +22,8 @@ MainFrame::MainFrame(Context& the_ctx)
                      "Open a database file");
     menuFile->Append(ID_Parse, "&Parse...",
                      "Parse a program");
+    menuFile->Append(ID_Display, "&Display",
+                     "Display stats");
     menuFile->AppendSeparator();
     menuFile->Append(wxID_EXIT);
 
@@ -36,6 +40,14 @@ MainFrame::MainFrame(Context& the_ctx)
     Bind(wxEVT_MENU, &MainFrame::on_exit, this, wxID_EXIT);
     Bind(wxEVT_MENU, &MainFrame::on_new_db, this, ID_NewDb);
     Bind(wxEVT_MENU, &MainFrame::on_open_db, this, ID_OpenDb);
+    Bind(wxEVT_MENU, &MainFrame::on_display, this, ID_Display);
+
+    main_sizer = new wxBoxSizer(wxVERTICAL);
+    SetSizer(main_sizer);
+
+    web_view = wxWebView::New(this, wxID_ANY, wxWebViewDefaultURLStr, wxDefaultPosition, wxDefaultSize);
+    main_sizer->Add(web_view, wxSizerFlags(1).Expand());
+    web_view->Show();
 }
 
 void MainFrame::on_new_db(wxCommandEvent& event) {
@@ -87,6 +99,10 @@ void MainFrame::on_parse(wxCommandEvent& event) {
 void MainFrame::on_about(wxCommandEvent& event) {
     event.GetId();
     wxLogMessage("Hello world from wxWidgets!");
+}
+
+void MainFrame::on_display(wxCommandEvent& event) {
+    web_view->LoadURL("http://google.com");
 }
 
 } // namespace oonalysis::gui
