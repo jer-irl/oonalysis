@@ -1,3 +1,3 @@
-add_library (db db.cpp)
+#add_library (db)
 
 include_directories (.)

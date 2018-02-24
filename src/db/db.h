@@ -5,100 +5,44 @@
 #include "sqlite_orm/sqlite_orm.h"
 #include "types.h"
 
+
+namespace orm = sqlite_orm;
 namespace oonalysis::db {
 
-using Database = sqlite_orm::internal::storage_t<
-        sqlite_orm::table_t<
-                sqlite_orm::internal::column_t<
-                        oonalysis::db::File,
-                        int,
-                        sqlite_orm::constraints::autoincrement_t,
-                        sqlite_orm::constraints::primary_key_t<>
-                >,
-                sqlite_orm::internal::column_t<
-                        oonalysis::db::File,
-                        std::__1::basic_string<char>
-                >
-        >,
-        sqlite_orm::table_t<
-                sqlite_orm::internal::column_t<
-                        oonalysis::db::FunctionDecl,
-                        int,
-                        sqlite_orm::constraints::autoincrement_t,
-                        sqlite_orm::constraints::primary_key_t<>
-                >,
-                sqlite_orm::internal::column_t<
-                        oonalysis::db::FunctionDecl,
-                        std::__1::basic_string<char>
-                >,
-                sqlite_orm::internal::column_t<
-                        oonalysis::db::FunctionDecl,
-                        int
-                >,
-                sqlite_orm::internal::column_t<
-                        oonalysis::db::FunctionDecl,
-                        std::string
-                >,
-                sqlite_orm::constraints::foreign_key_t<
-                        int oonalysis::db::FunctionDecl::*,
-                        int oonalysis::db::File::*
-                >
-        >,
-        sqlite_orm::table_t<
-                sqlite_orm::internal::column_t<
-                        VarDecl,
-                        int,
-                        sqlite_orm::constraints::autoincrement_t,
-                        sqlite_orm::constraints::primary_key_t<>
-                >,
-                sqlite_orm::internal::column_t<
-                        VarDecl,
-                        std::string
-                >,
-                sqlite_orm::internal::column_t<
-                        VarDecl,
-                        std::string
-                >,
-                sqlite_orm::internal::column_t<
-                        VarDecl,
-                        int
-                >,
-                sqlite_orm::internal::column_t<
-                        VarDecl,
-                        int
-                >,
-                sqlite_orm::constraints::foreign_key_t<
-                        int VarDecl::*,
-                        int File::*
-                >
-        >,
-        sqlite_orm::table_t<
-                sqlite_orm::internal::column_t<
-                        oonalysis::db::FunctionDef,
-                        int,
-                        sqlite_orm::constraints::autoincrement_t,
-                        sqlite_orm::constraints::primary_key_t<>
-                >,
-                sqlite_orm::internal::column_t<
-                        oonalysis::db::FunctionDef,
-                        std::__1::basic_string<char>
-                >,
-                sqlite_orm::internal::column_t<
-                        oonalysis::db::FunctionDef,
-                        int
-                >,
-                sqlite_orm::internal::column_t<
-                        oonalysis::db::FunctionDef,
-                        std::string
-                >,
-                sqlite_orm::constraints::foreign_key_t<
-                        int oonalysis::db::FunctionDef::*,
-                        int oonalysis::db::File::*
-                >
-        >
->;
+static inline auto get_storage(const std::string& filename) {
+    auto storage = orm::make_storage(filename,
+                                     orm::make_table("files",
+                                                     orm::make_column("id", &File::id, orm::autoincrement(), orm::primary_key()),
+                                                     orm::make_column("path", &File::path)
+                                     ),
+                                     orm::make_table("func_decls",
+                                                     orm::make_column("id", &FunctionDecl::id, orm::autoincrement(), orm::primary_key()),
+                                                     orm::make_column("name", &FunctionDecl::function_name),
+                                                     orm::make_column("file_id", &FunctionDecl::file_id),
+                                                     orm::make_column("return_type", &FunctionDecl::return_type),
+                                                     orm::foreign_key(&FunctionDecl::file_id).references(&File::id)
+                                     ),
+                                     orm::make_table("var_decls",
+                                                     orm::make_column("id", &VarDecl::id, orm::autoincrement(), orm::primary_key()),
+                                                     orm::make_column("name", &VarDecl::name),
+                                                     orm::make_column("type", &VarDecl::type),
+                                                     orm::make_column("is_global", &VarDecl::is_global),
+                                                     orm::make_column("file_id", &VarDecl::file_id),
+                                                     orm::foreign_key(&VarDecl::file_id).references(&File::id)
+                                     ),
+                                     orm::make_table("func_defs",
+                                                     orm::make_column("id", &FunctionDef::id, orm::autoincrement(), orm::primary_key()),
+                                                     orm::make_column("name", &FunctionDef::function_name),
+                                                     orm::make_column("file_id", &FunctionDef::file_id),
+                                                     orm::make_column("return_type", &FunctionDef::return_type),
+                                                     orm::foreign_key(&FunctionDef::file_id).references(&File::id)
+                                     )
+    );
+    storage.sync_schema(true);
+    return storage;
+}
 
-Database get_storage(const std::string&);
+using Database = decltype(get_storage(""));
 
 } // namespace oonalysis::db
 
