@@ -38,11 +38,6 @@ CXChildVisitResult handle_inclusion_directive(CXCursor cur, CXCursor parent, CXC
 CXChildVisitResult handle_function_decl(CXCursor cur, CXCursor parent, CXClientData client_data) {
     (void) parent;
 
-    CXSourceLocation loc = clang_getCursorLocation(cur);
-    if (!clang_Location_isFromMainFile(loc)) {
-        return CXChildVisit_Recurse;
-    }
-
     CXString cxname = clang_getCursorSpelling(cur);
     std::string name = clang_getCString(cxname);
     clang_disposeString(cxname);
@@ -52,11 +47,15 @@ CXChildVisitResult handle_function_decl(CXCursor cur, CXCursor parent, CXClientD
     std::string return_type = clang_getCString(cxtypename);
     clang_disposeString(cxtypename);
 
-
     CursorData cd = *(CursorData *) client_data;
 
-    auto fd = db::FunctionDecl{-1, name, cd.file.id, return_type};
-    cd.db.insert(fd);
+    if (clang_isCursorDefinition(cur)) {
+        auto fd = db::FunctionDef{-1, name, cd.file.id, return_type};
+        cd.db.insert(fd);
+    } else {
+        auto fd = db::FunctionDecl{-1, name, cd.file.id, return_type};
+        cd.db.insert(fd);
+    }
 
     return CXChildVisit_Recurse;
 }

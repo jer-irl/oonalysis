@@ -27,6 +27,13 @@ Database get_storage(const std::string& filename) {
                                            make_column("is_global", &VarDecl::is_global),
                                            make_column("file_id", &VarDecl::file_id),
                                            foreign_key(&VarDecl::file_id).references(&File::id)
+                                ),
+                                make_table("func_defs",
+                                           make_column("id", &FunctionDef::id, autoincrement(), primary_key()),
+                                           make_column("name", &FunctionDef::function_name),
+                                           make_column("file_id", &FunctionDef::file_id),
+                                           make_column("return_type", &FunctionDef::return_type),
+                                           foreign_key(&FunctionDef::file_id).references(&File::id)
                                 )
     );
     storage.sync_schema(true);

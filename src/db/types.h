@@ -26,6 +26,14 @@ public:
     std::string return_type;
 };
 
+struct FunctionDef {
+public:
+    int id;
+    std::string function_name;
+    int file_id;
+    std::string return_type;
+};
+
 struct VarDecl {
 public:
     int id;
