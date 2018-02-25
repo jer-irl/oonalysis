@@ -1,5 +1,6 @@
 #include <clang-c/Index.h>
 #include <string>
+#include <sqlite_orm/sqlite_orm.h>
 #include "db/db.h"
 #include "clang.h"
 #include "handlers.h"
@@ -11,7 +12,7 @@ namespace oonalysis::core::clang {
 
 CXChildVisitResult handle_inclusion_directive(CXCursor cur, CXCursor parent, CXClientData client_data) {
     (void) parent;
-    (void) client_data;
+    CursorData cd = *(CursorData *) client_data;
 
     LOG(DEBUG, "Handling inclusion directive");
 
@@ -24,13 +25,22 @@ CXChildVisitResult handle_inclusion_directive(CXCursor cur, CXCursor parent, CXC
     std::string includee_name = clang_getCString(filename);
     clang_disposeString(filename);
 
+    db::File includee_record;
+    try{
+        includee_record = cd.db.get<db::File>(includee_name);
+    } catch (sqlite_orm::not_found_exception) {
+        includee_record.path = includee_name;
+        cd.db.replace(includee_record);
+    }
+
     auto tu = clang_Cursor_getTranslationUnit(cur);
     CXString filename2 = clang_getTranslationUnitSpelling(tu);
     std::string includer_name = clang_getCString(filename2);
     clang_disposeString(filename2);
 
-    // TODO
-    // db::add_new_inclusion(includer_name, includee_name);
+    db::CppInclusion incl{includer_name, includee_name};
+
+    cd.db.replace(incl);
 
     return CXChildVisit_Continue;
 }

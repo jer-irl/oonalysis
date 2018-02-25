@@ -42,8 +42,7 @@ void main_parse(const std::vector<std::string>& args) {
         qualified.push_back(util::path_from_partial(input));
     }
 
-    //db::Database db = db::get_storage(vm["output"].as<std::string>());
-    db::Database db = db::get_storage("");
+    db::Database db = db::get_storage(vm["output"].as<std::string>());
     core::parse_files(db, qualified);
 }
 
