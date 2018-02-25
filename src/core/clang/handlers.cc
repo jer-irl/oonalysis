@@ -50,10 +50,10 @@ CXChildVisitResult handle_function_decl(CXCursor cur, CXCursor parent, CXClientD
     CursorData cd = *(CursorData *) client_data;
 
     if (clang_isCursorDefinition(cur)) {
-        auto fd = db::FunctionDef{-1, name, cd.file.id, return_type};
+        auto fd = db::FunctionDef{-1, name, cd.file.path, return_type};
         cd.db.insert(fd);
     } else {
-        auto fd = db::FunctionDecl{-1, name, cd.file.id, return_type};
+        auto fd = db::FunctionDecl{-1, name, cd.file.path, return_type};
         cd.db.insert(fd);
     }
 
@@ -79,9 +79,9 @@ CXChildVisitResult handle_var_decl(CXCursor cur, CXCursor parent, CXClientData c
         clang_disposeString(cxtype);
 
         int is_global = 1;
-        int file_id = cd.file.id;
+        std::string file_path = cd.file.path;
 
-        cd.db.insert(db::VarDecl{-1, name, type, is_global, file_id});
+        cd.db.insert(db::VarDecl{-1, name, type, is_global, file_path});
         return CXChildVisit_Recurse;
     }
 

@@ -7,22 +7,20 @@ namespace oonalysis::db {
 
 struct File {
 public:
-    int id;
     std::string path;
 };
 
 struct CppInclusion {
 public:
-    int id;
-    int includer_id;
-    int includee_id;
+    std::string includer_path;
+    std::string includee_path;
 };
 
 struct FunctionDecl {
 public:
     int id;
     std::string function_name;
-    int file_id;
+    std::string file_path;
     std::string return_type;
 };
 
@@ -30,7 +28,7 @@ struct FunctionDef {
 public:
     int id;
     std::string function_name;
-    int file_id;
+    std::string file_path;
     std::string return_type;
 };
 
@@ -40,7 +38,7 @@ public:
     std::string name;
     std::string type;
     int is_global;
-    int file_id;
+    std::string file_path;
 };
 
 } // namespace oonalysis::db

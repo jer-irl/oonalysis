@@ -13,8 +13,8 @@ namespace oonalysis::core {
 
 static void common_parse(db::Database& db, const std::vector<std::string>& files) {
     for (const auto& file : files) {
-        db::File f{-1, file};
-        db.insert(f);
+        db::File f{file};
+        db.replace(f);
     }
 }
 
