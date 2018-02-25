@@ -54,6 +54,7 @@ MainFrame::MainFrame(Context& the_ctx)
 void MainFrame::on_new_db(wxCommandEvent& event) {
     wxFileDialog file_dialog;
     file_dialog.SetTitle("New Database");
+    file_dialog.SetWindowStyle(wxFD_SAVE);
     file_dialog.ShowModal();
 
     ctx.database_path = file_dialog.GetPath();
@@ -93,13 +94,10 @@ void MainFrame::on_parse(wxCommandEvent& event) {
 
     db::Database db = db::get_storage(ctx.database_path);
     core::parse_file(db, path);
-
-    wxLogMessage("Hello world from wxWidgets!");
 }
 
 void MainFrame::on_about(wxCommandEvent& event) {
     event.GetId();
-    wxLogMessage("Hello world from wxWidgets!");
 }
 
 void MainFrame::on_display(wxCommandEvent& event) {

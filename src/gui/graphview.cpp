@@ -1,6 +1,7 @@
 #include "graphview.h"
 
 #include <wx/graphics.h>
+#include <wx/dcclient.h>
 #include <graphviz/gvc.h>
 
 
@@ -10,10 +11,18 @@ GraphView::GraphView(wxWindow* parent) : wxPanel(parent) {
     graph = nullptr;
     Bind(wxEVT_PAINT, &GraphView::on_paint, this);
     wxImage::AddHandler(new wxPNGHandler);
+    graphviz_ctx = gvContext();
 }
 
 void GraphView::set_graph(Agraph_t* g) {
     this->graph = g;
+    FILE* image_file = fopen("graph.png", "w");
+
+    gvLayout(graphviz_ctx, graph, "dot");
+    gvRender(graphviz_ctx, graph, "png", image_file);
+    fclose(image_file);
+
+    this->Refresh();
 }
 
 void GraphView::on_paint(wxPaintEvent& event) {
@@ -21,19 +30,14 @@ void GraphView::on_paint(wxPaintEvent& event) {
         return;
     }
 
-    wxGraphicsContext* ctx = wxGraphicsContext::Create(this);
-
-    FILE* image_file = fopen("graph.png", "w");
-
-    GVC_t* gvc = gvContext();
-    gvLayout(gvc, graph, "dot");
-    gvRender(gvc, graph, "png", image_file);
-    fclose(image_file);
+    wxPaintDC dc(this);
+    wxGraphicsContext* ctx = wxGraphicsContext::Create(dc);
 
     wxImage img("graph.png");
-    bool is_okay = img.IsOk();
     wxBitmap bitmap(img);
-    ctx->DrawBitmap(bitmap, 0, 0, 500, 500);
+    int w, h;
+    GetSize(&w, &h);
+    ctx->DrawBitmap(bitmap, 0, 0, w, h);
 }
 
 } // namespace oonalysis::gui

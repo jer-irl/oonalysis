@@ -3,6 +3,7 @@
 
 #include <wx/panel.h>
 #include <graphviz/cgraph.h>
+#include <graphviz/gvc.h>
 
 namespace oonalysis::gui {
 
@@ -14,6 +15,7 @@ public:
 
 private:
     Agraph_t *graph;
+    GVC_t *graphviz_ctx;
 
 }; // class GraphView
 

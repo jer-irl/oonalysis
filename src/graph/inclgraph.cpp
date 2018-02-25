@@ -19,7 +19,7 @@ Agraph_t* get_inclgraph(db::Database &db) {
     }
 
     for (const db::CppInclusion& incl : db.get_all<db::CppInclusion>()) {
-        agedge(res, nodes[incl.includer_path], nodes[incl.includee_path], nullptr, 1);
+        agedge(res, nodes[incl.includee_path], nodes[incl.includer_path], nullptr, 1);
     }
 
     return res;
