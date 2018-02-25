@@ -5,6 +5,7 @@
 #include <wx/sizer.h>
 #include <wx/webview.h>
 #include "context.h"
+#include "graphview.h"
 
 namespace oonalysis::gui {
 
@@ -22,7 +23,7 @@ private:
     void on_display(wxCommandEvent& event);
 
     wxBoxSizer* main_sizer;
-    wxWebView* web_view;
+    GraphView* graph_view;
 }; // class MainFrame
 
 enum {

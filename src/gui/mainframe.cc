@@ -7,13 +7,14 @@
 #include <wx/dialog.h>
 #include <wx/webview.h>
 #include <wx/button.h>
+#include "graph/inclgraph.h"
 #include "core/parse.h"
 
 namespace oonalysis::gui {
 
 MainFrame::MainFrame(Context& the_ctx)
-          : ctx(the_ctx),
-            wxFrame(nullptr, wxID_ANY, "oonalysis", wxDefaultPosition, wxDefaultSize) {
+        : ctx(the_ctx),
+          wxFrame(nullptr, wxID_ANY, "oonalysis", wxDefaultPosition, wxDefaultSize) {
 
     wxMenu *menuFile = new wxMenu;
     menuFile->Append(ID_NewDb, "&New DB...",
@@ -45,9 +46,9 @@ MainFrame::MainFrame(Context& the_ctx)
     main_sizer = new wxBoxSizer(wxVERTICAL);
     SetSizer(main_sizer);
 
-    web_view = wxWebView::New(this, wxID_ANY, wxWebViewDefaultURLStr, wxDefaultPosition, wxDefaultSize);
-    main_sizer->Add(web_view, wxSizerFlags(1).Expand());
-    web_view->Show();
+    graph_view = new GraphView(this);
+    main_sizer->Add(graph_view, wxSizerFlags(1).Expand());
+    graph_view->Show();
 }
 
 void MainFrame::on_new_db(wxCommandEvent& event) {
@@ -76,7 +77,7 @@ void MainFrame::on_exit(wxCommandEvent& event) {
 void MainFrame::on_parse(wxCommandEvent& event) {
     event.GetId();
 
-    if (ctx.database_path == "") {
+    if (ctx.database_path.empty()) {
         wxDialog no_db;
         no_db.SetTitle("No Database available");
         return;
@@ -102,7 +103,9 @@ void MainFrame::on_about(wxCommandEvent& event) {
 }
 
 void MainFrame::on_display(wxCommandEvent& event) {
-    web_view->LoadURL("http://google.com");
+    db::Database db = db::get_storage(ctx.database_path);
+    Agraph_t* g = graph::get_inclgraph(db);
+    graph_view->set_graph(g);
 }
 
 } // namespace oonalysis::gui
