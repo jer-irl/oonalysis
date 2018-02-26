@@ -7,11 +7,13 @@
 
 namespace oonalysis::gui {
 
-GraphView::GraphView(wxWindow* parent) : wxPanel(parent) {
+GraphView::GraphView(wxWindow* parent) : wxScrolledWindow(parent) {
     graph = nullptr;
     Bind(wxEVT_PAINT, &GraphView::on_paint, this);
     wxImage::AddHandler(new wxPNGHandler);
     graphviz_ctx = gvContext();
+
+    SetScrollRate(10, 10);
 }
 
 void GraphView::set_graph(Agraph_t* g) {
@@ -30,14 +32,16 @@ void GraphView::on_paint(wxPaintEvent& event) {
         return;
     }
 
-    wxPaintDC dc(this);
-    wxGraphicsContext* ctx = wxGraphicsContext::Create(dc);
-
     wxImage img("graph.png");
     wxBitmap bitmap(img);
-    int w, h;
-    GetSize(&w, &h);
-    ctx->DrawBitmap(bitmap, 0, 0, w, h);
+
+    SetVirtualSize(bitmap.GetWidth(), bitmap.GetHeight());
+
+    wxPaintDC dc(this);
+    DoPrepareDC(dc);
+    wxGraphicsContext* ctx = wxGraphicsContext::Create(dc);
+
+    ctx->DrawBitmap(bitmap, 0, 0, bitmap.GetWidth(), bitmap.GetHeight());
 }
 
 } // namespace oonalysis::gui

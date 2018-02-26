@@ -1,13 +1,13 @@
 #ifndef GUI_GRAPHVIEW_H
 #define GUI_GRAPHVIEW_H
 
-#include <wx/panel.h>
+#include <wx/scrolwin.h>
 #include <graphviz/cgraph.h>
 #include <graphviz/gvc.h>
 
 namespace oonalysis::gui {
 
-class GraphView : public wxPanel {
+class GraphView : public wxScrolledWindow {
 public:
     explicit GraphView(wxWindow* parent);
     void set_graph(Agraph_t* graph);
