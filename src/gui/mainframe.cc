@@ -13,8 +13,8 @@
 namespace oonalysis::gui {
 
 MainFrame::MainFrame(Context& the_ctx)
-        : ctx(the_ctx),
-          wxFrame(nullptr, wxID_ANY, "oonalysis", wxDefaultPosition, wxDefaultSize) {
+        : wxFrame(nullptr, wxID_ANY, "oonalysis", wxDefaultPosition, wxDefaultSize),
+          ctx(the_ctx) {
 
     wxMenu *menuFile = new wxMenu;
     menuFile->Append(ID_NewDb, "&New DB...",
@@ -23,8 +23,8 @@ MainFrame::MainFrame(Context& the_ctx)
                      "Open a database file");
     menuFile->Append(ID_Parse, "&Parse...",
                      "Parse a program");
-    menuFile->Append(ID_Display, "&Display",
-                     "Display stats");
+    menuFile->Append(ID_DisplayInclusions, "&Display Inclusions",
+                     "Display inclusion graph");
     menuFile->AppendSeparator();
     menuFile->Append(wxID_EXIT);
 
@@ -41,7 +41,7 @@ MainFrame::MainFrame(Context& the_ctx)
     Bind(wxEVT_MENU, &MainFrame::on_exit, this, wxID_EXIT);
     Bind(wxEVT_MENU, &MainFrame::on_new_db, this, ID_NewDb);
     Bind(wxEVT_MENU, &MainFrame::on_open_db, this, ID_OpenDb);
-    Bind(wxEVT_MENU, &MainFrame::on_display, this, ID_Display);
+    Bind(wxEVT_MENU, &MainFrame::on_display, this, ID_DisplayInclusions);
 
     main_sizer = new wxBoxSizer(wxVERTICAL);
     SetSizer(main_sizer);
@@ -85,15 +85,22 @@ void MainFrame::on_parse(wxCommandEvent& event) {
     }
 
     wxFileDialog dialog(this, "Select file to parse");
+    dialog.SetWindowStyle(wxFD_OPEN | wxFD_MULTIPLE);
     auto res = dialog.ShowModal();
     if (res == wxCANCEL) {
         return;
     }
 
-    std::string path = dialog.GetPath();
+    wxArrayString paths = wxArrayString();
+    dialog.GetPaths(paths);
+
+    std::vector<std::string> the_paths;
+    for (int i = 0; i < paths.GetCount(); i++) {
+        the_paths.push_back(paths[i]);
+    }
 
     db::Database db = db::get_storage(ctx.database_path);
-    core::parse_file(db, path);
+    core::parse_files(db, the_paths);
 }
 
 void MainFrame::on_about(wxCommandEvent& event) {

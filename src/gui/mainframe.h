@@ -30,7 +30,7 @@ enum {
     ID_Parse = 1,
     ID_OpenDb = 2,
     ID_NewDb = 3,
-    ID_Display = 4,
+    ID_DisplayInclusions = 4,
 };
 
 } // namespace oonalysis::gui

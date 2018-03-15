@@ -23,6 +23,7 @@ void GraphView::set_graph(Agraph_t* g) {
     gvLayout(graphviz_ctx, graph, "dot");
     gvRender(graphviz_ctx, graph, "png", image_file);
     fclose(image_file);
+    gvFreeLayout(graphviz_ctx, graph);
 
     this->Refresh();
 }

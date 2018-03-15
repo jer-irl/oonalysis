@@ -28,7 +28,7 @@ CXChildVisitResult handle_inclusion_directive(CXCursor cur, CXCursor parent, CXC
     db::File includee_record;
     try{
         includee_record = cd.db.get<db::File>(includee_name);
-    } catch (sqlite_orm::not_found_exception) {
+    } catch (sqlite_orm::not_found_exception&) {
         includee_record.path = includee_name;
         cd.db.replace(includee_record);
     }
