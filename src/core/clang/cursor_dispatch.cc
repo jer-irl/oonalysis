@@ -15,6 +15,8 @@ std::function<CXChildVisitResult(CXCursor, CXCursor, CXClientData)> dispatch_cur
         return handle_function_decl;
     case CXCursor_VarDecl:
         return handle_var_decl;
+    case CXCursor_CallExpr:
+        return handle_function_call;
     case CXCursor_StructDecl:
     case CXCursor_UnionDecl:
     case CXCursor_ClassDecl:
@@ -70,7 +72,6 @@ std::function<CXChildVisitResult(CXCursor, CXCursor, CXClientData)> dispatch_cur
     case CXCursor_UnexposedExpr:
     case CXCursor_DeclRefExpr:
     case CXCursor_MemberRefExpr:
-    case CXCursor_CallExpr:
     case CXCursor_ObjCMessageExpr:
     case CXCursor_BlockExpr:
     case CXCursor_IntegerLiteral:

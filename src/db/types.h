@@ -18,7 +18,6 @@ public:
 
 struct FunctionDecl {
 public:
-    int id;
     std::string function_name;
     std::string file_path;
     std::string return_type;
@@ -26,7 +25,6 @@ public:
 
 struct FunctionDef {
 public:
-    int id;
     std::string function_name;
     std::string file_path;
     std::string return_type;
@@ -39,6 +37,12 @@ public:
     std::string type;
     int is_global;
     std::string file_path;
+};
+
+struct FunctionCall {
+    unsigned int line_num;
+    std::string called_function_name;
+    std::string parent_function_name;
 };
 
 } // namespace oonalysis::db
