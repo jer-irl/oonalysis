@@ -5,6 +5,7 @@ set (CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 
 set (CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall -std=c11")
 set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -std=c++1z")
+set(CMAKE_CXX_STANDARD 17)
 
 add_subdirectory (lib)
 
