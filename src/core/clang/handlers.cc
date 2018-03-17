@@ -10,8 +10,15 @@ extern "C" {
 
 namespace oonalysis::core::clang {
 
+static db::FunctionDef get_enclosing_function(CXCursor cur, CXClientData client_data);
+
 CXChildVisitResult handle_inclusion_directive(CXCursor cur, CXCursor parent, CXClientData client_data) {
     (void) parent;
+
+    if (clang_Location_isInSystemHeader(clang_getCursorLocation(cur))) {
+        return CXChildVisit_Continue;
+    }
+
     CursorData cd = *(CursorData *) client_data;
 
     LOG(DEBUG, "Handling inclusion directive");
@@ -60,11 +67,11 @@ CXChildVisitResult handle_function_decl(CXCursor cur, CXCursor parent, CXClientD
     CursorData cd = *(CursorData *) client_data;
 
     if (clang_isCursorDefinition(cur)) {
-        auto fd = db::FunctionDef{-1, name, cd.file.path, return_type};
-        cd.db.insert(fd);
+        auto fd = db::FunctionDef{name, cd.file.path, return_type};
+        cd.db.replace(fd);
     } else {
-        auto fd = db::FunctionDecl{-1, name, cd.file.path, return_type};
-        cd.db.insert(fd);
+        auto fd = db::FunctionDecl{name, cd.file.path, return_type};
+        cd.db.replace(fd);
     }
 
     return CXChildVisit_Recurse;
@@ -98,8 +105,54 @@ CXChildVisitResult handle_var_decl(CXCursor cur, CXCursor parent, CXClientData c
     return CXChildVisit_Recurse;
 }
 
+CXChildVisitResult handle_function_call(CXCursor cur, CXCursor parent, CXClientData client_data) {
+    CursorData cd = *(CursorData *) client_data;
+    CXSourceLocation loc = clang_getCursorLocation(cur);
+
+    unsigned int line_num;
+    clang_getFileLocation(loc, nullptr, &line_num, nullptr, nullptr);
+
+    db::FunctionDef enclosing_func;
+    try {
+        enclosing_func = get_enclosing_function(cur, client_data);
+    } catch (std::runtime_error& ex) {
+        // Weird case
+        return CXChildVisit_Continue;
+    }
+
+    CXString called_name = clang_getCursorSpelling(cur);
+    std::string called_str = clang_getCString(called_name);
+    clang_disposeString(called_name);
+
+    db::FunctionDef called_func = cd.db.get<db::FunctionDef>(called_str);
+
+    db::FunctionCall res = { line_num, called_func.function_name, enclosing_func.function_name };
+    cd.db.replace(res);
+
+    return CXChildVisit_Continue;
+}
+
 CXChildVisitResult handle_other(CXCursor cur, CXCursor parent, CXClientData client_data) {
     return CXChildVisit_Recurse;
+}
+
+db::FunctionDef get_enclosing_function(CXCursor cur, CXClientData client_data) {
+    CursorData cd = *(CursorData *) client_data;
+
+    CXCursor parent = clang_getCursorSemanticParent(cur);
+    while (!clang_isTranslationUnit(clang_getCursorKind(parent))) {
+        if (clang_getCursorKind(parent) == CXCursor_FunctionDecl) {
+            CXString parent_name = clang_getCursorSpelling(parent);
+            std::string parent_str = clang_getCString(parent_name);
+            clang_disposeString(parent_name);
+
+            db::FunctionDef res = cd.db.get<db::FunctionDef>(parent_str);
+
+            return res;
+        }
+        parent = clang_getCursorSemanticParent(parent);
+    }
+    throw std::runtime_error("No enclosing parent");
 }
 
 } // end namespace oonalysis::core::clang
