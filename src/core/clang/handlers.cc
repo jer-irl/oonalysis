@@ -124,7 +124,12 @@ CXChildVisitResult handle_function_call(CXCursor cur, CXCursor parent, CXClientD
     std::string called_str = clang_getCString(called_name);
     clang_disposeString(called_name);
 
-    db::FunctionDef called_func = cd.db.get<db::FunctionDef>(called_str);
+    db::FunctionDef called_func;
+    try {
+        called_func = cd.db.get<db::FunctionDef>(called_str);
+    } catch (sqlite_orm::not_found_exception& ex) {
+        called_func.function_name = called_str;
+    }
 
     db::FunctionCall res = { line_num, called_func.function_name, enclosing_func.function_name };
     cd.db.replace(res);
