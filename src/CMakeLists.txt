@@ -47,6 +47,5 @@ target_link_libraries(oonalysis-gui sqlite3)
 target_link_libraries(oonalysis-gui core)
 target_link_libraries(oonalysis-gui util)
 target_link_libraries(oonalysis-gui graph)
-target_link_libraries(oonalysis-gui ${wxWidgets_LIBRARIES})
 target_link_libraries(oonalysis-gui gvc cgraph)
 

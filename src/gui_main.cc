@@ -1,3 +1,11 @@
-#include "gui/oonalysisapp.h"
+#include "gui/mainwindow.hpp"
+#include <QApplication>
 
-wxIMPLEMENT_APP(oonalysis::gui::OOnalysisApp);
+int main(int argc, char *argv[])  {
+    QApplication OOnalysisApp(argc, argv);
+
+    oonalysis::gui::MainWindow main_window;
+    main_window.show();
+
+    return OOnalysisApp.exec();
+}
