@@ -3,7 +3,9 @@
 
 #include <QMainWindow>
 #include <QTreeWidget>
+#include <QLabel>
 #include <string>
+#include "FileTree.h"
 
 namespace oonalysis::gui {
 
@@ -17,11 +19,13 @@ private:
 
     void on_new_database();
     void on_select_project_root();
+    void on_parse();
 
     std::string db_name = "";
     std::string project_root = "";
 
-    QTreeWidget *file_tree;
+    FileTree *file_tree;
+    QLabel *image_label;
 
 }; // class MainWindow
 

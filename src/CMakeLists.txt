@@ -3,11 +3,6 @@ include_directories(.)
 find_package (boost COMPONENTS filesystem REQUIRED)
 include_directories (${Boost_INCLUDE_DIR})
 
-set(wxWidgets_CONFIGURATION mswu)
-find_package(wxWidgets REQUIRED COMPONENTS core base)
-include(${wxWidgets_USE_FILE})
-include_directories(${wxWidgets_INCLUDE_DIRS})
-
 add_executable (oonalysis-test test_main.cc)
 add_executable (oonalysis-cli cli_main.cc)
 add_executable (oonalysis-gui gui_main.cc)
@@ -34,7 +29,7 @@ target_link_libraries (oonalysis-test core)
 target_link_libraries (oonalysis-cli cli)
 target_link_libraries (oonalysis-cli util)
 target_link_libraries (oonalysis-cli sqlite3)
-target_link_libraries (oonalysis-cli db)
+#target_link_libraries (oonalysis-cli db)
 target_link_libraries (oonalysis-cli core)
 target_link_libraries (oonalysis-cli metrics)
 
@@ -42,10 +37,10 @@ target_link_libraries (oonalysis-cli metrics)
 # GUI
 # ===========================
 target_link_libraries(oonalysis-gui gui)
-target_link_libraries(oonalysis-gui db)
+#target_link_libraries(oonalysis-gui db)
 target_link_libraries(oonalysis-gui sqlite3)
 target_link_libraries(oonalysis-gui core)
 target_link_libraries(oonalysis-gui util)
 target_link_libraries(oonalysis-gui graph)
-target_link_libraries(oonalysis-gui gvc cgraph)
+#target_link_libraries(oonalysis-gui gvc cgraph)
 

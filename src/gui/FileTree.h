@@ -4,6 +4,7 @@
 #include <QTreeWidget>
 #include <QTreeWidgetItem>
 #include <string>
+#include <vector>
 #include <boost/filesystem.hpp>
 
 namespace oonalysis::gui {
@@ -12,7 +13,10 @@ class FileTree : public QTreeWidget {
 public:
     explicit FileTree(std::string root_path, QWidget *parent = nullptr);
 
+    void set_root(const std::string& root);
     void redraw();
+
+    std::vector<std::string> selected_files();
 
 private:
     std::string root_path;
