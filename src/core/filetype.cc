@@ -45,8 +45,13 @@ lang_t lang_from_filename(const std::string& filename) {
 
     // Obvious
     if (ext == "c")    { return C; }
-    if (ext == "cc"
-     || ext == "cpp")  { return CPP; }
+    if (
+        ext == "cc" ||
+        ext == "cpp" ||
+        ext == "hpp" ||
+        ext == "hh" ||
+        ext == "h"
+        )  { return CPP; }
     if (ext == "hs")   { return HS; }
     if (ext == "java") { return OTHER; }
     if (ext == "py")   { return PY; }

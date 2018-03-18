@@ -80,7 +80,8 @@ void MainWindow::on_open_database() {
 
 void MainWindow::on_show_inclusions() {
     db::Database db = db::get_storage(db_name);
-    Agraph_t *graph = graph::get_inclgraph(db);
+    auto the_files = file_tree->selected_files();
+    Agraph_t *graph = graph::get_inclgraph(db, std::unordered_set<std::string>(the_files.begin(), the_files.end()));
 
     FILE *image_file = fopen("graph.png", "w");
     GVC_t* gvc = gvContext();

@@ -53,7 +53,7 @@ QTreeWidgetItem *FileTree::item_for_path(const fs::path& path, QTreeWidgetItem *
     auto res = new QTreeWidgetItem(parent);
     res->setFlags(Qt::ItemIsUserCheckable | Qt::ItemIsAutoTristate | Qt::ItemIsEnabled);
     res->setCheckState(0, Qt::Unchecked);
-    res->setText(0, QString::fromStdString(path.string()));
+    res->setText(0, QString::fromStdString(path.filename().string()));
     return res;
 }
 
