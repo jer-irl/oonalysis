@@ -3,11 +3,10 @@
 #include <QMenuBar>
 #include <QFileDialog>
 #include <QDockWidget>
-#include <QScrollArea>
+#include <QDesktopWidget>
 #include <graphviz/cgraph.h>
 #include <graphviz/gvc.h>
 #include "core/parse.h"
-#include "db/db.h"
 #include "graph/inclgraph.h"
 
 namespace fs = boost::filesystem;
@@ -15,6 +14,8 @@ namespace fs = boost::filesystem;
 namespace oonalysis::gui {
 
 MainWindow::MainWindow() : QMainWindow() {
+    resize(QDesktopWidget().availableGeometry(this).size() * 0.9);
+
     create_menu_bar();
 
     file_tree = new FileTree(fs::current_path().string());
