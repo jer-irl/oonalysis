@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include <QTreeWidget>
 #include <QLabel>
+#include <QScrollArea>
 #include <string>
 #include "FileTree.h"
 
@@ -18,14 +19,17 @@ private:
     void create_menu_bar();
 
     void on_new_database();
+    void on_open_database();
     void on_select_project_root();
     void on_parse();
+    void on_show_inclusions();
 
     std::string db_name = "";
     std::string project_root = "";
 
     FileTree *file_tree;
     QLabel *image_label;
+    QScrollArea *image_scroll_area;
 
 }; // class MainWindow
 

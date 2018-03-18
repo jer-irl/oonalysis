@@ -118,6 +118,8 @@ CXChildVisitResult handle_function_call(CXCursor cur, CXCursor parent, CXClientD
     } catch (std::runtime_error& ex) {
         // Weird case
         return CXChildVisit_Continue;
+    } catch (sqlite_orm::not_found_exception& ex) {
+        return CXChildVisit_Continue;
     }
 
     CXString called_name = clang_getCursorSpelling(cur);

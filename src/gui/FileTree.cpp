@@ -67,7 +67,7 @@ std::vector<std::string> FileTree::selected_files() {
     auto iter = QTreeWidgetItemIterator(this);
     while (*iter) {
         QTreeWidgetItem *item = *iter;
-        if (item->checkState(0)) {
+        if (item->checkState(0) && item->childCount() == 0) {
             res.push_back(item->text(0).toStdString());
         }
         ++iter;

@@ -2,6 +2,7 @@ include_directories(.)
 
 find_package (boost COMPONENTS filesystem REQUIRED)
 include_directories (${Boost_INCLUDE_DIR})
+link_directories(/usr/local/lib)
 
 add_executable (oonalysis-test test_main.cc)
 add_executable (oonalysis-cli cli_main.cc)
@@ -42,5 +43,6 @@ target_link_libraries(oonalysis-gui sqlite3)
 target_link_libraries(oonalysis-gui core)
 target_link_libraries(oonalysis-gui util)
 target_link_libraries(oonalysis-gui graph)
-#target_link_libraries(oonalysis-gui gvc cgraph)
+target_link_libraries(oonalysis-gui gvc)
+target_link_libraries(oonalysis-gui cgraph)
 
