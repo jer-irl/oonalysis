@@ -6,6 +6,7 @@
 #include <QLabel>
 #include <QScrollArea>
 #include <string>
+#include <graphviz/cgraph.h>
 #include "FileTree.h"
 
 namespace oonalysis::gui {
@@ -23,6 +24,7 @@ private:
     void on_select_project_root();
     void on_parse();
     void on_show_inclusions();
+    void on_show_callgraph();
 
     std::string db_name = "";
     std::string project_root = "";
@@ -30,6 +32,8 @@ private:
     FileTree *file_tree;
     QLabel *image_label;
     QScrollArea *image_scroll_area;
+
+    void show_graph(Agraph_t* graph);
 
 }; // class MainWindow
 
