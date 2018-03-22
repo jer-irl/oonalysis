@@ -9,6 +9,8 @@
 
 namespace oonalysis::gui {
 
+class FileTreeNode;
+
 class FileTree : public QTreeWidget {
 public:
     explicit FileTree(std::string root_path, QWidget *parent = nullptr);
@@ -24,7 +26,13 @@ private:
     void add_file_item(const boost::filesystem::path& path, QTreeWidgetItem *parent);
     void add_dir_item(const boost::filesystem::path& path, QTreeWidgetItem *parent);
 
-    static QTreeWidgetItem *item_for_path(const boost::filesystem::path& path, QTreeWidgetItem *parent);
+    static FileTreeNode *item_for_path(const boost::filesystem::path& path, QTreeWidgetItem *parent);
+};
+
+class FileTreeNode : public QTreeWidgetItem {
+public:
+    using QTreeWidgetItem::QTreeWidgetItem;
+    std::string path;
 };
 
 } // namespace oonalysis::gui

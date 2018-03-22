@@ -30,7 +30,6 @@ target_link_libraries (oonalysis-test core)
 target_link_libraries (oonalysis-cli cli)
 target_link_libraries (oonalysis-cli util)
 target_link_libraries (oonalysis-cli sqlite3)
-#target_link_libraries (oonalysis-cli db)
 target_link_libraries (oonalysis-cli core)
 target_link_libraries (oonalysis-cli metrics)
 
@@ -38,7 +37,6 @@ target_link_libraries (oonalysis-cli metrics)
 # GUI
 # ===========================
 target_link_libraries(oonalysis-gui gui)
-#target_link_libraries(oonalysis-gui db)
 target_link_libraries(oonalysis-gui sqlite3)
 target_link_libraries(oonalysis-gui core)
 target_link_libraries(oonalysis-gui util)

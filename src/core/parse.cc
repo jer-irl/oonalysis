@@ -34,7 +34,8 @@ void parse_files(db::Database& db, const std::vector<std::string>& files) {
     switch (project_lang) {
     case C:
     case CPP:
-        for (const db::File& f : db.iterate<db::File>()) {
+        for (const std::string& filename : files) {
+            db::File f = db.get<db::File>(filename);
             if (lang_from_filename(f.path) == C || lang_from_filename(f.path) == CPP) {
                 to_parse.push_back(f);
             }

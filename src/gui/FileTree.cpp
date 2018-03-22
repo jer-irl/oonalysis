@@ -49,11 +49,12 @@ void FileTree::add_dir_item(const fs::path& path, QTreeWidgetItem *parent) {
     }
 }
 
-QTreeWidgetItem *FileTree::item_for_path(const fs::path& path, QTreeWidgetItem *parent) {
-    auto res = new QTreeWidgetItem(parent);
+FileTreeNode *FileTree::item_for_path(const fs::path& path, QTreeWidgetItem *parent) {
+    auto res = new FileTreeNode(parent);
     res->setFlags(Qt::ItemIsUserCheckable | Qt::ItemIsAutoTristate | Qt::ItemIsEnabled);
     res->setCheckState(0, Qt::Unchecked);
     res->setText(0, QString::fromStdString(path.filename().string()));
+    res->path = path.string();
     return res;
 }
 
@@ -66,9 +67,9 @@ std::vector<std::string> FileTree::selected_files() {
 
     auto iter = QTreeWidgetItemIterator(this);
     while (*iter) {
-        QTreeWidgetItem *item = *iter;
+        FileTreeNode *item = (FileTreeNode *) *iter;
         if (item->checkState(0) && item->childCount() == 0) {
-            res.push_back(item->text(0).toStdString());
+            res.push_back(item->path);
         }
         ++iter;
     }
