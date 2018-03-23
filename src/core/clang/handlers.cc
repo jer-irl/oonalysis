@@ -33,12 +33,12 @@ CXChildVisitResult handle_inclusion_directive(CXCursor cur, CXCursor parent, CXC
     clang_disposeString(filename);
 
     db::File includee_record;
-    //try{
+    try{
         includee_record = cd.db.get<db::File>(includee_name);
-    //} catch (sqlite_orm::not_found_exception&) {
-        //includee_record.path = includee_name;
-        //cd.db.replace(includee_record);
-    //}
+    } catch (std::system_error&) {
+        includee_record.path = includee_name;
+        cd.db.replace(includee_record);
+    }
 
     auto tu = clang_Cursor_getTranslationUnit(cur);
     CXString filename2 = clang_getTranslationUnitSpelling(tu);
@@ -118,8 +118,8 @@ CXChildVisitResult handle_function_call(CXCursor cur, CXCursor parent, CXClientD
     } catch (std::runtime_error& ex) {
         // Weird case
         return CXChildVisit_Continue;
-    //} catch (sqlite_orm::not_found_exception& ex) {
-        //return CXChildVisit_Continue;
+    } catch (std::system_error& ex) {
+        return CXChildVisit_Continue;
     }
 
     CXString called_name = clang_getCursorSpelling(cur);
@@ -127,11 +127,11 @@ CXChildVisitResult handle_function_call(CXCursor cur, CXCursor parent, CXClientD
     clang_disposeString(called_name);
 
     db::FunctionDef called_func;
-    //try {
+    try {
         called_func = cd.db.get<db::FunctionDef>(called_str);
-    //} catch (sqlite_orm::not_found_exception& ex) {
-        //called_func.function_name = called_str;
-    //}
+    } catch (std::system_error& ex) {
+        called_func.function_name = called_str;
+    }
 
     db::FunctionCall res = { line_num, called_func.function_name, enclosing_func.function_name };
     cd.db.replace(res);
@@ -153,7 +153,7 @@ db::FunctionDef get_enclosing_function(CXCursor cur, CXClientData client_data) {
             std::string parent_str = clang_getCString(parent_name);
             clang_disposeString(parent_name);
 
-            db::FunctionDef res = cd.db.get<db::FunctionDef>(parent_str);
+            auto res = cd.db.get<db::FunctionDef>(parent_str);
 
             return res;
         }

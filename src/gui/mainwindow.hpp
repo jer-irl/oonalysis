@@ -26,6 +26,7 @@ private:
     void on_show_inclusions();
     void on_show_callgraph();
     void on_show_filenode();
+    void on_show_inclusions_rendered();
 
     std::string db_name = "";
     std::string project_root = "";

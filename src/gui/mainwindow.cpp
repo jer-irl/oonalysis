@@ -5,11 +5,16 @@
 #include <QDockWidget>
 #include <QDesktopWidget>
 #include <graphviz/gvc.h>
+#include <unordered_map>
+#include <boost/algorithm/string.hpp>
 #include "core/parse.h"
 #include "graph/inclgraph.h"
 #include "graph/callgraph.h"
+#include "graph/PlainNode.hpp"
+#include "graph/PlainEdge.hpp"
 #include "FileNode.hpp"
 #include "Arrow.hpp"
+#include "utils.h"
 
 namespace fs = boost::filesystem;
 
@@ -64,6 +69,10 @@ void MainWindow::create_menu_bar() {
     auto show_filenode_action = new QAction("Show filenode");
     file_menu->addAction(show_filenode_action);
     connect(show_filenode_action, &QAction::triggered, this, &MainWindow::on_show_filenode);
+
+    auto show_inclusions_rendered_action = new QAction("Show inclusions rendered");
+    file_menu->addAction(show_inclusions_rendered_action);
+    connect(show_inclusions_rendered_action, &QAction::triggered, this, &MainWindow::on_show_inclusions_rendered);
 
     menu_bar->addMenu(file_menu);
 }
@@ -126,6 +135,54 @@ void MainWindow::on_show_filenode() {
     node2->show();
     arrow->show();
 
+}
+
+void MainWindow::on_show_inclusions_rendered() {
+    db::Database db = db::get_storage(db_name);
+    auto the_files = file_tree->selected_files();
+    Agraph_t *graph = graph::get_inclgraph(db, std::unordered_set<std::string>(the_files.begin(), the_files.end()));
+    GVC_t* gvc = gvContext();
+    gvLayout(gvc, graph, "dot");
+    char* xdot_data;
+    unsigned int len;
+    gvRenderData(gvc, graph, "plain", &xdot_data, &len);
+
+    std::vector<std::string> lines;
+    boost::split(lines, xdot_data, boost::is_any_of("\n"));
+
+    // Nodes
+    std::unordered_map<std::string, FileNode*> nodes;
+    for (const std::string& line : lines) {
+        std::vector<std::string> toks;
+        boost::split(toks, line, boost::is_any_of(" "));
+
+        if (toks[0] != "node") { continue; }
+
+        graph::PlainNode plain_node(line);
+
+        FileNode* file_node = new FileNode(plain_node.name, this->image_label);
+        file_node->move(plain_node.x * PIXELS_PER_INCH, plain_node.y * PIXELS_PER_INCH);
+        file_node->show();
+
+        nodes[plain_node.name] = file_node;
+    }
+
+    // Edges
+    for (const std::string& line : lines) {
+        std::vector<std::string> toks;
+        boost::split(toks, line, boost::is_any_of(" "));
+
+        if (toks[0] != "edge") { continue; }
+
+        graph::PlainEdge plain_edge(line);
+
+        Arrow* arrow = new Arrow(nodes[plain_edge.tail], nodes[plain_edge.head], this->image_label);
+        arrow->show();
+    }
+
+
+    agclose(graph);
+    gvFreeRenderData(xdot_data);
 }
 
 } // namespace oonalysis::gui
