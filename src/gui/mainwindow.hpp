@@ -25,6 +25,7 @@ private:
     void on_parse();
     void on_show_inclusions();
     void on_show_callgraph();
+    void on_show_filenode();
 
     std::string db_name = "";
     std::string project_root = "";
@@ -33,7 +34,7 @@ private:
     QLabel *image_label;
     QScrollArea *image_scroll_area;
 
-    void show_graph(Agraph_t* graph);
+    void show_graph_image(Agraph_t* graph);
 
 }; // class MainWindow
 

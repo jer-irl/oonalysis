@@ -8,6 +8,7 @@
 #include "core/parse.h"
 #include "graph/inclgraph.h"
 #include "graph/callgraph.h"
+#include "FileNode.hpp"
 
 namespace fs = boost::filesystem;
 
@@ -59,6 +60,10 @@ void MainWindow::create_menu_bar() {
     file_menu->addAction(show_callgraph_action);
     connect(show_callgraph_action, &QAction::triggered, this, &MainWindow::on_show_callgraph);
 
+    auto show_filenode_action = new QAction("Show filenode");
+    file_menu->addAction(show_filenode_action);
+    connect(show_filenode_action, &QAction::triggered, this, &MainWindow::on_show_filenode);
+
     menu_bar->addMenu(file_menu);
 }
 
@@ -86,7 +91,7 @@ void MainWindow::on_show_inclusions() {
     db::Database db = db::get_storage(db_name);
     auto the_files = file_tree->selected_files();
     Agraph_t *graph = graph::get_inclgraph(db, std::unordered_set<std::string>(the_files.begin(), the_files.end()));
-    show_graph(graph);
+    show_graph_image(graph);
     agclose(graph);
 }
 
@@ -94,11 +99,11 @@ void MainWindow::on_show_callgraph() {
     db::Database db = db::get_storage(db_name);
     auto the_files = file_tree->selected_files();
     Agraph_t* graph = graph::get_callgraph(db, std::unordered_set<std::string>(the_files.begin(), the_files.end()));
-    show_graph(graph);
+    show_graph_image(graph);
     agclose(graph);
 }
 
-void MainWindow::show_graph(Agraph_t *graph) {
+void MainWindow::show_graph_image(Agraph_t *graph) {
     FILE *image_file = fopen("graph.png", "w");
     GVC_t* gvc = gvContext();
     gvLayout(gvc, graph, "dot");
@@ -107,6 +112,11 @@ void MainWindow::show_graph(Agraph_t *graph) {
 
     QImage image("graph.png");
     image_label->setPixmap(QPixmap::fromImage(image));
+}
+
+void MainWindow::on_show_filenode() {
+    FileNode* node = new FileNode("Dummy/path", this->image_label);
+    node->show();
 }
 
 } // namespace oonalysis::gui
