@@ -9,6 +9,7 @@
 #include "graph/inclgraph.h"
 #include "graph/callgraph.h"
 #include "FileNode.hpp"
+#include "Arrow.hpp"
 
 namespace fs = boost::filesystem;
 
@@ -115,8 +116,16 @@ void MainWindow::show_graph_image(Agraph_t *graph) {
 }
 
 void MainWindow::on_show_filenode() {
-    FileNode* node = new FileNode("Dummy/path", this->image_label);
-    node->show();
+    FileNode* node1 = new FileNode("Dummy/path1", this->image_label);
+    FileNode* node2 = new FileNode("Dummy/path2", this->image_label);
+    node2->move(500, 500);
+
+    Arrow* arrow = new Arrow(node1, node2, this->image_label);
+
+    node1->show();
+    node2->show();
+    arrow->show();
+
 }
 
 } // namespace oonalysis::gui
