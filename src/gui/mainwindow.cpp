@@ -130,7 +130,8 @@ void MainWindow::on_show_filenode() {
     FileNode* node2 = new FileNode("Dummy/path2", this->image_label);
     node2->move(500, 500);
 
-    Arrow* arrow = new Arrow(node1, node2, this->image_label);
+    auto arrow = new Arrow(node1, node2, this->image_label);
+    image_scroll_area->setWidget(this->image_label);
 
     node1->show();
     node2->show();
@@ -168,6 +169,8 @@ void MainWindow::on_show_inclusions_rendered() {
         nodes[plain_node.name] = file_node;
     }
 
+    graph_display_region->updateGeometry();
+
     // Edges
     for (const std::string& line : lines) {
         std::vector<std::string> toks;
@@ -181,7 +184,6 @@ void MainWindow::on_show_inclusions_rendered() {
         arrow->show();
     }
 
-    graph_display_region->updateGeometry();
     image_scroll_area->setWidget(graph_display_region);
 
     agclose(graph);

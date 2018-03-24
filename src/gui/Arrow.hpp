@@ -9,8 +9,10 @@ class Arrow : public QWidget {
 public:
     Arrow(QWidget* pointer, QWidget* pointee, QWidget* parent = nullptr);
 
+    QSize sizeHint() const override;
+
 protected:
-    virtual void paintEvent(QPaintEvent* event) override;
+    void paintEvent(QPaintEvent* event) override;
 
 private:
     QWidget* pointer;
