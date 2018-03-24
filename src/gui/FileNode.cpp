@@ -14,4 +14,8 @@ void FileNode::paintEvent(QPaintEvent *event) {
     QFrame::paintEvent(event);
 }
 
+QSize FileNode::sizeHint() const {
+    return label->sizeHint();
+}
+
 } // namespace oonalysis::gui

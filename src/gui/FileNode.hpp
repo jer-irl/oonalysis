@@ -11,6 +11,8 @@ class FileNode : public QFrame {
 public:
     explicit FileNode(const std::string& path, QWidget* parent = nullptr);
 
+    virtual QSize sizeHint() const override;
+
 protected:
     void paintEvent(QPaintEvent *event) override;
 

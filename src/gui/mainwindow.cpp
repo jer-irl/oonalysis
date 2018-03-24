@@ -32,7 +32,7 @@ MainWindow::MainWindow() : QMainWindow() {
 
     image_scroll_area = new QScrollArea(this);
     image_label = new QLabel(image_scroll_area);
-    image_scroll_area->setWidget(image_label);
+    graph_display_region = new GraphDisplayRegion(image_scroll_area);
     setCentralWidget(image_scroll_area);
     image_scroll_area->setWidgetResizable(true);
 }
@@ -122,6 +122,7 @@ void MainWindow::show_graph_image(Agraph_t *graph) {
 
     QImage image("graph.png");
     image_label->setPixmap(QPixmap::fromImage(image));
+    image_scroll_area->setWidget(image_label);
 }
 
 void MainWindow::on_show_filenode() {
@@ -160,7 +161,7 @@ void MainWindow::on_show_inclusions_rendered() {
 
         graph::PlainNode plain_node(line);
 
-        FileNode* file_node = new FileNode(plain_node.name, this->image_label);
+        auto file_node = new FileNode(plain_node.name, this->graph_display_region);
         file_node->move(plain_node.x * PIXELS_PER_INCH, plain_node.y * PIXELS_PER_INCH);
         file_node->show();
 
@@ -176,10 +177,12 @@ void MainWindow::on_show_inclusions_rendered() {
 
         graph::PlainEdge plain_edge(line);
 
-        Arrow* arrow = new Arrow(nodes[plain_edge.tail], nodes[plain_edge.head], this->image_label);
+        auto arrow = new Arrow(nodes[plain_edge.tail], nodes[plain_edge.head], this->graph_display_region);
         arrow->show();
     }
 
+    graph_display_region->updateGeometry();
+    image_scroll_area->setWidget(graph_display_region);
 
     agclose(graph);
     gvFreeRenderData(xdot_data);

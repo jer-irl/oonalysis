@@ -8,6 +8,7 @@
 #include <string>
 #include <graphviz/cgraph.h>
 #include "FileTree.h"
+#include "GraphDisplayRegion.hpp"
 
 namespace oonalysis::gui {
 
@@ -34,6 +35,7 @@ private:
     FileTree *file_tree;
     QLabel *image_label;
     QScrollArea *image_scroll_area;
+    GraphDisplayRegion* graph_display_region;
 
     void show_graph_image(Agraph_t* graph);
 
