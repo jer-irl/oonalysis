@@ -1,16 +1,16 @@
 #include <clang-c/Index.h>
 #include <string>
 #include <sqlite_orm/sqlite_orm.h>
+#include <iostream>
 #include "db/db.h"
 #include "clang.h"
 #include "handlers.h"
+#include "util.hpp"
 extern "C" {
 #include "util/log.h"
 }
 
 namespace oonalysis::core::clang {
-
-static db::FunctionDef get_enclosing_function(CXCursor cur, CXClientData client_data);
 
 CXChildVisitResult handle_inclusion_directive(CXCursor cur, CXCursor parent, CXClientData client_data) {
     (void) parent;
@@ -26,6 +26,7 @@ CXChildVisitResult handle_inclusion_directive(CXCursor cur, CXCursor parent, CXC
     CXFile includee = clang_getIncludedFile(cur);
     if (!includee) {
         LOG(ERROR, "Couldn't get includee");
+        log_cursor(cur, client_data);
         return CXChildVisit_Continue;
     }
     CXString filename = clang_getFileName(includee);
@@ -117,8 +118,11 @@ CXChildVisitResult handle_function_call(CXCursor cur, CXCursor parent, CXClientD
         enclosing_func = get_enclosing_function(cur, client_data);
     } catch (std::runtime_error& ex) {
         // Weird case
+        std::cout << "No enclosing function (?)" << std::endl;
+        log_cursor(cur, client_data);
         return CXChildVisit_Continue;
     } catch (std::system_error& ex) {
+        std::cout << "Parent not in database, function call not input" << std::endl;
         return CXChildVisit_Continue;
     }
 
@@ -141,25 +145,6 @@ CXChildVisitResult handle_function_call(CXCursor cur, CXCursor parent, CXClientD
 
 CXChildVisitResult handle_other(CXCursor cur, CXCursor parent, CXClientData client_data) {
     return CXChildVisit_Recurse;
-}
-
-db::FunctionDef get_enclosing_function(CXCursor cur, CXClientData client_data) {
-    CursorData cd = *(CursorData *) client_data;
-
-    CXCursor parent = clang_getCursorSemanticParent(cur);
-    while (!clang_isTranslationUnit(clang_getCursorKind(parent))) {
-        if (clang_getCursorKind(parent) == CXCursor_FunctionDecl) {
-            CXString parent_name = clang_getCursorSpelling(parent);
-            std::string parent_str = clang_getCString(parent_name);
-            clang_disposeString(parent_name);
-
-            auto res = cd.db.get<db::FunctionDef>(parent_str);
-
-            return res;
-        }
-        parent = clang_getCursorSemanticParent(parent);
-    }
-    throw std::runtime_error("No enclosing parent");
 }
 
 } // end namespace oonalysis::core::clang
