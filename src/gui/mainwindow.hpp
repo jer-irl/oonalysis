@@ -17,6 +17,10 @@ class MainWindow : public QMainWindow {
 public:
     MainWindow();
 
+    static MainWindow* get_instance();
+
+    std::vector<std::string> get_compilation_arguments();
+
 private:
     void create_menu_bar();
 
@@ -38,6 +42,8 @@ private:
     GraphDisplayRegion* graph_display_region;
 
     void show_graph_image(Agraph_t* graph);
+
+    static MainWindow* instance;
 
 }; // class MainWindow
 

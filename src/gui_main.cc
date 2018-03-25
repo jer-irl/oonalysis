@@ -4,8 +4,8 @@
 int main(int argc, char *argv[])  {
     QApplication oonalysisApp(argc, argv);
 
-    oonalysis::gui::MainWindow main_window;
-    main_window.show();
+    auto main_window = oonalysis::gui::MainWindow::get_instance();
+    main_window->show();
 
     return oonalysisApp.exec();
 }

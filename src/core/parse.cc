@@ -18,13 +18,13 @@ static void common_parse(db::Database& db, const std::vector<std::string>& files
     }
 }
 
-void parse_file(db::Database& db, const std::string& file) {
+void parse_file(db::Database& db, const std::string& file, const std::vector<std::string>& args) {
     std::vector<std::string> vec;
     vec.push_back(file);
-    parse_files(db, vec);
+    parse_files(db, vec, args);
 }
 
-void parse_files(db::Database& db, const std::vector<std::string>& files) {
+void parse_files(db::Database& db, const std::vector<std::string>& files, const std::vector<std::string>& args) {
     LOG(INFO, "Parsing files");
 
     common_parse(db, files);
@@ -40,7 +40,7 @@ void parse_files(db::Database& db, const std::vector<std::string>& files) {
                 to_parse.push_back(f);
             }
         }
-        clang::main_clang(db, to_parse);
+        clang::main_clang(db, to_parse, args);
         break;
     case HS:
     case PY:

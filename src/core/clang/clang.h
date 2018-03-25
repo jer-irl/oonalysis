@@ -15,7 +15,7 @@ struct CursorData {
     db::File& file;
 };
 
-void main_clang(db::Database&, const std::vector<db::File>& files);
+void main_clang(db::Database&, const std::vector<db::File>& files, const std::vector<std::string>& args);
 
 } // namespace oonalysis::core::clang
 

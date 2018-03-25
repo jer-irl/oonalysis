@@ -4,6 +4,7 @@
 #include <QFileDialog>
 #include <QDockWidget>
 #include <QDesktopWidget>
+#include <QInputDialog>
 #include <graphviz/gvc.h>
 #include <unordered_map>
 #include <boost/algorithm/string.hpp>
@@ -19,6 +20,8 @@
 namespace fs = boost::filesystem;
 
 namespace oonalysis::gui {
+
+MainWindow* MainWindow::instance = nullptr;
 
 MainWindow::MainWindow() : QMainWindow() {
     resize(QDesktopWidget().availableGeometry(this).size() * 0.9);
@@ -90,7 +93,8 @@ void MainWindow::on_select_project_root() {
 void MainWindow::on_parse() {
     auto files = file_tree->selected_files();
     db::Database db = db::get_storage(db_name);
-    core::parse_files(db, files);
+    auto args = get_compilation_arguments();
+    core::parse_files(db, files, args);
 }
 
 void MainWindow::on_open_database() {
@@ -188,6 +192,24 @@ void MainWindow::on_show_inclusions_rendered() {
 
     agclose(graph);
     gvFreeRenderData(xdot_data);
+}
+
+MainWindow* MainWindow::get_instance() {
+    if (!MainWindow::instance) {
+        MainWindow::instance = new MainWindow();
+    }
+    return MainWindow::instance;
+}
+
+std::vector<std::string> MainWindow::get_compilation_arguments() {
+    std::string args_line = QInputDialog::getText(
+            this,
+            QString::fromStdString("Input compilation arguments"),
+            QString::fromStdString("Input compilation arguments")
+    ).toStdString();
+    std::vector<std::string> args;
+    boost::split(args, args_line, boost::is_any_of(" \n"));
+    return args;
 }
 
 } // namespace oonalysis::gui
