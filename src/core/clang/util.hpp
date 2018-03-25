@@ -16,6 +16,7 @@ std::string qualified_namespace(CXCursor cur, CXClientData client_data);
 unsigned int line_number(CXCursor cur, CXClientData client_data);
 unsigned int column_number(CXCursor cur, CXClientData client_data);
 std::string get_enclosing_filename(CXCursor cur, CXClientData client_data);
+bool cursor_is_toplevel(CXCursor cur, CXClientData client_data);
 
 } // namespace oonalysis::core::clang
 

@@ -35,11 +35,12 @@ void log_cursor(CXCursor cur, CXClientData client_data) {
 
     cout << "Logging cursor:" << endl;
     cout << "\t" << "Cursor spelling: " << clang_getCString(clang_getCursorSpelling(cur)) << endl;
+    cout << "\t" << "Cursor kind: " << clang_getCString(clang_getCursorKindSpelling(clang_getCursorKind(cur))) << endl;
     cout << "\t" << "Cursor file: " << get_enclosing_filename(cur, client_data) << endl;
-    cout << "\t" << "Cursor enclosing function: " << enclosing_function_name(cur, client_data) << endl;
-    cout << "\t" << "Enclosing namespace: " << qualified_namespace(cur, client_data) << endl;
     cout << "\t" << "Line number: " << line_number(cur, client_data) << endl;
     cout << "\t" << "Column number: " << column_number(cur, client_data) << endl;
+    cout << "\t" << "Cursor enclosing function: " << enclosing_function_name(cur, client_data) << endl;
+    cout << "\t" << "Enclosing namespace: " << qualified_namespace(cur, client_data) << endl;
 }
 
 unsigned int column_number(CXCursor cur, CXClientData client_data) {
@@ -61,27 +62,23 @@ unsigned int line_number(CXCursor cur, CXClientData client_data) {
 }
 
 CXCursor enclosing_function_cursor(CXCursor cur, CXClientData client_data) {
-    (void) client_data;
-
-    CXCursor parent = clang_getCursorSemanticParent(cur);
-    while (!clang_isTranslationUnit(clang_getCursorKind(parent)) && clang_getCursorKind(parent) != CXCursor_FirstInvalid) {
+    CXCursor parent = clang_getCursorLexicalParent(cur);
+    while (!cursor_is_toplevel(parent, client_data)) {
         if (clang_getCursorKind(parent) == CXCursor_FunctionDecl && clang_isCursorDefinition(parent)) {
             return parent;
         }
-        parent = clang_getCursorSemanticParent(parent);
+        parent = clang_getCursorLexicalParent(parent);
     }
     return clang_getNullCursor();
 }
 
 CXCursor enclosing_namespace_cursor(CXCursor cur, CXClientData client_data) {
-    (void) client_data;
-
-    CXCursor parent = clang_getCursorSemanticParent(cur);
-    while (!clang_isTranslationUnit(clang_getCursorKind(parent))) {
+    CXCursor parent = clang_getCursorLexicalParent(cur);
+    while (!cursor_is_toplevel(parent, client_data)) {
         if (clang_getCursorKind(parent) == CXCursor_Namespace) {
             return parent;
         }
-        parent = clang_getCursorSemanticParent(parent);
+        parent = clang_getCursorLexicalParent(parent);
     }
     return clang_getNullCursor();
 }
@@ -105,5 +102,21 @@ std::string get_enclosing_filename(CXCursor cur, CXClientData client_data) {
     return clang_getCString(clang_getFileName(file));
 }
 
+bool cursor_is_toplevel(CXCursor cur, CXClientData client_data) {
+    (void) client_data;
+    if (clang_Cursor_isNull(cur)) {
+        return true;
+    }
+
+    CXCursorKind kind = clang_getCursorKind(cur);
+
+    switch (kind) {
+        case CXCursor_TranslationUnit:
+        case CXCursor_FirstInvalid:
+            return true;
+        default:
+            return false;
+    }
+}
 
 } // namespace oonalysis::core::clang
