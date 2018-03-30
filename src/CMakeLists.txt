@@ -1,5 +1,8 @@
 include_directories(.)
 
+include_directories (/usr/local/opt/llvm/include)
+
+
 find_package (boost COMPONENTS filesystem REQUIRED)
 include_directories (${Boost_INCLUDE_DIR})
 link_directories(/usr/local/lib)
@@ -22,7 +25,7 @@ add_subdirectory (cli)
 # ===========================
 # Tests
 # ===========================
-target_link_libraries (oonalysis-test core)
+target_link_libraries (oonalysis-test core sqlite3 util)
 
 # ===========================
 # CLI

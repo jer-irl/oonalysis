@@ -5,6 +5,7 @@
 #include <QDockWidget>
 #include <QDesktopWidget>
 #include <QInputDialog>
+#include <QSettings>
 #include <graphviz/gvc.h>
 #include <unordered_map>
 #include <boost/algorithm/string.hpp>
@@ -202,11 +203,22 @@ MainWindow* MainWindow::get_instance() {
 }
 
 std::vector<std::string> MainWindow::get_compilation_arguments() {
+    QSettings settings;
+    bool ok;
     std::string args_line = QInputDialog::getText(
             this,
             QString::fromStdString("Input compilation arguments"),
-            QString::fromStdString("Input compilation arguments")
+            QString::fromStdString("Input compilation arguments"),
+            QLineEdit::Normal,
+            settings.value("compilation_args", "").toString(),
+            &ok
     ).toStdString();
+
+    if (ok) {
+        settings.setValue("compilation_args", QString::fromStdString(args_line));
+        settings.sync();
+    }
+
     std::vector<std::string> args;
     boost::split(args, args_line, boost::is_any_of(" \n"));
     return args;

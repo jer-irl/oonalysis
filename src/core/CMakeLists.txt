@@ -1,5 +1,3 @@
-include_directories (/usr/local/opt/llvm/include)
-
 add_library (core parse.cc filetype.cc)
 
 add_subdirectory (clang)
