@@ -1,5 +1,6 @@
 #include "mainwindow.hpp"
 
+#include <numeric>
 #include <QMenuBar>
 #include <QFileDialog>
 #include <QDockWidget>
@@ -14,6 +15,7 @@
 #include "graph/callgraph.h"
 #include "graph/PlainNode.hpp"
 #include "graph/PlainEdge.hpp"
+#include "util/compilation.hpp"
 #include "FileNode.hpp"
 #include "Arrow.hpp"
 #include "utils.h"
@@ -205,12 +207,16 @@ MainWindow* MainWindow::get_instance() {
 std::vector<std::string> MainWindow::get_compilation_arguments() {
     QSettings settings;
     bool ok;
+    std::vector<std::string> default_args = util::clang_default_arguments();
     std::string args_line = QInputDialog::getText(
             this,
             QString::fromStdString("Input compilation arguments"),
             QString::fromStdString("Input compilation arguments"),
             QLineEdit::Normal,
-            settings.value("compilation_args", "").toString(),
+            settings.value(
+                    QString::fromStdString(std::string("compilation_args")),
+                    QString::fromStdString(accumulate(default_args.begin(), default_args.end(), std::string(" ")))
+            ).toString(),
             &ok
     ).toStdString();
 

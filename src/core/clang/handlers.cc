@@ -23,6 +23,8 @@ CXChildVisitResult handle_inclusion_directive(CXCursor cur, CXCursor parent, CXC
 
     LOG(DEBUG, "Handling inclusion directive");
 
+    CXString spelling = clang_getCursorSpelling(cur);
+    std::string str_spelling = clang_getCString(spelling);
     CXFile includee = clang_getIncludedFile(cur);
     if (!includee) {
         LOG(ERROR, "Couldn't get includee");
