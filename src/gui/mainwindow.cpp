@@ -9,7 +9,9 @@
 #include <QSettings>
 #include <graphviz/gvc.h>
 #include <unordered_map>
+#include <fstream>
 #include <boost/algorithm/string.hpp>
+#include <boost/archive/text_iarchive.hpp>
 #include "core/parse.h"
 #include "graph/inclgraph.h"
 #include "graph/callgraph.h"
@@ -42,6 +44,18 @@ MainWindow::MainWindow() : QMainWindow() {
     graph_display_region = new GraphDisplayRegion(image_scroll_area);
     setCentralWidget(image_scroll_area);
     image_scroll_area->setWidgetResizable(true);
+
+    OOProject proj;
+    QSettings settings;
+    std::string projectPath = settings.value("defaultProjectPath", "./newProj.ooproj").toString().toStdString();
+    std::ifstream stream(projectPath);
+    if (!stream.is_open()) {
+        onNewProject();
+    } else {
+        auto ar = boost::archive::text_iarchive(stream);
+        ar >> proj;
+        this->project = std::make_shared<OOProject>(proj);
+    }
 }
 
 void MainWindow::create_menu_bar() {
@@ -53,17 +67,9 @@ void MainWindow::create_menu_bar() {
     file_menu->addAction(newProjectAction);
     connect(newProjectAction, &QAction::triggered, this, &MainWindow::onNewProject);
 
-    auto new_db_action = new QAction("New Database...");
-    file_menu->addAction(new_db_action);
-    connect(new_db_action, &QAction::triggered, this, &MainWindow::on_new_database);
-
-    auto open_db_action = new QAction("Open Database...");
-    file_menu->addAction(open_db_action);
-    connect(open_db_action, &QAction::triggered, this, &MainWindow::on_open_database);
-
-    auto select_project_root_action = new QAction("Open Project Root...");
-    file_menu->addAction(select_project_root_action);
-    connect(select_project_root_action, &QAction::triggered, this, &MainWindow::on_select_project_root);
+    auto openProjectAction = new QAction("Open Project...");
+    file_menu->addAction(openProjectAction);
+    connect(openProjectAction, &QAction::triggered, this, &MainWindow::onOpenProject);
 
     auto parse_action = new QAction("Parse files");
     file_menu->addAction(parse_action);
@@ -90,39 +96,50 @@ void MainWindow::create_menu_bar() {
 
 void MainWindow::onNewProject() {
     ProjectCreationWizard wizard;
+    wizard.show();
     wizard.exec();
     project = wizard.getCreatedProject();
+
+    QSettings settings;
+    settings.setProperty("defaultProjectPath", QString::fromStdString(project->getProjectPath()));
+    std::ofstream stream(project->getProjectPath());
+    auto ar = boost::archive::text_oarchive(stream);
+    ar << *project;
+
     reloadProject();
 }
 
-void MainWindow::reloadProject(void) {
+void MainWindow::onOpenProject() {
+    std::string projectPath = QFileDialog::getOpenFileName(this).toStdString();
+
+    OOProject proj;
+    QSettings settings;
+    std::ifstream stream(projectPath);
+    auto ar = boost::archive::text_iarchive(stream);
+    ar >> proj;
+    this->project = std::make_shared<OOProject>(proj);
+
+    settings.setProperty("defaultProjectPath", QString::fromStdString(project->getProjectPath()));
+
+    reloadProject();
+
+}
+
+void MainWindow::reloadProject() {
     file_tree->set_root(project->getRootPath());
     file_tree->redraw();
-}
-
-void MainWindow::on_new_database() {
-    db_name = QFileDialog::getSaveFileName(this, "Make a new database").toStdString();
-}
-
-void MainWindow::on_select_project_root() {
-    project_root = QFileDialog::getExistingDirectory(this, "Select Project Root").toStdString();
-    file_tree->set_root(project_root);
-    file_tree->redraw();
+    setWindowTitle(QString::fromStdString(project->getProjectPath()));
 }
 
 void MainWindow::on_parse() {
     auto files = file_tree->selected_files();
-    db::Database db = db::get_storage(db_name);
+    db::Database db = db::get_storage(project->getDbPath());
     auto args = get_compilation_arguments();
     core::parse_files(db, files, args);
 }
 
-void MainWindow::on_open_database() {
-    db_name = QFileDialog::getOpenFileName(this, "Open an existing database").toStdString();
-}
-
 void MainWindow::on_show_inclusions() {
-    db::Database db = db::get_storage(db_name);
+    db::Database db = db::get_storage(project->getDbPath());
     auto the_files = file_tree->selected_files();
     Agraph_t *graph = graph::get_inclgraph(db, std::unordered_set<std::string>(the_files.begin(), the_files.end()));
     show_graph_image(graph);
@@ -130,7 +147,7 @@ void MainWindow::on_show_inclusions() {
 }
 
 void MainWindow::on_show_callgraph() {
-    db::Database db = db::get_storage(db_name);
+    db::Database db = db::get_storage(project->getDbPath());
     auto the_files = file_tree->selected_files();
     Agraph_t* graph = graph::get_callgraph(db, std::unordered_set<std::string>(the_files.begin(), the_files.end()));
     show_graph_image(graph);
@@ -164,7 +181,7 @@ void MainWindow::on_show_filenode() {
 }
 
 void MainWindow::on_show_inclusions_rendered() {
-    db::Database db = db::get_storage(db_name);
+    db::Database db = db::get_storage(project->getDbPath());
     auto the_files = file_tree->selected_files();
     Agraph_t *graph = graph::get_inclgraph(db, std::unordered_set<std::string>(the_files.begin(), the_files.end()));
     GVC_t* gvc = gvContext();

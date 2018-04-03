@@ -24,23 +24,18 @@ public:
     std::vector<std::string> get_compilation_arguments();
 
     void setProject(std::shared_ptr<OOProject> proj) { project = proj; }
-    void reloadProject(void);
+    void reloadProject();
 
 private:
     void create_menu_bar();
 
     void onNewProject();
-    void on_new_database();
-    void on_open_database();
-    void on_select_project_root();
+    void onOpenProject();
     void on_parse();
     void on_show_inclusions();
     void on_show_callgraph();
     void on_show_filenode();
     void on_show_inclusions_rendered();
-
-    std::string db_name = "";
-    std::string project_root = "";
 
     FileTree *file_tree;
     QLabel *image_label;
