@@ -19,6 +19,7 @@
 #include "FileNode.hpp"
 #include "Arrow.hpp"
 #include "utils.h"
+#include "ProjectCreationWizard.hpp"
 
 namespace fs = boost::filesystem;
 
@@ -47,6 +48,10 @@ void MainWindow::create_menu_bar() {
     QMenuBar *menu_bar = menuBar();
 
     auto file_menu = new QMenu("File");
+
+    auto newProjectAction = new QAction("New Project...");
+    file_menu->addAction(newProjectAction);
+    connect(newProjectAction, &QAction::triggered, this, &MainWindow::onNewProject);
 
     auto new_db_action = new QAction("New Database...");
     file_menu->addAction(new_db_action);
@@ -81,6 +86,18 @@ void MainWindow::create_menu_bar() {
     connect(show_inclusions_rendered_action, &QAction::triggered, this, &MainWindow::on_show_inclusions_rendered);
 
     menu_bar->addMenu(file_menu);
+}
+
+void MainWindow::onNewProject() {
+    ProjectCreationWizard wizard;
+    wizard.exec();
+    project = wizard.getCreatedProject();
+    reloadProject();
+}
+
+void MainWindow::reloadProject(void) {
+    file_tree->set_root(project->getRootPath());
+    file_tree->redraw();
 }
 
 void MainWindow::on_new_database() {

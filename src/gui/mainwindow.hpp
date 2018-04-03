@@ -7,8 +7,10 @@
 #include <QScrollArea>
 #include <string>
 #include <graphviz/cgraph.h>
+#include <memory>
 #include "FileTree.h"
 #include "GraphDisplayRegion.hpp"
+#include "OOProject.hpp"
 
 namespace oonalysis::gui {
 
@@ -21,9 +23,13 @@ public:
 
     std::vector<std::string> get_compilation_arguments();
 
+    void setProject(std::shared_ptr<OOProject> proj) { project = proj; }
+    void reloadProject(void);
+
 private:
     void create_menu_bar();
 
+    void onNewProject();
     void on_new_database();
     void on_open_database();
     void on_select_project_root();
@@ -42,6 +48,8 @@ private:
     GraphDisplayRegion* graph_display_region;
 
     void show_graph_image(Agraph_t* graph);
+
+    std::shared_ptr<OOProject> project;
 
     static MainWindow* instance;
 
