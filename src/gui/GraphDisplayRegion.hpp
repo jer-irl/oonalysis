@@ -1,16 +1,13 @@
 #ifndef GUI_GRAPHDISPLAYREGION_HPP
 #define GUI_GRAPHDISPLAYREGION_HPP
 
-#include <QWidget>
+#include <QWebEngineView>
 
 namespace oonalysis::gui {
 
-class GraphDisplayRegion : public QWidget {
+class GraphDisplayRegion : public QWebEngineView {
 public:
-    using QWidget::QWidget;
-
-    virtual QSize sizeHint() const override;
-    virtual QSize minimumSizeHint() const override;
+    GraphDisplayRegion(QWidget* parent = nullptr);
 };
 
 } // namespace oonalysis::gui
