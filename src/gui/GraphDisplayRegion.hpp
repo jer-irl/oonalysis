@@ -8,6 +8,7 @@ namespace oonalysis::gui {
 class GraphDisplayRegion : public QWebEngineView {
 public:
     GraphDisplayRegion(QWidget* parent = nullptr);
+    void startInclusionsRendering();
 };
 
 } // namespace oonalysis::gui

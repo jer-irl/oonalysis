@@ -32,17 +32,10 @@ private:
     void onNewProject();
     void onOpenProject();
     void on_parse();
-    void on_show_inclusions();
-    void on_show_callgraph();
-    void on_show_filenode();
-    void on_show_inclusions_rendered();
+    void onShowInclusions();
 
     FileTree *file_tree;
-    QLabel *image_label;
-    QScrollArea *image_scroll_area;
     GraphDisplayRegion* graph_display_region;
-
-    void show_graph_image(Agraph_t* graph);
 
     std::shared_ptr<OOProject> project;
 

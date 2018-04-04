@@ -39,14 +39,16 @@ MainWindow::MainWindow() : QMainWindow() {
     left_dock->setWidget(file_tree);
     addDockWidget(Qt::LeftDockWidgetArea, left_dock);
 
-    image_scroll_area = new QScrollArea(this);
-    image_label = new QLabel(image_scroll_area);
-    graph_display_region = new GraphDisplayRegion(image_scroll_area);
-    setCentralWidget(image_scroll_area);
-    image_scroll_area->setWidgetResizable(true);
+    graph_display_region = new GraphDisplayRegion(this);
+    setCentralWidget(graph_display_region);
 
     OOProject proj;
     QSettings settings;
+    QStringList l = settings.allKeys();
+    std::vector<std::string> list;
+    for (QString s : l) {
+        list.push_back(s.toStdString());
+    }
     std::string projectPath = settings.value("defaultProjectPath", "./newProj.ooproj").toString().toStdString();
     std::ifstream stream(projectPath);
     if (!stream.is_open()) {
@@ -75,21 +77,9 @@ void MainWindow::create_menu_bar() {
     file_menu->addAction(parse_action);
     connect(parse_action, &QAction::triggered, this, &MainWindow::on_parse);
 
-    auto show_inclusions_action = new QAction("Show inclusions");
-    file_menu->addAction(show_inclusions_action);
-    connect(show_inclusions_action, &QAction::triggered, this, &MainWindow::on_show_inclusions);
-
-    auto show_callgraph_action = new QAction("Show callgraph");
-    file_menu->addAction(show_callgraph_action);
-    connect(show_callgraph_action, &QAction::triggered, this, &MainWindow::on_show_callgraph);
-
-    auto show_filenode_action = new QAction("Show filenode");
-    file_menu->addAction(show_filenode_action);
-    connect(show_filenode_action, &QAction::triggered, this, &MainWindow::on_show_filenode);
-
-    auto show_inclusions_rendered_action = new QAction("Show inclusions rendered");
-    file_menu->addAction(show_inclusions_rendered_action);
-    connect(show_inclusions_rendered_action, &QAction::triggered, this, &MainWindow::on_show_inclusions_rendered);
+    auto showInclusionsAction = new QAction("Show inclusions");
+    file_menu->addAction(showInclusionsAction);
+    connect(showInclusionsAction, &QAction::triggered, this, &MainWindow::onShowInclusions);
 
     menu_bar->addMenu(file_menu);
 }
@@ -101,7 +91,7 @@ void MainWindow::onNewProject() {
     project = wizard.getCreatedProject();
 
     QSettings settings;
-    settings.setProperty("defaultProjectPath", QString::fromStdString(project->getProjectPath()));
+    settings.setValue("defaultProjectPath", QString::fromStdString(project->getProjectPath()));
     std::ofstream stream(project->getProjectPath());
     auto ar = boost::archive::text_oarchive(stream);
     ar << *project;
@@ -119,10 +109,14 @@ void MainWindow::onOpenProject() {
     ar >> proj;
     this->project = std::make_shared<OOProject>(proj);
 
-    settings.setProperty("defaultProjectPath", QString::fromStdString(project->getProjectPath()));
+    settings.setValue("defaultProjectPath", QString::fromStdString(project->getProjectPath()));
 
     reloadProject();
 
+}
+
+void MainWindow::onShowInclusions() {
+    graph_display_region->startInclusionsRendering();
 }
 
 void MainWindow::reloadProject() {
@@ -136,99 +130,6 @@ void MainWindow::on_parse() {
     db::Database db = db::get_storage(project->getDbPath());
     auto args = get_compilation_arguments();
     core::parse_files(db, files, args);
-}
-
-void MainWindow::on_show_inclusions() {
-    db::Database db = db::get_storage(project->getDbPath());
-    auto the_files = file_tree->selected_files();
-    Agraph_t *graph = graph::get_inclgraph(db, std::unordered_set<std::string>(the_files.begin(), the_files.end()));
-    show_graph_image(graph);
-    agclose(graph);
-}
-
-void MainWindow::on_show_callgraph() {
-    db::Database db = db::get_storage(project->getDbPath());
-    auto the_files = file_tree->selected_files();
-    Agraph_t* graph = graph::get_callgraph(db, std::unordered_set<std::string>(the_files.begin(), the_files.end()));
-    show_graph_image(graph);
-    agclose(graph);
-}
-
-void MainWindow::show_graph_image(Agraph_t *graph) {
-    FILE *image_file = fopen("graph.png", "w");
-    GVC_t* gvc = gvContext();
-    gvLayout(gvc, graph, "dot");
-    gvRender(gvc, graph, "png", image_file);
-    fclose(image_file);
-
-    QImage image("graph.png");
-    image_label->setPixmap(QPixmap::fromImage(image));
-    image_scroll_area->setWidget(image_label);
-}
-
-void MainWindow::on_show_filenode() {
-    FileNode* node1 = new FileNode("Dummy/path1", this->image_label);
-    FileNode* node2 = new FileNode("Dummy/path2", this->image_label);
-    node2->move(500, 500);
-
-    auto arrow = new Arrow(node1, node2, this->image_label);
-    image_scroll_area->setWidget(this->image_label);
-
-    node1->show();
-    node2->show();
-    arrow->show();
-
-}
-
-void MainWindow::on_show_inclusions_rendered() {
-    db::Database db = db::get_storage(project->getDbPath());
-    auto the_files = file_tree->selected_files();
-    Agraph_t *graph = graph::get_inclgraph(db, std::unordered_set<std::string>(the_files.begin(), the_files.end()));
-    GVC_t* gvc = gvContext();
-    gvLayout(gvc, graph, "dot");
-    char* xdot_data;
-    unsigned int len;
-    gvRenderData(gvc, graph, "plain", &xdot_data, &len);
-
-    std::vector<std::string> lines;
-    boost::split(lines, xdot_data, boost::is_any_of("\n"));
-
-    // Nodes
-    std::unordered_map<std::string, FileNode*> nodes;
-    for (const std::string& line : lines) {
-        std::vector<std::string> toks;
-        boost::split(toks, line, boost::is_any_of(" "));
-
-        if (toks[0] != "node") { continue; }
-
-        graph::PlainNode plain_node(line);
-
-        auto file_node = new FileNode(plain_node.name, this->graph_display_region);
-        file_node->move(plain_node.x * PIXELS_PER_INCH, plain_node.y * PIXELS_PER_INCH);
-        file_node->show();
-
-        nodes[plain_node.name] = file_node;
-    }
-
-    graph_display_region->updateGeometry();
-
-    // Edges
-    for (const std::string& line : lines) {
-        std::vector<std::string> toks;
-        boost::split(toks, line, boost::is_any_of(" "));
-
-        if (toks[0] != "edge") { continue; }
-
-        graph::PlainEdge plain_edge(line);
-
-        auto arrow = new Arrow(nodes[plain_edge.tail], nodes[plain_edge.head], this->graph_display_region);
-        arrow->show();
-    }
-
-    image_scroll_area->setWidget(graph_display_region);
-
-    agclose(graph);
-    gvFreeRenderData(xdot_data);
 }
 
 MainWindow* MainWindow::get_instance() {
