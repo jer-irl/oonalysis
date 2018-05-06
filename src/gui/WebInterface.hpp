@@ -5,16 +5,17 @@
 
 namespace oonalysis::gui {
 
-class WebState : public QObject {
+class WebInterface : public QObject {
 Q_OBJECT
 
 public:
-    using QObject::QObject;
+    WebInterface(QObject* parent = nullptr) : QObject(parent) { }
 
     QString testField = "Hello";
 
 public slots:
-    void doExit() { exit(0); }
+    void requestInclusions();
+
 };
 
 } // oonalysis::gui

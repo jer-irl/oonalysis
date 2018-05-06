@@ -4,7 +4,7 @@
 #include <QWebEngineView>
 #include <QWebSocketServer>
 #include <memory>
-#include "WebState.hpp"
+#include "WebInterface.hpp"
 #include "WebSocketClientWrapper.hpp"
 
 namespace oonalysis::gui {
@@ -15,7 +15,7 @@ public:
     void startInclusionsRendering();
 
 private:
-    WebState* webState;
+    WebInterface* webState;
     QWebSocketServer* webSocketServer;
     QWebChannel* webChannel;
     WebSocketClientWrapper* webSocketClientWrapper;

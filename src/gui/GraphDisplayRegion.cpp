@@ -5,7 +5,7 @@
 namespace oonalysis::gui {
 
 GraphDisplayRegion::GraphDisplayRegion(QWidget *parent) : QWebEngineView(parent) {
-    webState = new WebState(this);
+    webState = new WebInterface(this);
     webSocketServer = new QWebSocketServer("Placeholder name", QWebSocketServer::NonSecureMode, this);
     webChannel = new QWebChannel(this);
     webSocketClientWrapper = new WebSocketClientWrapper(webSocketServer, this);
@@ -14,7 +14,7 @@ GraphDisplayRegion::GraphDisplayRegion(QWidget *parent) : QWebEngineView(parent)
 
     connect(webSocketClientWrapper, &WebSocketClientWrapper::clientConnected, webChannel, &QWebChannel::connectTo);
 
-    webChannel->registerObject(QStringLiteral("state"), webState);
+    webChannel->registerObject(QStringLiteral("interface"), webState);
 
     load(QUrl("file:///Users/Jeremy/Programming/oonalysis/src/gui/web/index.html"));
 }
