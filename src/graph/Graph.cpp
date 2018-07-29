@@ -23,7 +23,7 @@ void Node::addIncomingEdge(std::shared_ptr<Edge> e) {
     incomingEdges.insert(e);
 }
 
-Node::Node() : position(Point(0, 0)) {
+Node::Node() : position(Point(0, 0)), velocity(Point(0, 0)) {
 }
 
 void Node::removeIncomingEdge(std::shared_ptr<Edge> e) {

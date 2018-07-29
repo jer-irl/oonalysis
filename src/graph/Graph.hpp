@@ -40,6 +40,7 @@ public:
     void removeOutgoingEdge(std::shared_ptr<Edge>);
 
     Point position;
+    Point velocity;
 
     virtual bool containsPoint(Point p) = 0;
 
